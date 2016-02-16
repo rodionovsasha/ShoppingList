@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Main page</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>All lists</h1>
+    <ul class="list-unstyled">
+        <li th:each="list : ${itemsLists}">
+            <p>
+                <a th:href="@{/itemsList(id=${list.id})}" th:text="${list.name}" class="btn btn-default btn-lg">List</a>
+                <a th:href="@{/itemsList/edit(id=${list.id})}" class="btn btn-warning btn-xs">Edit</a>
+                <a th:href="@{/itemsList/delete(id=${list.id})}" class="btn btn-danger btn-xs">Delete</a>
+            </p>
+        </li>
+    </ul>
+    <a th:href="@{/itemsList/add}" class="btn btn-success btn-xs" data-toggle="tooltip" data-placement="right" title="Add new list">
+        <span class="glyphicon glyphicon-plus"></span>
+    </a>
+</div>
+</body>
+</html>

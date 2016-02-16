@@ -1,0 +1,34 @@
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title th:text="'Edit ' + ${editedItemsList.name}"></title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1 th:text="'Edit ' + ${editedItemsList.name}"></h1>
+
+    <form th:name="editedItemsList" th:object="${editedItemsList}" th:action="@{/itemsList/edit}" method="post" class="form-horizontal">
+        <div class="form-group">
+            <label th:for="name" class="col-sm-1 control-label">Name:</label>
+            <div class="col-sm-6">
+                <input type="text" th:field="*{name}" th:value="${editedItemsList.name}" class="form-control"/>
+                <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></small>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-10">
+                <input type="hidden" name="id" th:value="${editedItemsList.id}"/>
+                <input type="submit" value="Save list" class="btn btn-default"/>
+            </div>
+        </div>
+    </form>
+
+    <ul class="list-inline">
+        <li>
+            <a th:href="@{/}" class="btn btn-info btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="All lists">
+                <span class="glyphicon glyphicon-th-list"></span>
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title th:text="${itemsList.name}">Items List</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="list-group">
+        <h1 th:inline="text" class="list-group-item active">[[${itemsList.name}]]<span class="badge" th:text="${#lists.size(itemsList.items)}">10</span></h1>
+        <div class="list-group-item" th:each="item : ${itemsList.items}" th:classappend="${item.bought} ? 'list-group-item-success'">
+            <div class="row">
+                <div class="col-md-7">
+                    <a th:href="@{/item(id=${item.id})}" th:text="${item.name}">Item Name</a>
+                    <small class="clearfix" th:if="${item.comment}" th:text="${item.comment}">Item comment</small>
+                </div>
+                <div class="col-md-5">
+                    <ul class="list-inline text-right">
+                        <li><a th:href="@{/item/bought(id=${item.id}, listId=${item.itemsList.id})}" class="btn btn-success btn-xs" role="button" th:text="${item.bought} ? 'Take out' : 'Bought'">Bought</a></li>
+                        <li><a th:href="@{/item/edit(id=${item.id})}" class="btn btn-warning btn-xs" role="button">Edit</a></li>
+                        <li><a th:href="@{/item/delete(id=${item.id}, listId=${item.itemsList.id})}" class="btn btn-danger btn-xs" role="button">Delete</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul class="list-inline">
+        <li>
+            <a th:href="@{/item/add(listId=${itemsList.id})}" class="btn btn-success btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="Add new item">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/itemsList/edit(id=${itemsList.id})}" class="btn btn-warning btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="Edit list">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/itemsList/delete(id=${itemsList.id})}" class="btn btn-danger btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="Delete list">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/}" class="btn btn-info btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="All lists">
+                <span class="glyphicon glyphicon-th-list"></span>
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
