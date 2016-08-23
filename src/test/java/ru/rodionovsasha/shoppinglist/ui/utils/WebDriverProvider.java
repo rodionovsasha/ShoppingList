@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class WebDriverProvider {
-    public static final String PHANTOM_JS_PATH = "src/test/resources/phantomjs-1.9.8/bin/phantomjs";
-    public static WebDriver webDriver;
+    private static final String PHANTOM_JS_PATH = "src/test/resources/phantomjs-1.9.8/bin/phantomjs";
+    static WebDriver webDriver;
 
     public static WebDriver buildWebDriver() {
         System.out.println("\033[35mBuild web driver\033[0m");

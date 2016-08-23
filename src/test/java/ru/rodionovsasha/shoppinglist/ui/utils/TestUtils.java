@@ -8,11 +8,11 @@ import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.webDriver
  */
 
 public class TestUtils {
-    public static final String TEST_HOST = "http://localhost:8001";
+    private static final String TEST_HOST = "http://localhost:8001";
 
     public static void openUrl(String url){
         String fullUrl = TEST_HOST + url;
-        System.out.print("\033[35mOpen url: " + fullUrl + "\033[0m");
+        System.out.println("\033[35mOpen url: " + fullUrl + "\033[0m");
         open(fullUrl);
     }
 

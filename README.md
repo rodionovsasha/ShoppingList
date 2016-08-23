@@ -5,5 +5,6 @@ This is a simple project which is based on spring-boot and uses H2 database, JPA
 Build with tests: mvn clean install
 
 Running the application: mvn spring-boot:run or simply run the application in your IDE using public static void main.
+Open the following URl in browser: http://localhost:8000. Port is configurable in application.properties.
 
 This application uses H2 database and so should run locally. Remote database connections can also be configured in application.properties.
