@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class WebDriverProvider {
-    private static final String PHANTOM_JS_PATH = "src/test/resources/phantomjs-1.9.8/bin/phantomjs";
+    private static final String PHANTOM_JS_PATH = "src/test/resources/phantomjs-2.1.1/bin/phantomjs";
     static WebDriver webDriver;
 
     public static WebDriver buildWebDriver() {
