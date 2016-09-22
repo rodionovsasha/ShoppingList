@@ -35,7 +35,7 @@ public class ItemController {
     }
 
     @RequestMapping(value = "/item", method = RequestMethod.GET)
-    public String getItem(@RequestParam(value = "id", required = true) Long itemId, ModelMap modelMap) {
+    public String getItem(@RequestParam(value = "id") Long itemId, ModelMap modelMap) {
         modelMap.put("item", itemService.findOneItemById(itemId));
         return "item";
     }
@@ -67,7 +67,7 @@ public class ItemController {
     }
 
     @RequestMapping(value = "/item/edit", method = RequestMethod.GET)
-    public String showEditItemForm(@RequestParam(value = "id", required = true) Long itemId, ModelMap modelMap) {
+    public String showEditItemForm(@RequestParam(value = "id") Long itemId, ModelMap modelMap) {
         if (!modelMap.containsAttribute(EDIT_ITEM_FORM_NAME)){
             modelMap.put(EDIT_ITEM_FORM_NAME, itemService.findOneItemById(itemId));
         }
@@ -75,7 +75,7 @@ public class ItemController {
     }
 
     @RequestMapping(value = "/item/edit", method = RequestMethod.POST)
-    public String saveEditedItem(@Valid @ModelAttribute(EDIT_ITEM_FORM_NAME) Item editedItem, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam(value = "listId", required = true) Long listId) {
+    public String saveEditedItem(@Valid @ModelAttribute(EDIT_ITEM_FORM_NAME) Item editedItem, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam(value = "listId") Long listId) {
         Long itemId = editedItem.getId();
 
         if (bindingResult.hasErrors()) {
@@ -92,13 +92,13 @@ public class ItemController {
     }
 
     @RequestMapping(value = "item/bought", method = RequestMethod.GET)
-    public String toggleItemBoughtStatus(@RequestParam(value = "id", required = true) Long itemId, @RequestParam(value = "listId", required = true) Long listId) {
+    public String toggleItemBoughtStatus(@RequestParam(value = "id") Long itemId, @RequestParam(value = "listId") Long listId) {
         itemService.toggleBoughtStatus(itemId);
         return redirectToUrl("/itemsList?id=" + listId);
     }
 
     @RequestMapping(value = "item/delete", method = RequestMethod.GET)
-    public String deleteItem(@RequestParam(value = "id", required = true) Long itemId, @RequestParam(value = "listId", required = true) Long listId) {
+    public String deleteItem(@RequestParam(value = "id") Long itemId, @RequestParam(value = "listId") Long listId) {
         LOGGER.info("Item with id = " + itemId + " has been removed");
         itemService.deleteItem(itemId);
         return redirectToUrl("/itemsList?id=" + listId);

@@ -46,7 +46,7 @@ public class WebDriverProvider {
     }
 
     private static ArrayList<String> getCliArgs() {
-        ArrayList<String> cliArgs = new ArrayList<String>();
+        ArrayList<String> cliArgs = new ArrayList<>();
         cliArgs.add("--web-security=false");
         cliArgs.add("--ssl-protocol=any");
         cliArgs.add("--ignore-ssl-errors=true");

@@ -43,7 +43,7 @@ public class ItemsListController {
     }
 
     @RequestMapping(value = "/itemsList", method = RequestMethod.GET)
-    public String findItemsList(@RequestParam(value = "id", required = true) final Long listId, ModelMap modelMap) {
+    public String findItemsList(@RequestParam(value = "id") final Long listId, ModelMap modelMap) {
         LOGGER.debug("Open items list with listId = " + listId);
         modelMap.put("itemsList", itemsListService.findOneItemsListById(listId));
         return "itemsList";
@@ -77,7 +77,7 @@ public class ItemsListController {
     }
 
     @RequestMapping(value = "/itemsList/edit", method = RequestMethod.GET)
-    public String showEditItemsListForm(@RequestParam(value = "id", required = true) final Long listId, ModelMap modelMap) {
+    public String showEditItemsListForm(@RequestParam(value = "id") final Long listId, ModelMap modelMap) {
         if (!modelMap.containsAttribute(EDIT_ITEMS_LIST_FORM_NAME)){
             modelMap.put(EDIT_ITEMS_LIST_FORM_NAME, itemsListService.findOneItemsListById(listId));
         }
@@ -101,7 +101,7 @@ public class ItemsListController {
     }
 
     @RequestMapping(value = "itemsList/delete", method = RequestMethod.GET)
-    public String deleteItemsList(@RequestParam(value = "id", required = true) final Long itemsListId) {
+    public String deleteItemsList(@RequestParam(value = "id") final Long itemsListId) {
         LOGGER.info("Items list with id = " + itemsListId + " has been removed");
         itemsListService.deleteItemsList(itemsListId);
         return redirectToUrl("/");
