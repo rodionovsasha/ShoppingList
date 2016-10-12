@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Item {
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @NotEmpty
     private String name;
@@ -37,7 +37,7 @@ public class Item {
         return String.format("Item[%d, %s, %s, %s]", id, name, comment, isBought);
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -53,7 +53,7 @@ public class Item {
         return isBought;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

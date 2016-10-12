@@ -43,7 +43,7 @@ public class ItemsListController {
     }
 
     @RequestMapping(value = "/itemsList", method = RequestMethod.GET)
-    public String findItemsList(@RequestParam(value = "id") final Long listId, ModelMap modelMap) {
+    public String findItemsList(@RequestParam(value = "id") final long listId, ModelMap modelMap) {
         LOGGER.debug("Open items list with listId = " + listId);
         modelMap.put("itemsList", itemsListService.findOneItemsListById(listId));
         return "itemsList";
@@ -77,7 +77,7 @@ public class ItemsListController {
     }
 
     @RequestMapping(value = "/itemsList/edit", method = RequestMethod.GET)
-    public String showEditItemsListForm(@RequestParam(value = "id") final Long listId, ModelMap modelMap) {
+    public String showEditItemsListForm(@RequestParam(value = "id") final long listId, ModelMap modelMap) {
         if (!modelMap.containsAttribute(EDIT_ITEMS_LIST_FORM_NAME)){
             modelMap.put(EDIT_ITEMS_LIST_FORM_NAME, itemsListService.findOneItemsListById(listId));
         }
@@ -86,7 +86,7 @@ public class ItemsListController {
 
     @RequestMapping(value = "/itemsList/edit", method = RequestMethod.POST)
     public String saveEditedItemsList(@Valid @ModelAttribute(EDIT_ITEMS_LIST_FORM_NAME) ItemsList editedItemsList, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        Long listId = editedItemsList.getId();
+        long listId = editedItemsList.getId();
 
         if (bindingResult.hasErrors()) {
             LOGGER.info("Editing items list has errors. Redirect back to editing page.");
@@ -101,7 +101,7 @@ public class ItemsListController {
     }
 
     @RequestMapping(value = "itemsList/delete", method = RequestMethod.GET)
-    public String deleteItemsList(@RequestParam(value = "id") final Long itemsListId) {
+    public String deleteItemsList(@RequestParam(value = "id") final long itemsListId) {
         LOGGER.info("Items list with id = " + itemsListId + " has been removed");
         itemsListService.deleteItemsList(itemsListId);
         return redirectToUrl("/");

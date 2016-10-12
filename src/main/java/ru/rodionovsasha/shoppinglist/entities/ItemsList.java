@@ -13,7 +13,7 @@ import java.util.Collection;
 public class ItemsList {
     @Id
     @GeneratedValue
-    private Long id;
+    private long id;
 
     @NotEmpty
     @Column(unique = true)
@@ -35,7 +35,7 @@ public class ItemsList {
         return String.format("ItemsList[%d, %s]", id, name);
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
@@ -47,7 +47,7 @@ public class ItemsList {
         return items;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 

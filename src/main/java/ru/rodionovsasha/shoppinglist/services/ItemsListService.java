@@ -12,9 +12,9 @@ import java.util.List;
 @Service
 public interface ItemsListService {
     List<ItemsList> findAllItemsLists();
-    ItemsList findOneItemsListById(Long listId);
+    ItemsList findOneItemsListById(long listId);
     ItemsList findOneItemsListByName(String name);
     void saveItemsList(ItemsList itemsList);
-    void updateItemsList(Long listId, String name);
-    void deleteItemsList(Long listId);
+    void updateItemsList(long listId, String name);
+    void deleteItemsList(long listId);
 }

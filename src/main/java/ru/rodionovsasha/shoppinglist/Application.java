@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.thymeleaf.extras.conditionalcomments.dialect.ConditionalCommentsDialect;
 import ru.rodionovsasha.shoppinglist.entities.Item;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
-import ru.rodionovsasha.shoppinglist.repositories.ItemRepository;
-import ru.rodionovsasha.shoppinglist.repositories.ItemsListRepository;
+import ru.rodionovsasha.shoppinglist.services.ItemService;
+import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
 import static java.util.Arrays.asList;
 
@@ -23,16 +23,17 @@ public class Application {
     }
 
     @Bean
-    CommandLineRunner runner(ItemsListRepository itemsListRepository, ItemRepository itemRepository) {
+    CommandLineRunner runner(ItemsListService itemsListService, ItemService itemService) {
         return args -> {
             asList("Shopping list 1", "Shopping list 2", "Shopping list 3")
-                    .forEach(name -> itemsListRepository.save(new ItemsList(name)));
+                    .forEach(name -> itemsListService.saveItemsList(new ItemsList(name)));
+
             asList("Oranges 1kg", "Item2", "Item3", "Item1")
-                    .forEach(name -> itemRepository.save(new Item(name, itemsListRepository.findByName("Shopping list 1"))));
+                    .forEach(name -> itemService.saveNewItem(new Item(name, itemsListService.findOneItemsListById(1)), 1));
             asList("Milk", "Apples 2kg", "Bread")
-                    .forEach(name -> itemRepository.save(new Item(name, itemsListRepository.findByName("Shopping list 2"))));
+                    .forEach(name -> itemService.saveNewItem(new Item(name, itemsListService.findOneItemsListById(2)), 2));
             asList("Meat 2kg", "Item2")
-                    .forEach(name -> itemRepository.save(new Item(name, itemsListRepository.findByName("Shopping list 3"))));
+                    .forEach(name -> itemService.saveNewItem(new Item(name, itemsListService.findOneItemsListById(3)), 3));
         };
     }
 

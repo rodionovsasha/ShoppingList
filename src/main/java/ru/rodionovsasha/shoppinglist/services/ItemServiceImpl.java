@@ -23,7 +23,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item findOneItemById(Long itemId) {
+    public Item findOneItemById(long itemId) {
         return itemRepository.findOne(itemId);
     }
 
@@ -34,14 +34,14 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional
-    public void saveNewItem(Item item, Long listId) {
+    public void saveNewItem(Item item, long listId) {
         item.setItemsList(itemsListRepository.findOne(listId));
         saveItem(item);
     }
 
     @Override
     @Transactional
-    public void updateItem(Long itemId, String name, String comment) {
+    public void updateItem(long itemId, String name, String comment) {
         Item item = findOneItemById(itemId);
         item.setName(name);
         item.setComment(comment);
@@ -50,7 +50,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional
-    public void toggleBoughtStatus(Long itemId) {
+    public void toggleBoughtStatus(long itemId) {
         Item item = findOneItemById(itemId);
         item.setBought(!item.isBought());
         saveItem(item);
@@ -58,7 +58,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     @Transactional
-    public void deleteItem(Long itemId) {
+    public void deleteItem(long itemId) {
         itemRepository.delete(itemId);
     }
 

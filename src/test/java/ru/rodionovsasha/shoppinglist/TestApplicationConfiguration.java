@@ -11,8 +11,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import ru.rodionovsasha.shoppinglist.entities.Item;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
-import ru.rodionovsasha.shoppinglist.repositories.ItemRepository;
-import ru.rodionovsasha.shoppinglist.repositories.ItemsListRepository;
+import ru.rodionovsasha.shoppinglist.services.ItemService;
+import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
 import java.util.Collections;
 
@@ -22,16 +22,17 @@ import java.util.Collections;
 public class TestApplicationConfiguration {
     public static final String LIST_NAME = "Shopping list name";
     public static final String ITEM_NAME = "Item1";
-    public static final Long LIST_ID = 1L;
-    public static final Long ITEM_ID = 1L;
+    public static final long LIST_ID = 1;
+    public static final long ITEM_ID = 1;
 
     @Bean
-    CommandLineRunner runner(ItemsListRepository itemsListRepository, ItemRepository itemRepository) {
+    CommandLineRunner runner(ItemsListService itemsListService, ItemService itemService) {
         return args -> {
             Collections.singletonList(LIST_NAME)
-                    .forEach(name -> itemsListRepository.save(new ItemsList(name)));
+                    .forEach(name -> itemsListService.saveItemsList(new ItemsList(name)));
+
             Collections.singletonList(ITEM_NAME)
-                    .forEach(name -> itemRepository.save(new Item(name, itemsListRepository.findByName(LIST_NAME))));
+                    .forEach(name -> itemService.saveNewItem(new Item(name, itemsListService.findOneItemsListById(1)), 1));
         };
     }
 }

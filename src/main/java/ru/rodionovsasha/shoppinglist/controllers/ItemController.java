@@ -35,13 +35,13 @@ public class ItemController {
     }
 
     @RequestMapping(value = "/item", method = RequestMethod.GET)
-    public String getItem(@RequestParam(value = "id") Long itemId, ModelMap modelMap) {
+    public String getItem(@RequestParam(value = "id") long itemId, ModelMap modelMap) {
         modelMap.put("item", itemService.findOneItemById(itemId));
         return "item";
     }
 
     @RequestMapping(value = "/item/add", method = RequestMethod.GET)
-    public String addItem(@RequestParam(value = "listId") Long listId, ModelMap modelMap) {
+    public String addItem(@RequestParam(value = "listId") long listId, ModelMap modelMap) {
         if (!modelMap.containsAttribute(ITEM_FORM_NAME)){
             LOGGER.info("Create new item");
             modelMap.put(ITEM_FORM_NAME, new Item("", null));
@@ -51,7 +51,7 @@ public class ItemController {
     }
 
     @RequestMapping(value = "/item/add", method = RequestMethod.POST)
-    public String saveItem(@Valid @ModelAttribute(ITEM_FORM_NAME) Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam(value = "listId") Long listId) {
+    public String saveItem(@Valid @ModelAttribute(ITEM_FORM_NAME) Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam(value = "listId") long listId) {
         if (bindingResult.hasErrors()) {
             LOGGER.info("Creating a new item has errors. Redirect back to creating page.");
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult." + ITEM_FORM_NAME, bindingResult);
@@ -67,7 +67,7 @@ public class ItemController {
     }
 
     @RequestMapping(value = "/item/edit", method = RequestMethod.GET)
-    public String showEditItemForm(@RequestParam(value = "id") Long itemId, ModelMap modelMap) {
+    public String showEditItemForm(@RequestParam(value = "id") long itemId, ModelMap modelMap) {
         if (!modelMap.containsAttribute(EDIT_ITEM_FORM_NAME)){
             modelMap.put(EDIT_ITEM_FORM_NAME, itemService.findOneItemById(itemId));
         }
@@ -75,8 +75,8 @@ public class ItemController {
     }
 
     @RequestMapping(value = "/item/edit", method = RequestMethod.POST)
-    public String saveEditedItem(@Valid @ModelAttribute(EDIT_ITEM_FORM_NAME) Item editedItem, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam(value = "listId") Long listId) {
-        Long itemId = editedItem.getId();
+    public String saveEditedItem(@Valid @ModelAttribute(EDIT_ITEM_FORM_NAME) Item editedItem, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam(value = "listId") long listId) {
+        long itemId = editedItem.getId();
 
         if (bindingResult.hasErrors()) {
             LOGGER.info("Editing item has errors. Redirect back to editing page.");
@@ -92,13 +92,13 @@ public class ItemController {
     }
 
     @RequestMapping(value = "item/bought", method = RequestMethod.GET)
-    public String toggleItemBoughtStatus(@RequestParam(value = "id") Long itemId, @RequestParam(value = "listId") Long listId) {
+    public String toggleItemBoughtStatus(@RequestParam(value = "id") long itemId, @RequestParam(value = "listId") long listId) {
         itemService.toggleBoughtStatus(itemId);
         return redirectToUrl("/itemsList?id=" + listId);
     }
 
     @RequestMapping(value = "item/delete", method = RequestMethod.GET)
-    public String deleteItem(@RequestParam(value = "id") Long itemId, @RequestParam(value = "listId") Long listId) {
+    public String deleteItem(@RequestParam(value = "id") long itemId, @RequestParam(value = "listId") long listId) {
         LOGGER.info("Item with id = " + itemId + " has been removed");
         itemService.deleteItem(itemId);
         return redirectToUrl("/itemsList?id=" + listId);
