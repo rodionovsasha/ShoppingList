@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
@@ -30,8 +29,6 @@ import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEM
 public class ItemsListTest extends BaseIntegrationTest {
     @Autowired
     private ItemsListService itemsListService;
-    @Autowired
-    private WebApplicationContext webApplicationContext;
 
     private MockMvc mockMvc;
     private ItemsList itemsList;

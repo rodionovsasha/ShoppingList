@@ -4,10 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.rodionovsasha.shoppinglist.controllers.ItemsListController;
-import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
 import static junit.framework.TestCase.assertEquals;
@@ -25,14 +22,7 @@ import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEM
 public class ItemsListControllerTest extends BaseUnitTest {
     @Mock
     private ItemsListService service;
-    @Mock
-    private ItemsList itemsList;
-    @Mock
-    private BindingResult bindingResult;
-    @Mock
-    private RedirectAttributes redirectAttributes;
 
-    private ModelMap modelMap;
     private ItemsListController controller;
 
     @Before

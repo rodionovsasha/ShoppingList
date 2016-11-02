@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.TestPropertySource;
 import ru.rodionovsasha.shoppinglist.entities.Item;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemService;
@@ -19,6 +20,7 @@ import java.util.Collections;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
+@TestPropertySource(locations = "classpath:/test.properties")
 public class TestApplicationConfiguration {
     public static final String LIST_NAME = "Shopping list name";
     public static final String ITEM_NAME = "Item1";
