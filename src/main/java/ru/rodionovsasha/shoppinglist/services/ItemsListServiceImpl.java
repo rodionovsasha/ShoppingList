@@ -22,16 +22,19 @@ public class ItemsListServiceImpl implements ItemsListService {
     }
 
     @Override
+    @Transactional
     public List<ItemsList> findAllItemsLists() {
         return itemsListRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ItemsList findOneItemsListById(long listId) {
         return itemsListRepository.findOne(listId);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ItemsList findOneItemsListByName(String name) {
         return itemsListRepository.findByName(name);
     }
@@ -47,7 +50,7 @@ public class ItemsListServiceImpl implements ItemsListService {
     public void updateItemsList(long listId, String name) {
         ItemsList itemsList = findOneItemsListById(listId);
         itemsList.setName(name);
-        saveItemsList(itemsList);
+        itemsListRepository.saveAndFlush(itemsList);
     }
 
     @Override

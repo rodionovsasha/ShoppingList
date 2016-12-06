@@ -7,10 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemsListService;
@@ -36,21 +33,21 @@ public class ItemsListController {
         this.itemsListService = itemsListService;
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String itemsLists(ModelMap modelMap) {
         modelMap.put("itemsLists", itemsListService.findAllItemsLists());
         return "index";
     }
 
-    @RequestMapping(value = "/itemsList", method = RequestMethod.GET)
+    @GetMapping(value = "/itemsList")
     public String findItemsList(@RequestParam(value = "id") final long listId, ModelMap modelMap) {
         LOGGER.debug("Open items list with listId = " + listId);
         modelMap.put("itemsList", itemsListService.findOneItemsListById(listId));
         return "itemsList";
     }
 
-    @RequestMapping(value = "/itemsList/add", method = RequestMethod.GET)
-    public String showAddItemsListForm(ModelMap modelMap) {
+    @GetMapping(value = "/itemsList/add")
+    public String showAddItemsListForm(final ModelMap modelMap) {
         if (!modelMap.containsAttribute(ITEMS_LIST_FORM_NAME)){
             LOGGER.info("Create new items list");
             modelMap.put(ITEMS_LIST_FORM_NAME, new ItemsList(""));
@@ -58,8 +55,8 @@ public class ItemsListController {
         return "addItemsList";
     }
 
-    @RequestMapping(value = "/itemsList/add", method = RequestMethod.POST)
-    public String saveItemsList(@Valid @ModelAttribute(ITEMS_LIST_FORM_NAME) ItemsList itemsList, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    @PostMapping(value = "/itemsList/add")
+    public String saveItemsList(@Valid @ModelAttribute(ITEMS_LIST_FORM_NAME) final ItemsList itemsList, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (itemsListService.findOneItemsListByName(itemsList.getName()) != null) {
             bindingResult.addError(new FieldError(ITEMS_LIST_FORM_NAME, "name", "Shopping list with name '" + itemsList.getName() + "' already exists"));
         }
@@ -76,7 +73,7 @@ public class ItemsListController {
         return redirectToUrl("/itemsList?id=" + itemsList.getId());
     }
 
-    @RequestMapping(value = "/itemsList/edit", method = RequestMethod.GET)
+    @GetMapping(value = "/itemsList/edit")
     public String showEditItemsListForm(@RequestParam(value = "id") final long listId, ModelMap modelMap) {
         if (!modelMap.containsAttribute(EDIT_ITEMS_LIST_FORM_NAME)){
             modelMap.put(EDIT_ITEMS_LIST_FORM_NAME, itemsListService.findOneItemsListById(listId));
@@ -84,8 +81,8 @@ public class ItemsListController {
         return "editItemsList";
     }
 
-    @RequestMapping(value = "/itemsList/edit", method = RequestMethod.POST)
-    public String saveEditedItemsList(@Valid @ModelAttribute(EDIT_ITEMS_LIST_FORM_NAME) ItemsList editedItemsList, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    @PostMapping(value = "/itemsList/edit")
+    public String saveEditedItemsList(@Valid @ModelAttribute(EDIT_ITEMS_LIST_FORM_NAME) final ItemsList editedItemsList, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         long listId = editedItemsList.getId();
 
         if (bindingResult.hasErrors()) {
@@ -100,7 +97,7 @@ public class ItemsListController {
         return redirectToUrl("/itemsList?id=" + listId);
     }
 
-    @RequestMapping(value = "itemsList/delete", method = RequestMethod.GET)
+    @GetMapping(value = "itemsList/delete")
     public String deleteItemsList(@RequestParam(value = "id") final long itemsListId) {
         LOGGER.info("Items list with id = " + itemsListId + " has been removed");
         itemsListService.deleteItemsList(itemsListId);

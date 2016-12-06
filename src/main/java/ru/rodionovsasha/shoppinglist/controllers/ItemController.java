@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.rodionovsasha.shoppinglist.entities.Item;
 import ru.rodionovsasha.shoppinglist.services.ItemService;
@@ -34,14 +31,14 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @RequestMapping(value = "/item", method = RequestMethod.GET)
-    public String getItem(@RequestParam(value = "id") long itemId, ModelMap modelMap) {
+    @GetMapping(value = "/item")
+    public String getItem(@RequestParam(value = "id") final long itemId, ModelMap modelMap) {
         modelMap.put("item", itemService.findOneItemById(itemId));
         return "item";
     }
 
-    @RequestMapping(value = "/item/add", method = RequestMethod.GET)
-    public String addItem(@RequestParam(value = "listId") long listId, ModelMap modelMap) {
+    @GetMapping(value = "/item/add")
+    public String addItem(@RequestParam(value = "listId") final long listId, ModelMap modelMap) {
         if (!modelMap.containsAttribute(ITEM_FORM_NAME)){
             LOGGER.info("Create new item");
             modelMap.put(ITEM_FORM_NAME, new Item("", null));
@@ -50,8 +47,8 @@ public class ItemController {
         return "addItem";
     }
 
-    @RequestMapping(value = "/item/add", method = RequestMethod.POST)
-    public String saveItem(@Valid @ModelAttribute(ITEM_FORM_NAME) Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam(value = "listId") long listId) {
+    @PostMapping(value = "/item/add")
+    public String saveItem(@Valid @ModelAttribute(ITEM_FORM_NAME) final Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam(value = "listId") final long listId) {
         if (bindingResult.hasErrors()) {
             LOGGER.info("Creating a new item has errors. Redirect back to creating page.");
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult." + ITEM_FORM_NAME, bindingResult);
@@ -66,16 +63,16 @@ public class ItemController {
         return redirectToUrl("/itemsList?id=" + listId);
     }
 
-    @RequestMapping(value = "/item/edit", method = RequestMethod.GET)
-    public String showEditItemForm(@RequestParam(value = "id") long itemId, ModelMap modelMap) {
+    @GetMapping(value = "/item/edit")
+    public String showEditItemForm(@RequestParam(value = "id") final long itemId, ModelMap modelMap) {
         if (!modelMap.containsAttribute(EDIT_ITEM_FORM_NAME)){
             modelMap.put(EDIT_ITEM_FORM_NAME, itemService.findOneItemById(itemId));
         }
         return "editItem";
     }
 
-    @RequestMapping(value = "/item/edit", method = RequestMethod.POST)
-    public String saveEditedItem(@Valid @ModelAttribute(EDIT_ITEM_FORM_NAME) Item editedItem, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam(value = "listId") long listId) {
+    @PostMapping(value = "/item/edit")
+    public String saveEditedItem(@Valid @ModelAttribute(EDIT_ITEM_FORM_NAME) final Item editedItem, BindingResult bindingResult, RedirectAttributes redirectAttributes, @RequestParam(value = "listId") final long listId) {
         long itemId = editedItem.getId();
 
         if (bindingResult.hasErrors()) {
@@ -91,14 +88,14 @@ public class ItemController {
         return redirectToUrl("/itemsList?id=" + listId);
     }
 
-    @RequestMapping(value = "item/bought", method = RequestMethod.GET)
-    public String toggleItemBoughtStatus(@RequestParam(value = "id") long itemId, @RequestParam(value = "listId") long listId) {
+    @GetMapping(value = "item/bought")
+    public String toggleItemBoughtStatus(@RequestParam(value = "id") final long itemId, @RequestParam(value = "listId") final long listId) {
         itemService.toggleBoughtStatus(itemId);
         return redirectToUrl("/itemsList?id=" + listId);
     }
 
-    @RequestMapping(value = "item/delete", method = RequestMethod.GET)
-    public String deleteItem(@RequestParam(value = "id") long itemId, @RequestParam(value = "listId") long listId) {
+    @GetMapping(value = "item/delete")
+    public String deleteItem(@RequestParam(value = "id") final long itemId, @RequestParam(value = "listId") final long listId) {
         LOGGER.info("Item with id = " + itemId + " has been removed");
         itemService.deleteItem(itemId);
         return redirectToUrl("/itemsList?id=" + listId);

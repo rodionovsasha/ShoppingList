@@ -23,11 +23,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Item findOneItemById(long itemId) {
         return itemRepository.findOne(itemId);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Item findOneItemByName(String name) {
         return itemRepository.findByName(name);
     }
@@ -36,7 +38,7 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     public void saveNewItem(Item item, long listId) {
         item.setItemsList(itemsListRepository.findOne(listId));
-        saveItem(item);
+        itemRepository.saveAndFlush(item);
     }
 
     @Override
@@ -45,7 +47,7 @@ public class ItemServiceImpl implements ItemService {
         Item item = findOneItemById(itemId);
         item.setName(name);
         item.setComment(comment);
-        saveItem(item);
+        itemRepository.saveAndFlush(item);
     }
 
     @Override
@@ -53,16 +55,12 @@ public class ItemServiceImpl implements ItemService {
     public void toggleBoughtStatus(long itemId) {
         Item item = findOneItemById(itemId);
         item.setBought(!item.isBought());
-        saveItem(item);
+        itemRepository.saveAndFlush(item);
     }
 
     @Override
     @Transactional
     public void deleteItem(long itemId) {
         itemRepository.delete(itemId);
-    }
-
-    private void saveItem(Item item) {
-        itemRepository.saveAndFlush(item);
     }
 }
