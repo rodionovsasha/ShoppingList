@@ -16,10 +16,13 @@ import java.util.concurrent.TimeUnit;
 
 public class WebDriverProvider {
     private static final String PHANTOM_JS_PATH = "src/test/resources/phantomjs-2.1.1/bin/phantomjs";
+    private static final String PHANTOM_JS_WIN_PATH = "src\\test\\resources\\phantomjs-2.1.1\\bin\\phantomjs.exe";
+    private static final String OPERATING_SYSTEM = System.getProperty("os.name").toLowerCase();
     static WebDriver webDriver;
 
     public static WebDriver buildWebDriver() {
         System.out.println("\033[35mBuild web driver\033[0m");
+        System.out.println("\033[35mOperating system: " + OPERATING_SYSTEM + "\033[0m");
         Configuration.timeout = 8000;
         Configuration.reportsFolder = "target/reports";
         webDriver = new PhantomJSDriver(getCapabilities());
@@ -40,7 +43,11 @@ public class WebDriverProvider {
     private static DesiredCapabilities getCapabilities() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("takesScreenshot", true);
-        capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, PHANTOM_JS_PATH);
+        if (OPERATING_SYSTEM.contains("win")) {
+            capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, PHANTOM_JS_WIN_PATH);
+        } else {
+            capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, PHANTOM_JS_PATH);
+        }
         capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, getCliArgs());
         return capabilities;
     }
