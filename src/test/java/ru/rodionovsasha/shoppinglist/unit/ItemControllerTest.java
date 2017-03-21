@@ -17,6 +17,8 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.ITEM_NAME;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.LIST_ID;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.getViewResolver;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemController.ITEM_BASE_PATH;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
@@ -27,7 +29,6 @@ import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEM
 
 public class ItemControllerTest {
     private static final long ITEM_ID = 1;
-    private static final long LIST_ITEM_ID = 1;
     @Mock
     private ItemService itemService;
     @Mock
@@ -66,35 +67,20 @@ public class ItemControllerTest {
     public void shouldSaveItemTest() throws Exception {
         mockMvc.perform(post(ITEM_BASE_PATH + "/add")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("name", "Item1")
+                .param("name", ITEM_NAME)
                 .param("listId", "1"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ITEM_ID));
+                .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
         verify(itemService, times(1)).addItem(any(ItemDto.class));
     }
 
     @Test
-    public void shouldSaveItemWithoutNameTest() throws Exception {
+    public void shouldNotSaveItemWithoutNameTest() throws Exception {
         mockMvc.perform(post(ITEM_BASE_PATH + "/add")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name("addItem"));
         verify(itemService, never()).addItem(any(ItemDto.class));
-    }
-
-    @Test
-    public void shouldNotSaveItemIfHasErrorsTest() throws Exception {
-        //GIVEN
-       // when(bindingResult.hasErrors()).thenReturn(true);
-        //WHEN
-/*        String result = controller.saveItem(item, bindingResult, redirectAttributes, LIST_ID);
-        //THEN
-        assertEquals("redirect:/item/add", result);
-        verify(itemService, times(0)).addItem(item, LIST_ID);
-        verify(redirectAttributes, times(1)).addFlashAttribute("org.springframework.validation.BindingResult." + ITEM_FORM_NAME, bindingResult);
-        verify(redirectAttributes, times(1)).addFlashAttribute(ITEM_FORM_NAME, item);
-        verify(redirectAttributes, times(1)).addFlashAttribute("listId", LIST_ID);
-        verify(redirectAttributes, times(1)).addAttribute("listId", LIST_ID);*/
     }
 
     @Test
