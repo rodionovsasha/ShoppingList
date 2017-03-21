@@ -14,6 +14,7 @@ import ru.rodionovsasha.shoppinglist.services.ItemService;
 import javax.validation.Valid;
 
 import static ru.rodionovsasha.shoppinglist.Utils.redirectToUrl;
+import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
 
 /*
  * Copyright (©) 2016. Rodionov Alexander
@@ -22,6 +23,7 @@ import static ru.rodionovsasha.shoppinglist.Utils.redirectToUrl;
 @Slf4j
 @Controller
 public class ItemController {
+    private static final String ITEM_BASE_PATH = "/item";
     private final ItemService itemService;
 
     @Autowired
@@ -29,18 +31,18 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @GetMapping("/item")
+    @GetMapping(ITEM_BASE_PATH)
     public String getItem(@RequestParam(value = "id") final long id, ModelMap modelMap) {
         modelMap.addAttribute("item", itemService.getItemById(id));
         return "item";
     }
 
-    @GetMapping("/item/add")
+    @GetMapping(ITEM_BASE_PATH + "/add")
     public String addItemForm(final ItemDto itemDto) {
         return "addItem";
     }
 
-    @PostMapping("/item/add")
+    @PostMapping(ITEM_BASE_PATH + "/add")
     public String saveItem(@Valid final ItemDto itemDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("Creating a new item has errors. Redirect back to creating page.");
@@ -48,17 +50,17 @@ public class ItemController {
         }
 
         itemService.addItem(itemDto);
-        log.info("Item with name " + itemDto.getName() + " has been added.");
-        return redirectToUrl("/itemsList?id=" + itemDto.getListId());
+        log.debug("Item with name " + itemDto.getName() + " has been added.");
+        return redirectToUrl(ITEMS_LIST_BASE_PATH + "?id=" + itemDto.getListId());
     }
 
-    @GetMapping("/item/edit")
+    @GetMapping(ITEM_BASE_PATH + "/edit")
     public String showEditItemForm(@RequestParam(value = "id") final long id, ModelMap modelMap) {
         modelMap.addAttribute("itemDto", itemService.getItemById(id));
         return "editItem";
     }
 
-    @PostMapping("/item/edit")
+    @PostMapping(ITEM_BASE_PATH + "/edit")
     public String saveEditedItem(@Valid final ItemDto itemDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("Editing item has errors. Redirect back to editing page.");
@@ -66,20 +68,20 @@ public class ItemController {
         }
 
         itemService.updateItem(itemDto);
-        log.info("Save edited item");
-        return redirectToUrl("/itemsList?id=" + itemDto.getListId());
+        log.debug("Save edited item");
+        return redirectToUrl(ITEMS_LIST_BASE_PATH + "?id=" + itemDto.getListId());
     }
 
-    @GetMapping("item/bought")
+    @GetMapping(ITEM_BASE_PATH + "/bought")
     public String toggleItemBoughtStatus(@RequestParam(value = "id") final long id, @RequestParam(value = "listId") final long listId) {
         itemService.toggleBoughtStatus(id);
-        return redirectToUrl("/itemsList?id=" + listId);
+        return redirectToUrl(ITEMS_LIST_BASE_PATH + "?id=" + listId);
     }
 
-    @GetMapping("item/delete")
+    @GetMapping(ITEM_BASE_PATH + "/delete")
     public String deleteItem(@RequestParam(value = "id") final long id, @RequestParam(value = "listId") final long listId) {
         itemService.deleteItem(id);
-        log.info("Item with id = " + id + " has been removed");
-        return redirectToUrl("/itemsList?id=" + listId);
+        log.debug("Item with id = " + id + " has been removed");
+        return redirectToUrl(ITEMS_LIST_BASE_PATH + "?id=" + listId);
     }
 }

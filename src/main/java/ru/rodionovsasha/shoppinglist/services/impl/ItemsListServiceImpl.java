@@ -50,7 +50,7 @@ public class ItemsListServiceImpl implements ItemsListService {
     }
 
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ItemsList> findAllLists() {
         return itemsListRepository.findAll();
     }

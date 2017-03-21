@@ -20,11 +20,4 @@ public class ItemsList {
     @OneToMany(mappedBy = "itemsList", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("IS_BOUGHT, NAME")
     private List<Item> items = new LinkedList<>();
-
-    public ItemsList() {
-    }
-
-    public ItemsList(String name) {
-        this.name = name;
-    }
 }

@@ -10,5 +10,4 @@ import ru.rodionovsasha.shoppinglist.entities.Item;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
-    Item findByName(String name);
 }
