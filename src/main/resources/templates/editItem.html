@@ -1,29 +1,29 @@
 <html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title th:text="'Edit ' + ${editedItem.name}"></title>
+    <title th:text="'Edit ' + ${itemDto.name}"></title>
 </head>
 <body>
 <div layout:fragment="content">
-    <h1 th:text="'Edit ' + ${editedItem.name}"></h1>
+    <h1 th:text="'Edit ' + ${itemDto.name}"></h1>
 
-    <form th:name="editedItem" th:object="${editedItem}" th:action="@{/item/edit}" method="post" class="form-horizontal">
+    <form th:object="${itemDto}" th:action="@{/item/edit}" method="post" class="form-horizontal">
         <div class="form-group">
             <label th:for="name" class="col-sm-2 control-label">Name:</label>
             <div class="col-sm-6">
-                <input type="text" th:field="*{name}" th:value="${editedItem.name}" class="form-control"/>
+                <input type="text" th:field="*{name}" class="form-control"/>
                 <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></small>
             </div>
         </div>
         <div class="form-group">
             <label th:for="name" class="col-sm-2 control-label">Comment:</label>
             <div class="col-sm-6">
-                <textarea th:field="*{comment}" rows="3" class="form-control" th:text="${editedItem.comment}"></textarea>
+                <textarea th:field="*{comment}" rows="3" class="form-control" th:text="${comment}"></textarea>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <input type="hidden" name="id" th:value="${editedItem.id}"/>
-                <input type="hidden" name="listId" th:value="${editedItem.itemsList.id}"/>
+                <input type="hidden" th:field="*{id}"/>
+                <input type="hidden" th:field="*{listId}"/>
                 <input type="submit" value="Save item" class="btn btn-default"/>
             </div>
         </div>
@@ -31,7 +31,7 @@
 
     <ul class="list-inline">
         <li>
-            <a th:href="@{/itemsList(id=${editedItem.itemsList.id})}" class="btn btn-info btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="Back to the list">
+            <a th:href="@{/itemsList(id=${itemDto.listId})}" class="btn btn-info btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="Back to the list">
                 <span class="glyphicon glyphicon-arrow-left"></span>
             </a>
         </li>

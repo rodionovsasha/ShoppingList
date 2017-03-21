@@ -1,5 +1,6 @@
 package ru.rodionovsasha.shoppinglist.services;
 
+import ru.rodionovsasha.shoppinglist.dto.ItemsListDto;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 
 import java.util.List;
@@ -9,10 +10,9 @@ import java.util.List;
  */
 
 public interface ItemsListService {
-    List<ItemsList> findAllItemsLists();
-    ItemsList findOneItemsListById(long listId);
-    ItemsList findOneItemsListByName(String name);
-    void saveItemsList(ItemsList itemsList);
-    void updateItemsList(long listId, String name);
-    void deleteItemsList(long listId);
+    long addItemsList(ItemsListDto itemsListDto);
+    void updateItemsList(ItemsListDto itemsListDto);
+    void deleteItemsList(long id);
+    ItemsList getItemsListById(long id);
+    List<ItemsList> findAllLists();
 }

@@ -1,5 +1,6 @@
 package ru.rodionovsasha.shoppinglist.services;
 
+import ru.rodionovsasha.shoppinglist.dto.ItemDto;
 import ru.rodionovsasha.shoppinglist.entities.Item;
 
 /*
@@ -7,10 +8,9 @@ import ru.rodionovsasha.shoppinglist.entities.Item;
  */
 
 public interface ItemService {
-    Item findOneItemById(long itemId);
-    Item findOneItemByName(String name);
-    void saveNewItem(Item item, long listId);
-    void updateItem(long itemId, String name, String comment);
-    void toggleBoughtStatus(long itemId);
-    void deleteItem(long itemId);
+    void addItem(ItemDto itemDto);
+    void updateItem(ItemDto itemDto);
+    void deleteItem(long id);
+    Item getItemById(long id);
+    void toggleBoughtStatus(long id);
 }

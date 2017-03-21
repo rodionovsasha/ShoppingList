@@ -1,61 +1,30 @@
 package ru.rodionovsasha.shoppinglist.entities;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 /*
  * Copyright (©) 2016. Rodionov Alexander
  */
 
 @Entity
+@Getter @Setter
 public class ItemsList {
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     private long id;
-
-    @NotEmpty
-    @Column(unique = true)
     private String name;
-
     @OneToMany(mappedBy = "itemsList", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("IS_BOUGHT, NAME")
-    private Collection<Item> items;
+    private List<Item> items = new LinkedList<>();
 
-    protected ItemsList() {
+    public ItemsList() {
     }
 
     public ItemsList(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("ItemsList[%d, %s]", id, name);
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Collection<Item> getItems() {
-        return items;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setItems(Collection<Item> items) {
-        this.items = items;
     }
 }

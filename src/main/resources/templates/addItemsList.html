@@ -6,7 +6,7 @@
 <div layout:fragment="content">
     <h1>Add new shopping list</h1>
 
-    <form th:name="addItemsList" th:object="${itemsList}" th:action="@{/itemsList/add}" method="post" class="form-horizontal">
+    <form th:object="${itemsListDto}" th:action="@{/itemsList/add}" method="post" class="form-horizontal">
         <div class="form-group">
             <label th:for="name" class="col-sm-1 control-label">Name:</label>
             <div class="col-sm-6">

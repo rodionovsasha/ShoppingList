@@ -5,7 +5,7 @@
 <body>
 <div layout:fragment="content">
     <h1>Add new item</h1>
-    <form th:name="addItem" th:object="${item}" th:action="@{/item/add}" method="post" class="form-horizontal">
+    <form th:object="${itemDto}" th:action="@{/item/add}" method="post" class="form-horizontal">
         <div class="form-group">
             <label th:for="name" class="col-sm-2 control-label">Name:</label>
             <div class="col-sm-6">
@@ -21,14 +21,14 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <input type="hidden" name="listId" th:value="${listId}"/>
+                <input type="hidden" name="listId" th:field="*{listId}"/>
                 <input type="submit" value="Add item" class="btn btn-default"/>
             </div>
         </div>
     </form>
     <ul class="list-inline">
         <li>
-            <a th:href="@{/itemsList(id=${listId})}" class="btn btn-info btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="Back to the list">
+            <a th:href="@{/itemsList(id=${itemDto.listId})}" class="btn btn-info btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="Back to the list">
                 <span class="glyphicon glyphicon-arrow-left"></span>
             </a>
         </li>

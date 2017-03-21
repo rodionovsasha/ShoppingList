@@ -1,22 +1,22 @@
 <html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title th:text="${itemsList.name}">Items List</title>
+    <title th:text="${itemsList.name}"></title>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="list-group">
-        <h1 th:inline="text" class="list-group-item active">[[${itemsList.name}]]<span class="badge" th:text="${#lists.size(itemsList.items)}">10</span></h1>
+        <h1 th:inline="text" class="list-group-item active">[[${itemsList.name}]]<span class="badge" th:text="${#lists.size(itemsList.items)}"></span></h1>
         <div class="list-group-item" th:each="item : ${itemsList.items}" th:classappend="${item.bought} ? 'list-group-item-success'">
             <div class="row">
                 <div class="col-md-7">
-                    <a th:href="@{/item(id=${item.id})}" th:text="${item.name}">Item Name</a>
-                    <small class="clearfix" th:if="${item.comment}" th:text="${item.comment}">Item comment</small>
+                    <a th:href="@{/item(id=${item.id})}" th:text="${item.name}"></a>
+                    <small class="clearfix" th:if="${item.comment}" th:text="${item.comment}"></small>
                 </div>
                 <div class="col-md-5">
                     <ul class="list-inline text-right">
                         <li><a th:href="@{/item/bought(id=${item.id}, listId=${item.itemsList.id})}" class="btn btn-success btn-xs" role="button" th:text="${item.bought} ? 'Take out' : 'Bought'">Bought</a></li>
                         <li><a th:href="@{/item/edit(id=${item.id})}" class="btn btn-warning btn-xs" role="button">Edit</a></li>
-                        <li><a th:href="@{/item/delete(id=${item.id}, listId=${item.itemsList.id})}" class="btn btn-danger btn-xs" role="button">Delete</a></li>
+                        <li><a th:href="@{/item/delete(id=${item.id}, listId=${item.itemsList.id})}" class="btn btn-danger btn-xs" role="button" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a></li>
                     </ul>
                 </div>
             </div>
@@ -34,7 +34,7 @@
             </a>
         </li>
         <li>
-            <a th:href="@{/itemsList/delete(id=${itemsList.id})}" class="btn btn-danger btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="Delete list">
+            <a th:href="@{/itemsList/delete(id=${itemsList.id})}" onclick="return confirm('Are you sure you want to delete this list?')" class="btn btn-danger btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="Delete list">
                 <span class="glyphicon glyphicon-remove"></span>
             </a>
         </li>
