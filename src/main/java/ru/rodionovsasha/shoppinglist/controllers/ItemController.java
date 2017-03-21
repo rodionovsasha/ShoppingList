@@ -23,7 +23,7 @@ import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEM
 @Slf4j
 @Controller
 public class ItemController {
-    private static final String ITEM_BASE_PATH = "/item";
+    public static final String ITEM_BASE_PATH = "/item";
     private final ItemService itemService;
 
     @Autowired

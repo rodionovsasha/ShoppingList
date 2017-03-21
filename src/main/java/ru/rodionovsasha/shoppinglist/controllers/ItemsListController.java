@@ -22,7 +22,7 @@ import static ru.rodionovsasha.shoppinglist.Utils.redirectToUrl;
 @Slf4j
 @Controller
 public class ItemsListController {
-    static final String ITEMS_LIST_BASE_PATH = "/itemsList";
+    public static final String ITEMS_LIST_BASE_PATH = "/itemsList";
     private final ItemsListService itemsListService;
 
     @Autowired

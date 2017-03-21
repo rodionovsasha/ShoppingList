@@ -1,29 +1,11 @@
 package ru.rodionovsasha.shoppinglist.integration;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import ru.rodionovsasha.shoppinglist.entities.Item;
-import ru.rodionovsasha.shoppinglist.services.ItemService;
-
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.*;
-import static org.springframework.http.MediaType.parseMediaType;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
-import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.*;
-
 /*
  * Copyright (©) 2016. Rodionov Alexander
  */
 
 public class ItemTest extends BaseIntegrationTest {
-    @Autowired
+/*    @Autowired
     private ItemService itemService;
 
     private MockMvc mockMvc;
@@ -128,5 +110,5 @@ public class ItemTest extends BaseIntegrationTest {
         mockMvc.perform(get("/item/delete?id=" + ITEM_ID + "&listId=" + LIST_ID).accept(contentType))
                 .andExpect(status().is3xxRedirection());
         assertNull(itemService.getItemById(ITEM_ID));
-    }
+    }*/
 }

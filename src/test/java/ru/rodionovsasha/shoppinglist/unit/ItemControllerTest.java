@@ -3,74 +3,89 @@ package ru.rodionovsasha.shoppinglist.unit;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.springframework.ui.ModelMap;
+import org.mockito.Mockito;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.rodionovsasha.shoppinglist.controllers.ItemController;
+import ru.rodionovsasha.shoppinglist.dto.ItemDto;
 import ru.rodionovsasha.shoppinglist.entities.Item;
 import ru.rodionovsasha.shoppinglist.services.ItemService;
 
-import static junit.framework.TestCase.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.ITEM_ID;
-import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.LIST_ID;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.getViewResolver;
+import static ru.rodionovsasha.shoppinglist.controllers.ItemController.ITEM_BASE_PATH;
+import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
 
 /*
  * Copyright (©) 2016. Rodionov Alexander
  */
 
-public class ItemControllerTest extends BaseUnitTest {
+public class ItemControllerTest {
+    private static final long ITEM_ID = 1;
+    private static final long LIST_ITEM_ID = 1;
     @Mock
     private ItemService itemService;
     @Mock
     private Item item;
 
-    private ItemController controller;
+    private MockMvc mockMvc;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         initMocks(this);
-        controller = new ItemController(itemService);
-        modelMap = new ModelMap();
-        when(itemService.getItemById(anyLong())).thenReturn(item);
-        when(item.getId()).thenReturn(ITEM_ID);
-        when(item.getItemsList()).thenReturn(itemsList);
-        when(itemsList.getId()).thenReturn(LIST_ID);
+        mockMvc = MockMvcBuilders.standaloneSetup(new ItemController(itemService))
+                .setViewResolvers(getViewResolver())
+                .build();
+        Mockito.reset(itemService);
     }
 
     @Test
     public void getItemTest() throws Exception {
-        //WHEN
-        String result = controller.getItem(ITEM_ID, modelMap);
-        //THEN
-        assertEquals("item", result);
-        assertTrue(modelMap.containsKey("item"));
+        when(itemService.getItemById(ITEM_ID)).thenReturn(item);
+
+        mockMvc.perform(get(ITEM_BASE_PATH).param("id", "1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("item"))
+                .andExpect(model().attribute("item", item));
         verify(itemService, times(1)).getItemById(ITEM_ID);
     }
 
     @Test
-    public void addItemTest() throws Exception {
-        //WHEN
-        //String result = controller.addItemForm(LIST_ID, modelMap);
-        //THEN
-        //assertEquals("addItemForm", result);
-        //assertTrue(modelMap.containsKey(ITEM_FORM_NAME));
-        assertTrue(modelMap.containsKey("listId"));
+    public void addItemFormTest() throws Exception {
+        mockMvc.perform(get(ITEM_BASE_PATH + "/add"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("addItem"));
     }
 
     @Test
     public void shouldSaveItemTest() throws Exception {
-        //WHEN
-/*        String result = controller.saveItem(item, bindingResult, redirectAttributes, LIST_ID);
-        //THEN
-        assertEquals("redirect:/itemsList?id=" + LIST_ID, result);
-        verify(itemService, times(1)).addItem(item, LIST_ID);*/
+        mockMvc.perform(post(ITEM_BASE_PATH + "/add")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("name", "Item1")
+                .param("listId", "1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ITEM_ID));
+        verify(itemService, times(1)).addItem(any(ItemDto.class));
+    }
+
+    @Test
+    public void shouldSaveItemWithoutNameTest() throws Exception {
+        mockMvc.perform(post(ITEM_BASE_PATH + "/add")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
+                .andExpect(status().isOk())
+                .andExpect(view().name("addItem"));
+        verify(itemService, never()).addItem(any(ItemDto.class));
     }
 
     @Test
     public void shouldNotSaveItemIfHasErrorsTest() throws Exception {
         //GIVEN
-        when(bindingResult.hasErrors()).thenReturn(true);
+       // when(bindingResult.hasErrors()).thenReturn(true);
         //WHEN
 /*        String result = controller.saveItem(item, bindingResult, redirectAttributes, LIST_ID);
         //THEN
@@ -103,7 +118,7 @@ public class ItemControllerTest extends BaseUnitTest {
     @Test
     public void shouldNotSaveEditedItemIfHasErrorsTest() throws Exception {
         //GIVEN
-        when(bindingResult.hasErrors()).thenReturn(true);
+      //  when(bindingResult.hasErrors()).thenReturn(true);
         //WHEN
 /*        String result = controller.saveEditedItem(item, bindingResult, redirectAttributes, LIST_ID);
         //THEN
