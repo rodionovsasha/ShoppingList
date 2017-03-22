@@ -26,7 +26,7 @@ public class BaseSteps extends BaseCucumberTest implements En {
     public BaseSteps() {
         When("^I open page with url: (.*?)$", TestUtils::openUrl);
 
-        When("^I should see All lists header$", () -> $("div.container h1").shouldHave(text("All lists")));
+        When("^I should see Shopping List header$", () -> $("div.container h1").shouldHave(text("Shopping List")));
 
         Then("^I should see a page with title=(.*?)$", (String title) -> assertEquals(title, getTitle()));
 
@@ -50,12 +50,12 @@ public class BaseSteps extends BaseCucumberTest implements En {
 
         Then("^I try to add new list with name=(.*?)$", (String name) -> {
             $("#name").setValue(name);
-            $(By.name("addItemsList")).submit();
+            $(By.className("form-horizontal")).submit();
         });
 
         Then("^I try to update list with new name=(.*?)$", (String newName) -> {
             $("#name").setValue(newName);
-            $(By.name("editedItemsList")).submit();
+            $(By.className("form-horizontal")).submit();
         });
 
         Then("^I should see error message=(.*?)$", (String message) -> $("small.text-danger").shouldHave(text(message)));

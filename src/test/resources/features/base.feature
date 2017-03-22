@@ -1,8 +1,8 @@
 Feature: All lists page
   Scenario: I should see All lists page
     When I open page with url: /
-    Then I should see a page with title=Shopping List - Main page
-    And I should see All lists header
+    Then I should see a page with title=Shopping List
+    And I should see Shopping List header
 
   Scenario: I should see one list info and tools on the page
     When I open page with url: /
