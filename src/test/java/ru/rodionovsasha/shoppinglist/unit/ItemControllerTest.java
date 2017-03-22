@@ -18,9 +18,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.ITEM_NAME;
-import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.LIST_ID;
-import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.getViewResolver;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.*;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemController.ITEM_BASE_PATH;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
 
@@ -29,9 +27,6 @@ import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEM
  */
 
 public class ItemControllerTest {
-    private static final long ITEM_ID = 1;
-    private static final String ITEM_ID_PARAM = Long.toString(ITEM_ID);
-
     @Mock
     private ItemService itemService;
     @Mock
@@ -73,7 +68,7 @@ public class ItemControllerTest {
         mockMvc.perform(post(ITEM_BASE_PATH + "/add")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("name", ITEM_NAME)
-                .param("listId", "1"))
+                .param("listId", LIST_ID_PARAM))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
         verify(itemService, times(1)).addItem(any(ItemDto.class));
@@ -109,7 +104,7 @@ public class ItemControllerTest {
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", ITEM_ID_PARAM)
                 .param("name", ITEM_NAME)
-                .param("listId", "1"))
+                .param("listId", LIST_ID_PARAM))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
         verify(itemService, times(1)).updateItem(any(ItemDto.class));
@@ -120,7 +115,7 @@ public class ItemControllerTest {
         mockMvc.perform(post(ITEM_BASE_PATH + "/edit")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id", ITEM_ID_PARAM)
-                .param("listId", "1"))
+                .param("listId", LIST_ID_PARAM))
                 .andExpect(status().isOk())
                 .andExpect(view().name("editItem"))
                 .andExpect(model().attribute("listId", LIST_ID));
@@ -131,7 +126,7 @@ public class ItemControllerTest {
     public void shouldToggleItemBoughtStatusTest() throws Exception {
         mockMvc.perform(get(ITEM_BASE_PATH + "/bought")
                 .param("id", ITEM_ID_PARAM)
-                .param("listId", "1"))
+                .param("listId", LIST_ID_PARAM))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
         verify(itemService, times(1)).toggleBoughtStatus(LIST_ID);
@@ -141,7 +136,7 @@ public class ItemControllerTest {
     public void shouldDeleteItemTest() throws Exception {
         mockMvc.perform(get(ITEM_BASE_PATH + "/delete")
                 .param("id", ITEM_ID_PARAM)
-                .param("listId", "1"))
+                .param("listId", LIST_ID_PARAM))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
         verify(itemService, times(1)).deleteItem(ITEM_ID);

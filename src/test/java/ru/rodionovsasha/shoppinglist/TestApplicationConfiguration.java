@@ -23,9 +23,12 @@ import java.util.Collections;
 @ComponentScan
 @TestPropertySource(locations = "classpath:/test.properties")
 public class TestApplicationConfiguration {
-    public static final String LIST_NAME = "Shopping list name";
+    private static final String LIST_NAME = "Shopping list name";
     public static final String ITEM_NAME = "Item1";
+    public static final long ITEM_ID = 1;
+    public static final String ITEM_ID_PARAM = Long.toString(ITEM_ID);
     public static final long LIST_ID = 1;
+    public static final String LIST_ID_PARAM = Long.toString(LIST_ID);
 
     @Bean
     CommandLineRunner runner(ItemsListService itemsListService, ItemService itemService) {
