@@ -73,7 +73,7 @@ public class ItemControllerTest {
         mockMvc.perform(post(ITEM_BASE_PATH + "/add")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("name", ITEM_NAME)
-                .param("listId", ITEM_ID_PARAM))
+                .param("listId", "1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
         verify(itemService, times(1)).addItem(any(ItemDto.class));
@@ -105,44 +105,45 @@ public class ItemControllerTest {
 
     @Test
     public void shouldSaveEditedItemTest() throws Exception {
-        //WHEN
-/*        String result = controller.saveEditedItem(item, bindingResult, redirectAttributes, LIST_ID);
-        //THEN
-        assertEquals("redirect:/itemsList?id=" + LIST_ID, result);
-        verify(itemService, times(1)).updateItem(ITEM_ID, item.getName(), item.getComment());*/
+        mockMvc.perform(post(ITEM_BASE_PATH + "/edit")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", ITEM_ID_PARAM)
+                .param("name", ITEM_NAME)
+                .param("listId", "1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
+        verify(itemService, times(1)).updateItem(any(ItemDto.class));
     }
 
     @Test
     public void shouldNotSaveEditedItemIfHasErrorsTest() throws Exception {
-        //GIVEN
-      //  when(bindingResult.hasErrors()).thenReturn(true);
-        //WHEN
-/*        String result = controller.saveEditedItem(item, bindingResult, redirectAttributes, LIST_ID);
-        //THEN
-        assertEquals("redirect:/item/edit?id=" + ITEM_ID, result);
-        verify(itemService, times(0)).updateItem(ITEM_ID, item.getName(), item.getComment());
-        verify(redirectAttributes, times(1)).addFlashAttribute("org.springframework.validation.BindingResult." + EDIT_ITEM_FORM_NAME, bindingResult);
-        verify(redirectAttributes, times(1)).addFlashAttribute(EDIT_ITEM_FORM_NAME, item);
-        verify(redirectAttributes, times(1)).addFlashAttribute("listId", LIST_ID);*/
+        mockMvc.perform(post(ITEM_BASE_PATH + "/edit")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                .param("id", ITEM_ID_PARAM)
+                .param("listId", "1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("editItem"))
+                .andExpect(model().attribute("listId", LIST_ID));
+        verify(itemService, never()).updateItem(any(ItemDto.class));
     }
 
     @Test
     public void shouldToggleItemBoughtStatusTest() throws Exception {
-        //GIVEN
-        when(item.isBought()).thenReturn(true);
-        //WHEN
-/*        String result = controller.toggleItemBoughtStatus(ITEM_ID, LIST_ID);
-        //THEN
-        assertEquals("redirect:/itemsList?id=" + LIST_ID, result);
-        verify(itemService, times(1)).toggleBoughtStatus(ITEM_ID);*/
+        mockMvc.perform(get(ITEM_BASE_PATH + "/bought")
+                .param("id", ITEM_ID_PARAM)
+                .param("listId", "1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
+        verify(itemService, times(1)).toggleBoughtStatus(LIST_ID);
     }
 
     @Test
     public void shouldDeleteItemTest() throws Exception {
-        //WHEN
-/*        String result = controller.deleteItem(ITEM_ID, LIST_ID);
-        //THEN
-        assertEquals("redirect:/itemsList?id=" + LIST_ID, result);
-        verify(itemService, times(1)).deleteItem(ITEM_ID);*/
+        mockMvc.perform(get(ITEM_BASE_PATH + "/delete")
+                .param("id", ITEM_ID_PARAM)
+                .param("listId", "1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
+        verify(itemService, times(1)).deleteItem(ITEM_ID);
     }
 }
