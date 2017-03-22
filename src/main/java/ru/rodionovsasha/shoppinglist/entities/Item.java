@@ -17,7 +17,7 @@ public class Item {
     private String name;
     private String comment;
     private boolean isBought;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn
     private ItemsList itemsList;
 

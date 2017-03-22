@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.rodionovsasha.shoppinglist.dto.ItemDto;
+import ru.rodionovsasha.shoppinglist.entities.Item;
 import ru.rodionovsasha.shoppinglist.services.ItemService;
 
 import javax.validation.Valid;
@@ -56,14 +57,17 @@ public class ItemController {
 
     @GetMapping(ITEM_BASE_PATH + "/edit")
     public String showEditItemForm(@RequestParam(value = "id") final long id, ModelMap modelMap) {
-        modelMap.addAttribute("itemDto", itemService.getItemById(id));
+        Item item = itemService.getItemById(id);
+        modelMap.addAttribute("itemDto", item);
+        modelMap.addAttribute("listId", item.getItemsList().getId());
         return "editItem";
     }
 
     @PostMapping(ITEM_BASE_PATH + "/edit")
-    public String saveEditedItem(@Valid final ItemDto itemDto, BindingResult bindingResult) {
+    public String saveEditedItem(@Valid final ItemDto itemDto, BindingResult bindingResult, ModelMap modelMap) {
         if (bindingResult.hasErrors()) {
             log.error("Editing item has errors. Redirect back to editing page.");
+            modelMap.addAttribute("listId", itemDto.getListId());
             return "editItem";
         }
 

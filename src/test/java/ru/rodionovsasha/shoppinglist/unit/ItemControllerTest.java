@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.rodionovsasha.shoppinglist.controllers.ItemController;
 import ru.rodionovsasha.shoppinglist.dto.ItemDto;
 import ru.rodionovsasha.shoppinglist.entities.Item;
+import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemService;
 
 import static org.mockito.Mockito.*;
@@ -29,10 +30,14 @@ import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEM
 
 public class ItemControllerTest {
     private static final long ITEM_ID = 1;
+    private static final String ITEM_ID_PARAM = Long.toString(ITEM_ID);
+
     @Mock
     private ItemService itemService;
     @Mock
     private Item item;
+    @Mock
+    private ItemsList itemsList;
 
     private MockMvc mockMvc;
 
@@ -49,7 +54,7 @@ public class ItemControllerTest {
     public void getItemTest() throws Exception {
         when(itemService.getItemById(ITEM_ID)).thenReturn(item);
 
-        mockMvc.perform(get(ITEM_BASE_PATH).param("id", "1"))
+        mockMvc.perform(get(ITEM_BASE_PATH).param("id", ITEM_ID_PARAM))
                 .andExpect(status().isOk())
                 .andExpect(view().name("item"))
                 .andExpect(model().attribute("item", item));
@@ -68,7 +73,7 @@ public class ItemControllerTest {
         mockMvc.perform(post(ITEM_BASE_PATH + "/add")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("name", ITEM_NAME)
-                .param("listId", "1"))
+                .param("listId", ITEM_ID_PARAM))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
         verify(itemService, times(1)).addItem(any(ItemDto.class));
@@ -85,11 +90,17 @@ public class ItemControllerTest {
 
     @Test
     public void shouldShowEditItemFormTest() throws Exception {
-        //WHEN
-  /*      String result = controller.showEditItemForm(ITEM_ID, modelMap);
-        //THEN
-        assertEquals("editItem", result);
-        assertTrue(modelMap.containsKey(EDIT_ITEM_FORM_NAME));*/
+        when(itemService.getItemById(ITEM_ID)).thenReturn(item);
+        when(item.getItemsList()).thenReturn(itemsList);
+        when(itemsList.getId()).thenReturn(LIST_ID);
+
+        mockMvc.perform(get(ITEM_BASE_PATH + "/edit")
+                .param("id", ITEM_ID_PARAM))
+                .andExpect(status().isOk())
+                .andExpect(view().name("editItem"))
+                .andExpect(model().attribute("itemDto", item))
+                .andExpect(model().attribute("listId", LIST_ID));
+        verify(itemService, times(1)).getItemById(ITEM_ID);
     }
 
     @Test
