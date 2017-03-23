@@ -23,7 +23,7 @@ import java.util.Collections;
 @ComponentScan
 @TestPropertySource(locations = "classpath:/test.properties")
 public class TestApplicationConfiguration {
-    private static final String LIST_NAME = "Shopping list name";
+    public static final String LIST_NAME = "Shopping list name";
     public static final String ITEM_NAME = "Item1";
     public static final long ITEM_ID = 1;
     public static final String ITEM_ID_PARAM = Long.toString(ITEM_ID);

@@ -43,6 +43,8 @@ public class ItemControllerTest {
                 .setViewResolvers(getViewResolver())
                 .build();
         Mockito.reset(itemService);
+        Mockito.reset(item);
+        Mockito.reset(itemsList);
     }
 
     @Test
