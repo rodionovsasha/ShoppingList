@@ -14,8 +14,15 @@ mvn spring-boot:run
 or simply run the application in your IDE using public static void main method.
 
 Open the following URL in browser:
-http://localhost:8000  
+<pre>
+http://localhost:8000
+</pre>
 Port is configurable in application.properties.
 
 This application uses H2 database and so should run locally.
 Remote database connections can also be configured in application.properties.
+
+#### Rest API Documentation (Swagger)
+<pre>
+http://localhost:8000/swagger-ui.html
+</pre>
