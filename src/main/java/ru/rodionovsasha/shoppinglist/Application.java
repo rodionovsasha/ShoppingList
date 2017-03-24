@@ -53,7 +53,7 @@ public class Application {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("ru.rodionovsasha.shoppinglist.controllers.rest"))
-                .paths(PathSelectors.ant("/rest/*"))
+                .paths(PathSelectors.ant("/v1/api/**"))
                 .build();
     }
 }

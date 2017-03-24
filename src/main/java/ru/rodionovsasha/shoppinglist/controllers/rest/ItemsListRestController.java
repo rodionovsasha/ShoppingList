@@ -4,13 +4,15 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import ru.rodionovsasha.shoppinglist.dto.ItemsListDto;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
@@ -22,7 +24,7 @@ import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEM
 @Slf4j
 @Api(value = "ItemsList", description = "Items List management")
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/v1/api")
 public class ItemsListRestController {
     private final ItemsListService itemsListService;
 
@@ -32,7 +34,7 @@ public class ItemsListRestController {
     }
 
     @ApiOperation(value = "Get all lists")
-    @GetMapping("/")
+    @GetMapping
     public List<ItemsList> getAllLists() {
         return itemsListService.findAllLists();
     }
@@ -41,5 +43,15 @@ public class ItemsListRestController {
     @GetMapping(ITEMS_LIST_BASE_PATH)
     public ItemsList getItemsList(@RequestParam(value = "id") final long id) {
         return itemsListService.getItemsListById(id);
+    }
+
+    @ApiOperation(value = "Add new list")
+    @PostMapping(ITEMS_LIST_BASE_PATH + "/add")
+    public ResponseEntity<ItemsListDto> saveItemsList(@Valid @RequestBody ItemsListDto itemsListDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(itemsListDto);
+        }
+        itemsListService.addItemsList(itemsListDto);
+        return new ResponseEntity<>(itemsListDto, HttpStatus.OK);
     }
 }

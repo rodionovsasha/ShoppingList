@@ -4,6 +4,7 @@ package ru.rodionovsasha.shoppinglist.dto;
  * Copyright (©) 2017. Rodionov Alexander
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 
 @Getter @Setter
 public class ItemsListDto implements Serializable {
+    @JsonIgnore
     private long id;
     @NotEmpty
     private String name;
