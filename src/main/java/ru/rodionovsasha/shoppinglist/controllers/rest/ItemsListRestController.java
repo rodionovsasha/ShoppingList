@@ -15,6 +15,7 @@ import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 import javax.validation.Valid;
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
 
 /*
@@ -46,7 +47,7 @@ public class ItemsListRestController {
     }
 
     @ApiOperation(value = "Add new list")
-    @PostMapping(ITEMS_LIST_BASE_PATH + "/add")
+    @PostMapping(value = ITEMS_LIST_BASE_PATH + "/add", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ItemsListDto> saveItemsList(@Valid @RequestBody ItemsListDto itemsListDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(itemsListDto);
