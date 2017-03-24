@@ -16,7 +16,7 @@ import java.util.List;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2017. Rodionov Alexander
  */
 
 @Slf4j
