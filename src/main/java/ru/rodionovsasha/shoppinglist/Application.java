@@ -24,6 +24,8 @@ import static java.util.Arrays.asList;
 @SpringBootApplication
 @EnableSwagger2
 public class Application {
+    public static final String API_BASE_URL = "/v1/api";
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
@@ -53,7 +55,7 @@ public class Application {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("ru.rodionovsasha.shoppinglist.controllers.rest"))
-                .paths(PathSelectors.ant("/v1/api/**"))
+                .paths(PathSelectors.ant(API_BASE_URL + "/**"))
                 .build();
     }
 }

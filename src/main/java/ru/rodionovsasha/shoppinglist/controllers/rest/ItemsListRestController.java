@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.rodionovsasha.shoppinglist.dto.ItemsListDto;
+import ru.rodionovsasha.shoppinglist.entities.Item;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
@@ -16,6 +17,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static ru.rodionovsasha.shoppinglist.Application.API_BASE_URL;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
 
 /*
@@ -25,7 +27,7 @@ import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEM
 @Slf4j
 @Api(value = "ItemsList", description = "Items List management")
 @RestController
-@RequestMapping("/v1/api")
+@RequestMapping(API_BASE_URL)
 public class ItemsListRestController {
     private final ItemsListService itemsListService;
 
@@ -41,18 +43,46 @@ public class ItemsListRestController {
     }
 
     @ApiOperation(value = "Get list by id")
-    @GetMapping(ITEMS_LIST_BASE_PATH)
-    public ItemsList getItemsList(@RequestParam(value = "id") final long id) {
+    @GetMapping(ITEMS_LIST_BASE_PATH + "/{id}")
+    public ItemsList getItemsList(@PathVariable final long id) {
         return itemsListService.getItemsListById(id);
     }
 
     @ApiOperation(value = "Add new list")
-    @PostMapping(value = ITEMS_LIST_BASE_PATH + "/add", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = ITEMS_LIST_BASE_PATH, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ItemsListDto> saveItemsList(@Valid @RequestBody ItemsListDto itemsListDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(itemsListDto);
         }
         itemsListService.addItemsList(itemsListDto);
         return new ResponseEntity<>(itemsListDto, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Edit list")
+    @PutMapping(value = ITEMS_LIST_BASE_PATH + "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ItemsListDto> editItemsList(@PathVariable final long id, @Valid @RequestBody ItemsListDto itemsListDto, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body(itemsListDto);
+        }
+
+        if (itemsListService.getItemsListById(id) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        itemsListDto.setId(id);
+
+        itemsListService.updateItemsList(itemsListDto);
+        return new ResponseEntity<>(itemsListDto, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Delete list")
+    @DeleteMapping(value = ITEMS_LIST_BASE_PATH + "/{id}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ItemsListDto> deleteItemsList(@PathVariable final long id) {
+        if (itemsListService.getItemsListById(id) == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        itemsListService.deleteItemsList(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
