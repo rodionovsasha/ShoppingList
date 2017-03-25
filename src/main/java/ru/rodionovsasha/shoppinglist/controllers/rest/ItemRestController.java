@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import ru.rodionovsasha.shoppinglist.dto.ItemDto;
 import ru.rodionovsasha.shoppinglist.entities.Item;
@@ -57,15 +55,20 @@ public class ItemRestController {
         return new ResponseEntity<>(ItemDto, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Edit item")
+    @ApiOperation(value = "Update item")
     @PutMapping(value = ITEM_BASE_PATH + "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ItemDto> editItem(@PathVariable final long id, @Valid @RequestBody ItemDto itemDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            log.error("Cannot update item due errors: ");
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                log.error("Field '" + error.getField() + "' : " + error.getDefaultMessage());
+            }
             return ResponseEntity.badRequest().body(itemDto);
         }
 
         Item item = itemService.getItemById(id);
         if (item == null) {
+            log.error("Item with id " + id + " not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -80,6 +83,7 @@ public class ItemRestController {
     @DeleteMapping(value = ITEM_BASE_PATH + "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ItemDto> deleteItem(@PathVariable final long id) {
         if (itemService.getItemById(id) == null) {
+            log.error("Item with id " + id + " not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 

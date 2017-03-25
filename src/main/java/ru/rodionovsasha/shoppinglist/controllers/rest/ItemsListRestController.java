@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import ru.rodionovsasha.shoppinglist.dto.ItemsListDto;
-import ru.rodionovsasha.shoppinglist.entities.Item;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
@@ -52,20 +52,29 @@ public class ItemsListRestController {
     @PostMapping(value = ITEMS_LIST_BASE_PATH, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ItemsListDto> saveItemsList(@Valid @RequestBody ItemsListDto itemsListDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            log.error("Cannot add new list due errors: ");
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                log.error("Field '" + error.getField() + "' : " + error.getDefaultMessage());
+            }
             return ResponseEntity.badRequest().body(itemsListDto);
         }
         itemsListService.addItemsList(itemsListDto);
         return new ResponseEntity<>(itemsListDto, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Edit list")
+    @ApiOperation(value = "Update list")
     @PutMapping(value = ITEMS_LIST_BASE_PATH + "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ItemsListDto> editItemsList(@PathVariable final long id, @Valid @RequestBody ItemsListDto itemsListDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            log.error("Cannot update list due errors: ");
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                log.error("Field '" + error.getField() + "' : " + error.getDefaultMessage());
+            }
             return ResponseEntity.badRequest().body(itemsListDto);
         }
 
         if (itemsListService.getItemsListById(id) == null) {
+            log.error("List with id " + id + " not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -79,6 +88,7 @@ public class ItemsListRestController {
     @DeleteMapping(value = ITEMS_LIST_BASE_PATH + "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ItemsListDto> deleteItemsList(@PathVariable final long id) {
         if (itemsListService.getItemsListById(id) == null) {
+            log.error("List with id " + id + " not found");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
