@@ -25,7 +25,7 @@ import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEM
  */
 
 @Slf4j
-@Api(value = "ItemsList", description = "Items List management")
+@Api(value = "ItemsList", description = "Items Lists management")
 @RestController
 @RequestMapping(API_BASE_URL)
 public class ItemsListRestController {
