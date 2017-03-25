@@ -7,15 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import ru.rodionovsasha.shoppinglist.dto.ItemDto;
 import ru.rodionovsasha.shoppinglist.entities.Item;
-import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemService;
-import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static ru.rodionovsasha.shoppinglist.Application.API_BASE_URL;
@@ -47,6 +47,10 @@ public class ItemRestController {
     @PostMapping(value = ITEM_BASE_PATH, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ItemDto> saveItem(@Valid @RequestBody ItemDto ItemDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
+            log.error("Cannot add new item due errors: ");
+            for (FieldError error : bindingResult.getFieldErrors()) {
+                log.error("Field '" + error.getField() + "' : " + error.getDefaultMessage());
+            }
             return ResponseEntity.badRequest().body(ItemDto);
         }
         itemService.addItem(ItemDto);
