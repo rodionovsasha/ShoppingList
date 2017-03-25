@@ -42,13 +42,13 @@ public class ItemsListRestController {
         return itemsListService.findAllLists();
     }
 
-    @ApiOperation(value = "Get list by id")
+    @ApiOperation(value = "Get list")
     @GetMapping(ITEMS_LIST_BASE_PATH + "/{id}")
     public ItemsList getItemsList(@PathVariable final long id) {
         return itemsListService.getItemsListById(id);
     }
 
-    @ApiOperation(value = "Add new list")
+    @ApiOperation(value = "Add list")
     @PostMapping(value = ITEMS_LIST_BASE_PATH, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ItemsListDto> saveItemsList(@Valid @RequestBody ItemsListDto itemsListDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

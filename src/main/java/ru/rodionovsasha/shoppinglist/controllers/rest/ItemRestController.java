@@ -35,13 +35,13 @@ public class ItemRestController {
         this.itemService = itemService;
     }
 
-    @ApiOperation(value = "Get item by id")
+    @ApiOperation(value = "Get item")
     @GetMapping(ITEM_BASE_PATH + "/{id}")
     public Item getItem(@PathVariable final long id) {
         return itemService.getItemById(id);
     }
 
-    @ApiOperation(value = "Add new item")
+    @ApiOperation(value = "Add item")
     @PostMapping(value = ITEM_BASE_PATH, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ItemDto> saveItem(@Valid @RequestBody ItemDto ItemDto, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
