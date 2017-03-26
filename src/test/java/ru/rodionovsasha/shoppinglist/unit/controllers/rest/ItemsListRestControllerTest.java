@@ -1,4 +1,4 @@
-package ru.rodionovsasha.shoppinglist.unit;
+package ru.rodionovsasha.shoppinglist.unit.controllers.rest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import ru.rodionovsasha.shoppinglist.controllers.ItemsListController;
+import ru.rodionovsasha.shoppinglist.controllers.rest.ItemsListRestController;
 import ru.rodionovsasha.shoppinglist.dto.ItemsListDto;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemsListService;
@@ -15,11 +16,16 @@ import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
+import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static ru.rodionovsasha.shoppinglist.Application.API_BASE_URL;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.*;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
 
@@ -27,10 +33,9 @@ import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEM
  * Copyright (©) 2016. Rodionov Alexander
  */
 
-public class ItemsListControllerTest {
+public class ItemsListRestControllerTest {
     @Mock
     private ItemsListService itemsListService;
-    @Mock
     private ItemsList itemsList;
     private List<ItemsList> itemsLists;
 
@@ -39,11 +44,11 @@ public class ItemsListControllerTest {
     @Before
     public void setUp() {
         initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(new ItemsListController(itemsListService))
-                .setViewResolvers(getViewResolver())
-                .build();
+        mockMvc = MockMvcBuilders.standaloneSetup(new ItemsListRestController(itemsListService)).build();
         Mockito.reset(itemsListService);
-        Mockito.reset(itemsList);
+        itemsList = new ItemsList();
+        itemsList.setId(LIST_ID);
+        itemsList.setName(LIST_NAME);
         itemsLists = new ArrayList<>();
         itemsLists.add(itemsList);
     }
@@ -51,27 +56,33 @@ public class ItemsListControllerTest {
     @Test
     public void shouldGetAllListsTest() throws Exception {
         when(itemsListService.findAllLists()).thenReturn(itemsLists);
-        mockMvc.perform(get("/"))
+        mockMvc.perform(get(API_BASE_URL))
                 .andExpect(status().isOk())
-                .andExpect(view().name("index"))
-                .andExpect(model().attribute("itemsLists", itemsLists));
+                .andExpect(content().contentType(APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.name", is(LIST_NAME)));
         verify(itemsListService, times(1)).findAllLists();
+        verifyNoMoreInteractions(itemsListService);
     }
 
     @Test
     public void getItemsListTest() throws Exception {
         when(itemsListService.getItemsListById(LIST_ID)).thenReturn(itemsList);
-        mockMvc.perform(get(ITEMS_LIST_BASE_PATH)
-                .param("id", LIST_ID_PARAM))
+        mockMvc.perform(get(API_BASE_URL + ITEMS_LIST_BASE_PATH + "/{id}", 1))
                 .andExpect(status().isOk())
-                .andExpect(view().name("itemsList"))
-                .andExpect(model().attribute("itemsList", itemsList));
+                .andExpect(content().contentType(APPLICATION_JSON_UTF8))
+                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.name", is(LIST_NAME)))
+                .andExpect(jsonPath("$.items", nullValue()));
         verify(itemsListService, times(1)).getItemsListById(LIST_ID);
+        verifyNoMoreInteractions(itemsListService);
     }
 
     @Test
     public void shouldAddItemsListFormTest() throws Exception {
-        mockMvc.perform(get(ITEMS_LIST_BASE_PATH + "/add"))
+        mockMvc.perform(get(ITEMS_LIST_BASE_PATH + "/add")) // .accept(APPLICATION_JSON_UTF8)
                 .andExpect(status().isOk())
                 .andExpect(view().name("addItemsList"));
     }
@@ -85,6 +96,7 @@ public class ItemsListControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
         verify(itemsListService, times(1)).addItemsList(any(ItemsListDto.class));
+        verifyNoMoreInteractions(itemsListService);
     }
 
     @Test
@@ -94,6 +106,7 @@ public class ItemsListControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("addItemsList"));
         verify(itemsListService, never()).addItemsList(any(ItemsListDto.class));
+        verifyNoMoreInteractions(itemsListService);
     }
 
     @Test
@@ -105,6 +118,7 @@ public class ItemsListControllerTest {
                 .andExpect(view().name("editItemsList"))
                 .andExpect(model().attribute("itemsListDto", itemsList));
         verify(itemsListService, times(1)).getItemsListById(LIST_ID);
+        verifyNoMoreInteractions(itemsListService);
     }
 
     @Test
@@ -116,6 +130,7 @@ public class ItemsListControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
         verify(itemsListService, times(1)).updateItemsList(any(ItemsListDto.class));
+        verifyNoMoreInteractions(itemsListService);
     }
 
     @Test
@@ -126,6 +141,7 @@ public class ItemsListControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("editItemsList"));
         verify(itemsListService, never()).updateItemsList(any(ItemsListDto.class));
+        verifyNoMoreInteractions(itemsListService);
     }
 
     @Test
@@ -135,5 +151,6 @@ public class ItemsListControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/"));
         verify(itemsListService, times(1)).deleteItemsList(LIST_ID);
+        verifyNoMoreInteractions(itemsListService);
     }
 }

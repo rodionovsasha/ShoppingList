@@ -1,4 +1,4 @@
-package ru.rodionovsasha.shoppinglist.unit;
+package ru.rodionovsasha.shoppinglist.unit.controllers;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -56,6 +56,7 @@ public class ItemControllerTest {
                 .andExpect(view().name("item"))
                 .andExpect(model().attribute("item", item));
         verify(itemService, times(1)).getItemById(ITEM_ID);
+        verifyNoMoreInteractions(itemService);
     }
 
     @Test
@@ -74,6 +75,7 @@ public class ItemControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
         verify(itemService, times(1)).addItem(any(ItemDto.class));
+        verifyNoMoreInteractions(itemService);
     }
 
     @Test
@@ -83,6 +85,7 @@ public class ItemControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("addItem"));
         verify(itemService, never()).addItem(any(ItemDto.class));
+        verifyNoMoreInteractions(itemService);
     }
 
     @Test
@@ -98,6 +101,7 @@ public class ItemControllerTest {
                 .andExpect(model().attribute("itemDto", item))
                 .andExpect(model().attribute("listId", LIST_ID));
         verify(itemService, times(1)).getItemById(ITEM_ID);
+        verifyNoMoreInteractions(itemService);
     }
 
     @Test
@@ -110,6 +114,7 @@ public class ItemControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
         verify(itemService, times(1)).updateItem(any(ItemDto.class));
+        verifyNoMoreInteractions(itemService);
     }
 
     @Test
@@ -122,6 +127,7 @@ public class ItemControllerTest {
                 .andExpect(view().name("editItem"))
                 .andExpect(model().attribute("listId", LIST_ID));
         verify(itemService, never()).updateItem(any(ItemDto.class));
+        verifyNoMoreInteractions(itemService);
     }
 
     @Test
@@ -132,6 +138,7 @@ public class ItemControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
         verify(itemService, times(1)).toggleBoughtStatus(LIST_ID);
+        verifyNoMoreInteractions(itemService);
     }
 
     @Test
@@ -142,5 +149,6 @@ public class ItemControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl(ITEMS_LIST_BASE_PATH + "?id=" + LIST_ID));
         verify(itemService, times(1)).deleteItem(ITEM_ID);
+        verifyNoMoreInteractions(itemService);
     }
 }

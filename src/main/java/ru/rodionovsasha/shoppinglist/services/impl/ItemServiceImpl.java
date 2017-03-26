@@ -55,7 +55,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public void toggleBoughtStatus(long itemId) {
-        Item item = getItemById(itemId);
+        Item item = itemRepository.findOne(itemId);
         item.setBought(!item.isBought());
         itemRepository.saveAndFlush(item);
     }

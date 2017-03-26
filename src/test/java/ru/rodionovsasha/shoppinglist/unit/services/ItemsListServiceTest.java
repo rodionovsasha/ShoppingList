@@ -1,4 +1,4 @@
-package ru.rodionovsasha.shoppinglist.unit;
+package ru.rodionovsasha.shoppinglist.unit.services;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +42,7 @@ public class ItemsListServiceTest {
         when(itemsListRepository.saveAndFlush(any(ItemsList.class))).thenReturn(itemsListDto.toItemsList());
         itemsListService.addItemsList(itemsListDto);
         verify(itemsListRepository, times(1)).saveAndFlush(any(ItemsList.class));
+        verifyNoMoreInteractions(itemsListRepository);
     }
 
     @Test
@@ -55,6 +56,7 @@ public class ItemsListServiceTest {
 
         verify(itemsListRepository, times(1)).saveAndFlush(any(ItemsList.class));
         verify(itemsListRepository, times(2)).findOne(LIST_ID);
+        verifyNoMoreInteractions(itemsListRepository);
         assertEquals("Updated name", itemsList.getName());
     }
 
@@ -62,12 +64,14 @@ public class ItemsListServiceTest {
     public void shouldDeleteItemsListTest() throws Exception {
         itemsListService.deleteItemsList(LIST_ID);
         verify(itemsListRepository, times(1)).delete(LIST_ID);
+        verifyNoMoreInteractions(itemsListRepository);
     }
 
     @Test
     public void shouldGetItemsListByIdTest() throws Exception {
         itemsListService.getItemsListById(LIST_ID);
         verify(itemsListRepository, times(1)).findOne(LIST_ID);
+        verifyNoMoreInteractions(itemsListRepository);
     }
 
     @Test
@@ -76,6 +80,7 @@ public class ItemsListServiceTest {
         when(itemsListRepository.findAll()).thenReturn(itemsLists);
         List<ItemsList> result = itemsListRepository.findAll();
         verify(itemsListRepository, times(1)).findAll();
+        verifyNoMoreInteractions(itemsListRepository);
         assertEquals(1, result.size());
     }
 }

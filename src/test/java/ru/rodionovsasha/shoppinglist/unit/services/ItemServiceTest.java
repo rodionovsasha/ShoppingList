@@ -1,4 +1,4 @@
-package ru.rodionovsasha.shoppinglist.unit;
+package ru.rodionovsasha.shoppinglist.unit.services;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,9 +16,7 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.*;
 
@@ -52,6 +50,8 @@ public class ItemServiceTest {
         itemService.addItem(itemDto);
         verify(itemRepository, times(1)).saveAndFlush(any(Item.class));
         verify(itemsListRepository, times(1)).findOne(LIST_ID);
+        verifyNoMoreInteractions(itemRepository);
+        verifyNoMoreInteractions(itemsListRepository);
     }
 
     @Test
@@ -65,6 +65,7 @@ public class ItemServiceTest {
 
         verify(itemRepository, times(1)).saveAndFlush(any(Item.class));
         verify(itemRepository, times(2)).findOne(ITEM_ID);
+        verifyNoMoreInteractions(itemRepository);
         assertEquals("Updated name", item.getName());
     }
 
@@ -72,12 +73,14 @@ public class ItemServiceTest {
     public void shouldDeleteItemTest() throws Exception {
         itemService.deleteItem(ITEM_ID);
         verify(itemRepository, times(1)).delete(ITEM_ID);
+        verifyNoMoreInteractions(itemRepository);
     }
 
     @Test
     public void shouldGetItemByIdTest() throws Exception {
         itemService.getItemById(ITEM_ID);
         verify(itemRepository, times(1)).findOne(ITEM_ID);
+        verifyNoMoreInteractions(itemRepository);
     }
 
     @Test
@@ -88,7 +91,9 @@ public class ItemServiceTest {
 
         itemService.toggleBoughtStatus(ITEM_ID);
 
+        verify(itemRepository, times(2)).findOne(ITEM_ID);
         verify(itemRepository, times(1)).saveAndFlush(any(Item.class));
+        verifyNoMoreInteractions(itemRepository);
         assertTrue(item.isBought());
     }
 }
