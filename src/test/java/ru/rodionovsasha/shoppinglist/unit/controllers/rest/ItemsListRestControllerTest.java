@@ -17,13 +17,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.emptyArray;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.isEmptyOrNullString;
 import static org.hamcrest.core.IsNull.nullValue;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static ru.rodionovsasha.shoppinglist.Application.API_BASE_URL;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.*;
@@ -72,10 +75,10 @@ public class ItemsListRestControllerTest {
         mockMvc.perform(get(API_BASE_URL + ITEMS_LIST_BASE_PATH + "/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON_UTF8))
-                .andExpect(jsonPath("$", hasSize(1)))
+                .andExpect(jsonPath("$.*", hasSize(3)))
                 .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.name", is(LIST_NAME)))
-                .andExpect(jsonPath("$.items", nullValue()));
+                .andExpect(jsonPath("$.items.*", hasSize(0)));
         verify(itemsListService, times(1)).getItemsListById(LIST_ID);
         verifyNoMoreInteractions(itemsListService);
     }
