@@ -33,40 +33,38 @@ public class ItemsListRestController {
         this.itemsListService = itemsListService;
     }
 
-    @ApiOperation(value = "Get all lists")
+    @ApiOperation("Get all lists")
     @GetMapping
     public List<ItemsList> getAllLists() {
         return itemsListService.findAllLists();
     }
 
-    @ApiOperation(value = "Get list")
+    @ApiOperation("Get list")
     @GetMapping(ITEMS_LIST_BASE_PATH + "/{id}")
     public ItemsList getItemsList(@PathVariable final long id) {
         return itemsListService.getItemsListById(id);
     }
 
-    @ApiOperation(value = "Add list")
+    @ApiOperation("Add list")
     @PostMapping(value = ITEMS_LIST_BASE_PATH, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ItemsListDto> saveItemsList(@Valid @RequestBody ItemsListDto itemsListDto) {
+    public ItemsListDto saveItemsList(@Valid @RequestBody ItemsListDto itemsListDto) {
         itemsListService.addItemsList(itemsListDto);
-        return ResponseEntity.ok(itemsListDto);
+        return itemsListDto;
     }
 
-    @ApiOperation(value = "Update list")
-    @PutMapping(value = ITEMS_LIST_BASE_PATH + "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> editItemsList(@PathVariable final long id, @Valid @RequestBody ItemsListDto itemsListDto) {
-        if (itemsListService.getItemsListById(id) == null) {
-            log.error("List with id '" + id + "' not found");
+    @ApiOperation("Update list")
+    @PutMapping(value = ITEMS_LIST_BASE_PATH, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> editItemsList(@Valid @RequestBody ItemsListDto itemsListDto) {
+        if (itemsListService.getItemsListById(itemsListDto.getId()) == null) {
+            log.error("List with id '" + itemsListDto.getId() + "' not found");
             return ResponseEntity.notFound().build();
         }
-        itemsListDto.setId(id);
-
         itemsListService.updateItemsList(itemsListDto);
         return ResponseEntity.ok(itemsListDto);
     }
 
-    @ApiOperation(value = "Delete list")
-    @DeleteMapping(value = ITEMS_LIST_BASE_PATH + "/{id}")
+    @ApiOperation("Delete list")
+    @DeleteMapping(ITEMS_LIST_BASE_PATH + "/{id}")
     public ResponseEntity<?> deleteItemsList(@PathVariable final long id) {
         if (itemsListService.getItemsListById(id) == null) {
             log.error("List with id '" + id + "' not found");

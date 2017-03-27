@@ -32,37 +32,32 @@ public class ItemRestController {
         this.itemService = itemService;
     }
 
-    @ApiOperation(value = "Get item")
+    @ApiOperation("Get item")
     @GetMapping(ITEM_BASE_PATH + "/{id}")
     public Item getItem(@PathVariable final long id) {
         return itemService.getItemById(id);
     }
 
-    @ApiOperation(value = "Add item")
+    @ApiOperation("Add item")
     @PostMapping(value = ITEM_BASE_PATH, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ItemDto> saveItem(@Valid @RequestBody ItemDto itemDto) {
+    public ItemDto saveItem(@Valid @RequestBody ItemDto itemDto) {
         itemService.addItem(itemDto);
-        return ResponseEntity.ok(itemDto);
+        return itemDto;
     }
 
-    @ApiOperation(value = "Update item")
-    @PutMapping(value = ITEM_BASE_PATH + "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> editItem(@PathVariable final long id, @Valid @RequestBody ItemDto itemDto) {
-        Item item = itemService.getItemById(id);
-        if (item == null) {
-            log.error("Item with id '" + id + "' not found");
+    @ApiOperation("Update item")
+    @PutMapping(value = ITEM_BASE_PATH, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> editItem(@Valid @RequestBody ItemDto itemDto) {
+        if (itemService.getItemById(itemDto.getId()) == null) {
+            log.error("Item with id '" + itemDto.getId() + "' not found");
             return ResponseEntity.notFound().build();
         }
-
-        itemDto.setId(id);
-        itemDto.setListId(item.getItemsList().getId());
-
         itemService.updateItem(itemDto);
         return ResponseEntity.ok(itemDto);
     }
 
-    @ApiOperation(value = "Delete item")
-    @DeleteMapping(value = ITEM_BASE_PATH + "/{id}")
+    @ApiOperation("Delete item")
+    @DeleteMapping(ITEM_BASE_PATH + "/{id}")
     public ResponseEntity<?> deleteItem(@PathVariable final long id) {
         if (itemService.getItemById(id) == null) {
             log.error("Item with id " + id + " not found");
