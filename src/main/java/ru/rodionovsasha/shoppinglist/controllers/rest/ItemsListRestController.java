@@ -66,7 +66,7 @@ public class ItemsListRestController {
     }
 
     @ApiOperation(value = "Delete list")
-    @DeleteMapping(value = ITEMS_LIST_BASE_PATH + "/{id}", produces = APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = ITEMS_LIST_BASE_PATH + "/{id}")
     public ResponseEntity<?> deleteItemsList(@PathVariable final long id) {
         if (itemsListService.getItemsListById(id) == null) {
             log.error("List with id '" + id + "' not found");

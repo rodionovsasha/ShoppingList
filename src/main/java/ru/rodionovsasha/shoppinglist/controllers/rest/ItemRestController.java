@@ -62,7 +62,7 @@ public class ItemRestController {
     }
 
     @ApiOperation(value = "Delete item")
-    @DeleteMapping(value = ITEM_BASE_PATH + "/{id}", produces = APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = ITEM_BASE_PATH + "/{id}")
     public ResponseEntity<?> deleteItem(@PathVariable final long id) {
         if (itemService.getItemById(id) == null) {
             log.error("Item with id " + id + " not found");
