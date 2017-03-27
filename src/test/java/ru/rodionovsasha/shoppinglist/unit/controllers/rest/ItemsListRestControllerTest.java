@@ -29,7 +29,7 @@ import static ru.rodionovsasha.shoppinglist.TestUtils.asJsonString;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2017. Rodionov Alexander
  */
 
 public class ItemsListRestControllerTest {
@@ -72,7 +72,7 @@ public class ItemsListRestControllerTest {
     @Test
     public void getItemsListTest() throws Exception {
         when(itemsListService.getItemsListById(LIST_ID)).thenReturn(itemsList);
-        mockMvc.perform(get(API_BASE_URL + ITEMS_LIST_BASE_PATH + "/{id}", 1))
+        mockMvc.perform(get(API_BASE_URL + ITEMS_LIST_BASE_PATH + "/{id}", LIST_ID))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.*", hasSize(3)))
