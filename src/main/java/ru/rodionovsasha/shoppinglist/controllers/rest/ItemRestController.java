@@ -4,10 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import ru.rodionovsasha.shoppinglist.dto.ItemDto;
 import ru.rodionovsasha.shoppinglist.entities.Item;
@@ -43,51 +40,36 @@ public class ItemRestController {
 
     @ApiOperation(value = "Add item")
     @PostMapping(value = ITEM_BASE_PATH, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ItemDto> saveItem(@Valid @RequestBody ItemDto ItemDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            log.error("Cannot add new item due errors: ");
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                log.error("Field '" + error.getField() + "' : " + error.getDefaultMessage());
-            }
-            return ResponseEntity.badRequest().body(ItemDto);
-        }
-        itemService.addItem(ItemDto);
-        return new ResponseEntity<>(ItemDto, HttpStatus.OK);
+    public ResponseEntity<ItemDto> saveItem(@Valid @RequestBody ItemDto itemDto) {
+        itemService.addItem(itemDto);
+        return ResponseEntity.ok(itemDto);
     }
 
     @ApiOperation(value = "Update item")
     @PutMapping(value = ITEM_BASE_PATH + "/{id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ItemDto> editItem(@PathVariable final long id, @Valid @RequestBody ItemDto itemDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            log.error("Cannot update item due errors: ");
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                log.error("Field '" + error.getField() + "' : " + error.getDefaultMessage());
-            }
-            return ResponseEntity.badRequest().body(itemDto);
-        }
-
+    public ResponseEntity<?> editItem(@PathVariable final long id, @Valid @RequestBody ItemDto itemDto) {
         Item item = itemService.getItemById(id);
         if (item == null) {
-            log.error("Item with id " + id + " not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            log.error("Item with id '" + id + "' not found");
+            return ResponseEntity.notFound().build();
         }
 
         itemDto.setId(id);
         itemDto.setListId(item.getItemsList().getId());
 
         itemService.updateItem(itemDto);
-        return new ResponseEntity<>(itemDto, HttpStatus.OK);
+        return ResponseEntity.ok(itemDto);
     }
 
     @ApiOperation(value = "Delete item")
     @DeleteMapping(value = ITEM_BASE_PATH + "/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ItemDto> deleteItem(@PathVariable final long id) {
+    public ResponseEntity<?> deleteItem(@PathVariable final long id) {
         if (itemService.getItemById(id) == null) {
             log.error("Item with id " + id + " not found");
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
 
         itemService.deleteItem(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.ok().build();
     }
 }
