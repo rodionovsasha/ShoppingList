@@ -9,6 +9,7 @@ import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
@@ -18,26 +19,31 @@ import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printColoredOutput;
 
+/*
+ * Copyright (©) 2017. Rodionov Alexander
+ */
+
 @Component
 @Slf4j
-public class RequestUtils {
-    private static final String TEST_HOST = "http://localhost:8001";
+public class HttpClientRequestUtils {
+    @Value("${api.test.url}")
+    private String apiTestUrl;
 
     @Autowired
     private HttpClientProvider httpClientProvider;
 
     public JSONObject readJsonObjectFromUrl(String url) {
-        printColoredOutput("Read JSON object from url: " +  url);
-        return new JSONObject(executeGet( TEST_HOST + url));
+        printColoredOutput("Read JSON object from url: " + apiTestUrl + url);
+        return new JSONObject(executeGet( apiTestUrl + url));
     }
 
     public JSONArray readJsonArrayFromUrl(String url) {
-        printColoredOutput("Read JSON array from url: " + url);
-        return new JSONArray(executeGet(TEST_HOST + url));
+        printColoredOutput("Read JSON array from url: " + apiTestUrl + url);
+        return new JSONArray(executeGet(apiTestUrl + url));
     }
 
     public JSONObject executePost(String url, String json) {
-        HttpPost httpPost = new HttpPost(TEST_HOST + url);
+        HttpPost httpPost = new HttpPost(apiTestUrl + url);
         StringEntity entity;
         try {
             entity = new StringEntity(json);
@@ -49,12 +55,12 @@ public class RequestUtils {
         httpPost.setHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE);
         httpPost.setEntity(entity);
 
-        printColoredOutput("Post json to url: " + url);
+        printColoredOutput("Post json to url: " + apiTestUrl + url);
         return new JSONObject(httpClientProvider.executeRequest(httpPost));
     }
 
     public JSONObject executePut(String url, String json) {
-        HttpPut httpPut = new HttpPut(TEST_HOST + url);
+        HttpPut httpPut = new HttpPut(apiTestUrl + url);
         StringEntity entity;
         try {
             entity = new StringEntity(json);
@@ -66,12 +72,12 @@ public class RequestUtils {
         httpPut.setHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE);
         httpPut.setEntity(entity);
 
-        printColoredOutput("Put json to url: " + url);
+        printColoredOutput("Put json to url: " + apiTestUrl + url);
         return new JSONObject(httpClientProvider.executeRequest(httpPut));
     }
 
     public Integer executeDelete(String url) {
-        return httpClientProvider.executeRequestAndGetStatusCode(new HttpDelete(TEST_HOST + url));
+        return httpClientProvider.executeRequestAndGetStatusCode(new HttpDelete(apiTestUrl + url));
     }
 
     private String executeGet(String url) {

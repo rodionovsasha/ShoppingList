@@ -8,7 +8,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.rodionovsasha.shoppinglist.api.BaseApiCucumberTest;
-import ru.rodionovsasha.shoppinglist.api.utils.RequestUtils;
+import ru.rodionovsasha.shoppinglist.api.utils.HttpClientRequestUtils;
 import ru.rodionovsasha.shoppinglist.context.SharedContext;
 
 import static org.junit.Assert.assertEquals;
@@ -18,22 +18,24 @@ import static org.junit.Assert.assertEquals;
  */
 
 @Slf4j
-public class RestApiSteps extends BaseApiCucumberTest implements En {
+public class ItemsListRestApiSteps extends BaseApiCucumberTest implements En {
     @Autowired
     private SharedContext sharedContext;
     @Autowired
-    private RequestUtils requestUtils;
+    private HttpClientRequestUtils httpClientRequestUtils;
 
-    public RestApiSteps() {
-        Given("^I read json array from url: (.*?)$", (String url) -> sharedContext.jsonArray = requestUtils.readJsonArrayFromUrl(url));
+    public ItemsListRestApiSteps() {
+        Given("^I read json array from url: (.*?)$", (String url) -> sharedContext.jsonArray = httpClientRequestUtils.readJsonArrayFromUrl(url));
 
-        Given("^I read json object from url: (.*?)$", (String url) -> sharedContext.jsonObject = requestUtils.readJsonObjectFromUrl(url));
+        Given("^I read json object from url: (.*?)$", (String url) -> sharedContext.jsonObject = httpClientRequestUtils.readJsonObjectFromUrl(url));
 
-        Given("^I send a DELETE request to (.*?)$", (String url) -> sharedContext.responseCode = requestUtils.executeDelete(url));
+        Given("^I send a DELETE request to (.*?)$", (String url) -> sharedContext.responseCode = httpClientRequestUtils.executeDelete(url));
 
-        When("^I send a POST request to (.*?) with the following:$", (String url, String json) -> sharedContext.jsonObject = requestUtils.executePost(url, json));
+        When("^I send a POST request to (.*?) with the following:$", (String url, String json) -> sharedContext.jsonObject = httpClientRequestUtils
+                .executePost(url, json));
 
-        When("^I send a PUT request to (.*?) with the following:$", (String url, String json) -> sharedContext.jsonObject = requestUtils.executePut(url, json));
+        When("^I send a PUT request to (.*?) with the following:$", (String url, String json) -> sharedContext.jsonObject = httpClientRequestUtils
+                .executePut(url, json));
 
         Then("^Response should contains JSON array:$", (String expectedJsonString) -> {
             JSONArray expectedJson = new JSONArray(expectedJsonString);
