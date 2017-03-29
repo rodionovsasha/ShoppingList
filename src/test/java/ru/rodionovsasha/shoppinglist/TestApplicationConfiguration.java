@@ -21,7 +21,7 @@ import java.util.Collections;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-@TestPropertySource(locations = "classpath:/test.properties")
+@TestPropertySource(locations = "classpath:test.properties")
 public class TestApplicationConfiguration {
     public static final String LIST_NAME = "Shopping list name";
     public static final String ITEM_NAME = "Item1";
@@ -46,5 +46,9 @@ public class TestApplicationConfiguration {
         viewResolver.setPrefix("/WEB-INF/templates/");
         viewResolver.setSuffix(".html");
         return viewResolver;
+    }
+
+    public static void printColoredOutput(String message) {
+        System.out.println("\033[35m" + message + "\033[0m");
     }
 }

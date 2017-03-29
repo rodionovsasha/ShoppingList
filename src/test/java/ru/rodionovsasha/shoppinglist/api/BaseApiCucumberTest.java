@@ -1,10 +1,9 @@
-package ru.rodionovsasha.shoppinglist.ui;
+package ru.rodionovsasha.shoppinglist.api;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.SnippetType;
 import cucumber.api.junit.Cucumber;
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -14,11 +13,8 @@ import ru.rodionovsasha.shoppinglist.TestApplicationConfiguration;
 
 import java.io.File;
 
-import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printColoredOutput;
-import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.buildWebDriver;
-import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.closeWebDriver;
 
 /*
  * Copyright (©) 2016. Rodionov Alexander
@@ -26,9 +22,9 @@ import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.closeWebD
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = {"src/test/resources/features/ui"},
-        glue = {"ru.rodionovsasha.shoppinglist.ui.steps"},
-        plugin = {"pretty", "html:target/cucumber", "json:target/cucumber.json"},
+        features = {"src/test/resources/features/api"},
+        glue = {"ru.rodionovsasha.shoppinglist.api.steps"},
+        plugin = {"pretty", "html:target/cucumber-api", "json:target/cucumber-api.json"},
         strict = true,
         snippets = SnippetType.CAMELCASE,
         tags = {"~@ignore"})
@@ -36,15 +32,9 @@ import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.closeWebD
 @SpringBootTest(webEnvironment= DEFINED_PORT)
 @TestPropertySource(locations = "classpath:test.properties")
 @Transactional
-public class BaseCucumberTest {
-    @BeforeClass
-    public static void setUp() {
-        setWebDriver(buildWebDriver());
-    }
-
+public class BaseApiCucumberTest {
     @AfterClass
     public static void tearDown() {
-        closeWebDriver();
-        printColoredOutput("Report location: " + new File("target/cucumber").getAbsolutePath() + "/index.html");
+        printColoredOutput("Report location: " + new File("target/cucumber-api").getAbsolutePath() + "/index.html");
     }
 }

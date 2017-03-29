@@ -10,6 +10,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printColoredOutput;
+
 /*
  * Copyright (©) 2016. Rodionov Alexander
  */
@@ -21,8 +23,8 @@ public class WebDriverProvider {
     static WebDriver webDriver;
 
     public static WebDriver buildWebDriver() {
-        System.out.println("\033[35mBuild web driver\033[0m");
-        System.out.println("\033[35mOperating system: " + OPERATING_SYSTEM + "\033[0m");
+        printColoredOutput("Building web driver...");
+        printColoredOutput("Operating system: " + OPERATING_SYSTEM);
         Configuration.timeout = 8000;
         Configuration.reportsFolder = "target/reports";
         webDriver = new PhantomJSDriver(getCapabilities());
@@ -35,7 +37,7 @@ public class WebDriverProvider {
 
     public static void closeWebDriver() {
         if (webDriver != null) {
-            System.out.println("\033[36mClose web driver\033[0m");
+            printColoredOutput("Closing web driver...");
             webDriver.quit();
         }
     }

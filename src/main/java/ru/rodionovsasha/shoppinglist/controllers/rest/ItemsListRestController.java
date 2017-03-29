@@ -1,9 +1,9 @@
 package ru.rodionovsasha.shoppinglist.controllers.rest;
 
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.rodionovsasha.shoppinglist.dto.ItemsListDto;
@@ -22,7 +22,6 @@ import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEM
  */
 
 @Slf4j
-@Api(value = "ItemsList", description = "Items Lists management")
 @RestController
 @RequestMapping(API_BASE_URL)
 public class ItemsListRestController {
@@ -34,27 +33,27 @@ public class ItemsListRestController {
     }
 
     @ApiOperation("Get all lists")
-    @GetMapping
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
     public List<ItemsList> getAllLists() {
         return itemsListService.findAllLists();
     }
 
     @ApiOperation("Get list")
-    @GetMapping(ITEMS_LIST_BASE_PATH + "/{id}")
+    @GetMapping(value = ITEMS_LIST_BASE_PATH + "/{id}", produces = APPLICATION_JSON_VALUE)
     public ItemsList getItemsList(@PathVariable final long id) {
         return itemsListService.getItemsListById(id);
     }
 
     @ApiOperation("Add list")
     @PostMapping(value = ITEMS_LIST_BASE_PATH, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ItemsListDto saveItemsList(@Valid @RequestBody ItemsListDto itemsListDto) {
+    public ResponseEntity<ItemsListDto> saveItemsList(@Valid @RequestBody ItemsListDto itemsListDto) {
         itemsListService.addItemsList(itemsListDto);
-        return itemsListDto;
+        return new ResponseEntity<>(itemsListDto, HttpStatus.CREATED);
     }
 
     @ApiOperation("Update list")
     @PutMapping(value = ITEMS_LIST_BASE_PATH, consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> editItemsList(@Valid @RequestBody ItemsListDto itemsListDto) {
+    public ResponseEntity editItemsList(@Valid @RequestBody ItemsListDto itemsListDto) {
         if (itemsListService.getItemsListById(itemsListDto.getId()) == null) {
             log.error("List with id '" + itemsListDto.getId() + "' not found");
             return ResponseEntity.notFound().build();
@@ -65,13 +64,13 @@ public class ItemsListRestController {
 
     @ApiOperation("Delete list")
     @DeleteMapping(ITEMS_LIST_BASE_PATH + "/{id}")
-    public ResponseEntity<?> deleteItemsList(@PathVariable final long id) {
+    public ResponseEntity deleteItemsList(@PathVariable final long id) {
         if (itemsListService.getItemsListById(id) == null) {
             log.error("List with id '" + id + "' not found");
             return ResponseEntity.notFound().build();
         }
 
         itemsListService.deleteItemsList(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

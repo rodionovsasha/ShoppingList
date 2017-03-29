@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static ru.rodionovsasha.shoppinglist.Application.API_BASE_URL;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.*;
-import static ru.rodionovsasha.shoppinglist.TestUtils.asJsonString;
+import static ru.rodionovsasha.shoppinglist.unit.TestUtils.asJsonString;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemController.ITEM_BASE_PATH;
 
 /*
@@ -77,7 +77,7 @@ public class ItemRestControllerTest {
         mockMvc.perform(post(API_BASE_URL + ITEM_BASE_PATH)
                 .contentType(APPLICATION_JSON_UTF8)
                 .content(asJsonString(item)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(content().contentType(APPLICATION_JSON_UTF8))
                 .andExpect(jsonPath("$.*", hasSize(4)))
                 .andExpect(jsonPath("$.id", is(1)))
@@ -152,7 +152,7 @@ public class ItemRestControllerTest {
     public void shouldDeleteItemTest() throws Exception {
         when(itemService.getItemById(ITEM_ID)).thenReturn(item);
         mockMvc.perform(delete(API_BASE_URL + ITEM_BASE_PATH + "/{id}", ITEM_ID))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
         verify(itemService, times(1)).getItemById(ITEM_ID);
         verify(itemService, times(1)).deleteItem(ITEM_ID);
         verifyNoMoreInteractions(itemService);

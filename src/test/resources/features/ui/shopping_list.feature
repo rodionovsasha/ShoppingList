@@ -15,8 +15,8 @@ Feature: One list page
     When I open page with url: /
     And I click on the link with href=/itemsList/add
     Then I should see header with text=Add new shopping list
-    When I try to add new list with name=SomeList
-    Then I should see header with text=SomeList
+    When I try to add new list with name=Shopping list
+    Then I should see header with text=Shopping list
 
   Scenario: I should not create new list when name is empty
     When I open page with url: /

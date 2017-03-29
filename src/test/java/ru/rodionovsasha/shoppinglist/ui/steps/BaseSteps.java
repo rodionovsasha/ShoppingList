@@ -1,9 +1,8 @@
 package ru.rodionovsasha.shoppinglist.ui.steps;
 
 import cucumber.api.java8.En;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ru.rodionovsasha.shoppinglist.ui.BaseCucumberTest;
 import ru.rodionovsasha.shoppinglist.ui.utils.TestUtils;
 
@@ -20,9 +19,8 @@ import static ru.rodionovsasha.shoppinglist.ui.utils.TestUtils.getTitle;
  * Copyright (©) 2016. Rodionov Alexander
  */
 
+@Slf4j
 public class BaseSteps extends BaseCucumberTest implements En {
-    private static final Logger LOGGER = LoggerFactory.getLogger(BaseSteps.class);
-
     public BaseSteps() {
         When("^I open page with url: (.*?)$", TestUtils::openUrl);
 
@@ -42,7 +40,7 @@ public class BaseSteps extends BaseCucumberTest implements En {
             try {
                 $(By.xpath("//a[contains(., '" + text + "') and contains(@href, '" + URLDecoder.decode(href, "UTF-8") + "')]")).should(exist);
             } catch (UnsupportedEncodingException e) {
-                LOGGER.warn("UnsupportedEncodingException:", e);
+                log.warn("UnsupportedEncodingException:", e);
             }
         });
 
@@ -64,7 +62,7 @@ public class BaseSteps extends BaseCucumberTest implements En {
             try {
                 $(By.xpath("//a[contains(@href, '" + URLDecoder.decode(href, "UTF-8") + "')]")).shouldNot(exist);
             } catch (UnsupportedEncodingException e) {
-                LOGGER.warn("UnsupportedEncodingException:", e);
+                log.warn("UnsupportedEncodingException:", e);
             }
         });
     }
