@@ -12,6 +12,7 @@ import ru.rodionovsasha.shoppinglist.api.utils.HttpClientRequestUtils;
 import ru.rodionovsasha.shoppinglist.context.SharedContext;
 
 import static org.junit.Assert.assertEquals;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printColoredOutput;
 
 /*
  * Copyright (©) 2017. Rodionov Alexander
@@ -38,13 +39,15 @@ public class ItemsListRestApiSteps extends BaseApiCucumberTest implements En {
                 .executePut(url, json));
 
         Then("^Response should contain JSON array:$", (String expectedJsonString) -> {
-            JSONArray expectedJson = new JSONArray(expectedJsonString);
-            JSONAssert.assertEquals(expectedJson, sharedContext.jsonArray, JSONCompareMode.LENIENT);
+            JSONArray jsonResponse = sharedContext.jsonArray;
+            printColoredOutput("JSON response array: " + jsonResponse);
+            JSONAssert.assertEquals(new JSONArray(expectedJsonString), jsonResponse, JSONCompareMode.LENIENT);
         });
 
         Then("^Response should contain JSON object:$", (String expectedJsonString) -> {
-            JSONObject expectedJson = new JSONObject(expectedJsonString);
-            JSONAssert.assertEquals(expectedJson, sharedContext.jsonObject, JSONCompareMode.LENIENT);
+            JSONObject jsonResponse = sharedContext.jsonObject;
+            printColoredOutput("JSON response object: " + jsonResponse);
+            JSONAssert.assertEquals(new JSONObject(expectedJsonString), jsonResponse, JSONCompareMode.LENIENT);
         });
 
         Then("^Response code should be (\\d+)$", (Integer responseCode) -> assertEquals(responseCode, sharedContext.responseCode));

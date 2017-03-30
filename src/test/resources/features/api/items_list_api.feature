@@ -32,6 +32,10 @@ Feature: Items list API
     {"name":""}
     """
     Then Response code should be 400
+    And Response should contain JSON object:
+    """
+    {"fieldErrors":[{"field":"name","message":"may not be empty"}]}
+    """
 
   Scenario: I should update list
     When I read json object from url: /v1/api/itemsList/1
@@ -54,6 +58,10 @@ Feature: Items list API
     {"id":1,"name":""}
     """
     And Response code should be 400
+    And Response should contain JSON object:
+    """
+    {"fieldErrors":[{"field":"name","message":"may not be empty"}]}
+    """
 
   Scenario: I should delete list
     When I read json object from url: /v1/api/itemsList/1

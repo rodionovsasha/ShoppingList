@@ -28,11 +28,5 @@ public class ItemRestApiSteps extends BaseApiCucumberTest implements En {
 
         Then("^Response should contain name = (.*?)$", (String name) -> assertEquals(name, sharedContext.itemDto.getName()));
 
-        /*
-    @When("^I open page with doi: (.[^\\s]*?) and endpoint: (.[^\\s]*?)$")
-    public void openPageByDoiAndEndpoint(String doi, String endpoint) {
-        testUtils.openUrl("/doi/" + doi + endpoint);
-    }
-        * */
     }
 }
