@@ -5,6 +5,8 @@ package ru.rodionovsasha.shoppinglist;
  */
 
 public class Utils {
+    private Utils() {}
+
     public static String redirectToUrl(String url) {
         return "redirect:" + url;
     }

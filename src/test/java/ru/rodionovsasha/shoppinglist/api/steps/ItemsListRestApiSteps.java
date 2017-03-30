@@ -37,17 +37,12 @@ public class ItemsListRestApiSteps extends BaseApiCucumberTest implements En {
         When("^I send a PUT request to (.*?) with the following:$", (String url, String json) -> sharedContext.jsonObject = httpClientRequestUtils
                 .executePut(url, json));
 
-        Then("^Response should contains JSON array:$", (String expectedJsonString) -> {
+        Then("^Response should contain JSON array:$", (String expectedJsonString) -> {
             JSONArray expectedJson = new JSONArray(expectedJsonString);
             JSONAssert.assertEquals(expectedJson, sharedContext.jsonArray, JSONCompareMode.LENIENT);
         });
 
-        Then("^Response should contains JSON object:$", (String expectedJsonString) -> {
-            JSONObject expectedJson = new JSONObject(expectedJsonString);
-            JSONAssert.assertEquals(expectedJson, sharedContext.jsonObject, JSONCompareMode.LENIENT);
-        });
-
-        Then("^Response should contain (.*?)", (String expectedJsonString) -> {
+        Then("^Response should contain JSON object:$", (String expectedJsonString) -> {
             JSONObject expectedJson = new JSONObject(expectedJsonString);
             JSONAssert.assertEquals(expectedJson, sharedContext.jsonObject, JSONCompareMode.LENIENT);
         });

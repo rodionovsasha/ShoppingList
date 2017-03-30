@@ -29,9 +29,8 @@ public class ItemsListServiceTest {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        itemsListDto = new ItemsListDto();
-        itemsListDto.setId(ITEM_ID);
-        itemsListDto.setName(LIST_NAME);
+        itemsListDto = new ItemsListDto(LIST_NAME);
+        itemsListDto.setId(LIST_ID);
 
         itemsListService = new ItemsListServiceImpl(itemsListRepository);
         Mockito.reset(itemsListRepository);

@@ -25,6 +25,7 @@ public class Item {
     private ItemsList itemsList;
 
     public Item() {
+        //JPA
     }
 
     public Item(String name, ItemsList itemsList) {

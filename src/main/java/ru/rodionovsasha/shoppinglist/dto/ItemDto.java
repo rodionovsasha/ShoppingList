@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 @Getter @Setter
 public class ItemDto implements Serializable {
-    private long id;
+    private Long id;
     private long listId;
     @NotEmpty
     private String name;

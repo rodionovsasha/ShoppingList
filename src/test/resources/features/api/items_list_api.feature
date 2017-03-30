@@ -1,7 +1,7 @@
 Feature: Items list API
   Scenario: I should see all lists
     When I read json array from url: /v1/api
-    Then Response should contains JSON array:
+    Then Response should contain JSON array:
     """
     [{"name":"Edited name","id":1,"items":[{"itemsList":1,"bought":false,"name":"Item1","comment":null,"id":1}]},{"name":"Shopping list","id":2,"items":[]}]
     """
@@ -9,7 +9,7 @@ Feature: Items list API
 
   Scenario: I should see one list
     When I read json object from url: /v1/api/itemsList/1
-    Then Response should contains JSON object:
+    Then Response should contain JSON object:
     """
     {"name":"Edited name","id":1,"items":[{"itemsList":1,"bought":false,"name":"Item1","comment":null,"id":1}]}
     """
@@ -21,7 +21,7 @@ Feature: Items list API
     {"name":"List 1"}
     """
     Then Response code should be 201
-    And Response should contains JSON object:
+    And Response should contain JSON object:
     """
     {"name":"List 1","id":0}
     """
@@ -40,7 +40,7 @@ Feature: Items list API
     """
     {"id":1,"name":"updated list"}
     """
-    Then Response should contains JSON object:
+    Then Response should contain JSON object:
     """
     {"id":1,"name":"updated list"}
     """
