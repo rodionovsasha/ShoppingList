@@ -16,6 +16,7 @@ import ru.rodionovsasha.shoppinglist.dto.ItemsListDto;
 import ru.rodionovsasha.shoppinglist.services.ItemService;
 import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
+import java.io.File;
 import java.util.Collections;
 
 @Configuration
@@ -50,5 +51,13 @@ public class TestApplicationConfiguration {
 
     public static void printColoredOutput(String message) {
         System.out.println("\033[35m" + message + "\033[0m");
+    }
+
+    public static void printCucumberTestsResultLocation() {
+        printColoredOutput("Cucumber test results report: " + new File("target/cucumber-reports").getAbsolutePath() + "/cucumber-html-reports/overview-features.html");
+    }
+
+    public static void printTestsResultLocation(String path) {
+        printColoredOutput("Tests result location: " + new File(path).getAbsolutePath() + "/index.html");
     }
 }

@@ -11,10 +11,9 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rodionovsasha.shoppinglist.TestApplicationConfiguration;
 
-import java.io.File;
-
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
-import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printColoredOutput;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printCucumberTestsResultLocation;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printTestsResultLocation;
 
 /*
  * Copyright (©) 2016. Rodionov Alexander
@@ -35,6 +34,7 @@ import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printCo
 public class BaseApiCucumberTest {
     @AfterClass
     public static void tearDown() {
-        printColoredOutput("Report location: " + new File("target/cucumber-api").getAbsolutePath() + "/index.html");
+        printCucumberTestsResultLocation();
+        printTestsResultLocation("target/cucumber-api");
     }
 }

@@ -26,3 +26,8 @@ Remote database connections can also be configured in application.properties.
 <pre>
 http://localhost:8000/swagger-ui.html
 </pre>
+
+#### Cucumber test results location
+<pre>
+.../target/cucumber-reports/cucumber-html-reports/overview-features.html
+</pre>

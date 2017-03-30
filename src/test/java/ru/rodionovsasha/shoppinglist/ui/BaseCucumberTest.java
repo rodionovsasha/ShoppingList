@@ -12,11 +12,10 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rodionovsasha.shoppinglist.TestApplicationConfiguration;
 
-import java.io.File;
-
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
-import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printColoredOutput;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printCucumberTestsResultLocation;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printTestsResultLocation;
 import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.buildWebDriver;
 import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.closeWebDriver;
 
@@ -45,6 +44,7 @@ public class BaseCucumberTest {
     @AfterClass
     public static void tearDown() {
         closeWebDriver();
-        printColoredOutput("Report location: " + new File("target/cucumber").getAbsolutePath() + "/index.html");
+        printCucumberTestsResultLocation();
+        printTestsResultLocation("target/cucumber");
     }
 }
