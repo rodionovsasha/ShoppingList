@@ -51,7 +51,7 @@ public class Application {
     }
 
     @Bean
-    protected Docket swaggerApi() {
+    protected Docket swaggerApiV1() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("ru.rodionovsasha.shoppinglist.controllers.rest"))

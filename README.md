@@ -22,12 +22,18 @@ Port is configurable in application.properties.
 This application uses H2 database and so should run locally.
 Remote database connections can also be configured in application.properties.
 
-#### Rest API Documentation (Swagger)
+#### Rest JSON API v1 Documentation (with swagger)
 <pre>
+http://localhost:8000/v1/api
 http://localhost:8000/swagger-ui.html
 </pre>
 
-#### Cucumber test results location
+#### Rest JSON API v2 (automatic API based on spring-boot-starter-data-rest)
 <pre>
-.../target/cucumber-reports/cucumber-html-reports/overview-features.html
+http://localhost:8000/v2/api
+</pre>
+
+#### Cucumber pretty test results location
+<pre>
+ShoppingList/target/cucumber-reports/cucumber-html-reports/overview-features.html
 </pre>
