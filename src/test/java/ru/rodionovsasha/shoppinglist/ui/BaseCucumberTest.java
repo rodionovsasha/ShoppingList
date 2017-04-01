@@ -7,6 +7,8 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +16,7 @@ import ru.rodionovsasha.shoppinglist.TestApplicationConfiguration;
 
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printCucumberTestsResultLocation;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printTestsResultLocation;
 import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.buildWebDriver;
@@ -35,6 +38,7 @@ import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.closeWebD
 @SpringBootTest(webEnvironment= DEFINED_PORT)
 @TestPropertySource(locations = "classpath:test.properties")
 @Transactional
+@ComponentScan("ru.rodionovsasha.shoppinglist.ui.steps")
 public class BaseCucumberTest {
     @BeforeClass
     public static void setUp() {

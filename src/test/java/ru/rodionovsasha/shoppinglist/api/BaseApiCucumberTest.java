@@ -6,12 +6,16 @@ import cucumber.api.junit.Cucumber;
 import org.junit.AfterClass;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rodionovsasha.shoppinglist.TestApplicationConfiguration;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS;
+import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFORE_CLASS;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printCucumberTestsResultLocation;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printTestsResultLocation;
 
@@ -30,7 +34,7 @@ import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printTe
 @ContextConfiguration(classes = TestApplicationConfiguration.class)
 @SpringBootTest(webEnvironment= DEFINED_PORT)
 @TestPropertySource(locations = "classpath:test.properties")
-@Transactional
+@ComponentScan("ru.rodionovsasha.shoppinglist.api.steps")
 public class BaseApiCucumberTest {
     @AfterClass
     public static void tearDown() {
