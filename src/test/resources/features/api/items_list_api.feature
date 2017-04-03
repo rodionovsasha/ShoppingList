@@ -3,7 +3,7 @@ Feature: Items list API
     When I read json array from url: /v1/api
     Then Response should contain JSON array:
     """
-    [{"name":"Shopping list name","id":1,"items":[{"itemsList":1,"bought":false,"name":"Item1","comment":null,"id":1}]}]
+    [{"name":"Edited name","id":1,"items":[{"itemsList":1,"bought":false,"name":"Item1","comment":null,"id":1}]},{"name":"Shopping list","id":2,"items":[]}]
     """
     And Response code should be 200
 
@@ -11,7 +11,7 @@ Feature: Items list API
     When I read json object from url: /v1/api/itemsList/1
     Then Response should contain JSON object:
     """
-   {"name":"Shopping list name","id":1,"items":[{"itemsList":1,"bought":false,"name":"Item1","comment":null,"id":1}]}
+   {"name":"Edited name","id":1,"items":[{"itemsList":1,"bought":false,"name":"Item1","comment":null,"id":1}]}
     """
     And Response code should be 200
 
