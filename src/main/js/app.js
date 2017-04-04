@@ -26,7 +26,7 @@ class ShoppingList extends React.Component {
 class ItemsLists extends React.Component {
     render() {
         const lists = this.props.lists.map(list =>
-            <ItemsList list={list}/>
+            <ItemsList key={list.id} list={list}/>
         );
         return (
             <div className="col-md-6 col-md-offset-3">
@@ -50,8 +50,7 @@ class ItemsList extends React.Component {
                 <p>
                     <a href={'/react/itemsList?id=' + listId} className="btn btn-default btn-lg">{this.props.list.name}</a>&nbsp;
                     <a href={'/react/itemsList/edit?id=' + listId} className="btn btn-warning btn-xs">Edit</a>&nbsp;
-                    <a href={'/react/itemsList/delete?id=' + listId} className="btn btn-danger btn-xs"
-                       onClick="return confirm('Are you sure you want to delete this list?')">Delete</a>
+                    <a href={'/react/itemsList/delete?id=' + listId} className="btn btn-danger btn-xs">Delete</a>
                 </p>
             </li>
         )
