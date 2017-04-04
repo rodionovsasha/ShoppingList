@@ -1,5 +1,5 @@
-var path = require('path');
-var node_dir = __dirname + '/node_modules';
+const path = require('path');
+const node_dir = __dirname + '/node_modules';
 
 module.exports = {
     entry: './src/main/js/app.js',

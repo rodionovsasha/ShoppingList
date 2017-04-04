@@ -1,71 +1,64 @@
 'use strict';
 
-// tag::vars[]
 const React = require('react');
 const ReactDOM = require('react-dom');
 const client = require('./client');
-// end::vars[]
 
-// tag::app[]
-class App extends React.Component {
+class ShoppingList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {employees: []};
+        this.state = {lists: []};
     }
 
     componentDidMount() {
-        client({method: 'GET', path: '/api/employees'}).done(response => {
-            this.setState({employees: response.entity._embedded.employees});
+        client({method: 'GET', path: '/v1/api'}).done(response => {
+            this.setState({lists: response.entity});
         });
     }
 
     render() {
         return (
-            <EmployeeList employees={this.state.employees}/>
+            <ItemsLists lists={this.state.lists}/>
         )
     }
 }
-// end::app[]
 
-// tag::employee-list[]
-class EmployeeList extends React.Component{
+class ItemsLists extends React.Component {
     render() {
-        var employees = this.props.employees.map(employee =>
-            <Employee key={employee._links.self.href} employee={employee}/>
+        const lists = this.props.lists.map(list =>
+            <ItemsList list={list}/>
         );
         return (
-            <table>
-                <tbody>
-                <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Description</th>
-                </tr>
-                {employees}
-                </tbody>
-            </table>
+            <div className="col-md-6 col-md-offset-3">
+                <h1>Shopping list</h1>
+                <ul className="list-unstyled">
+                    {lists}
+                </ul>
+                <a href="/react/itemsList/add" className="btn btn-success btn-xs" data-toggle="tooltip" data-placement="right" title="Add new list">
+                    <span className="glyphicon glyphicon-plus"/>
+                </a>
+            </div>
         )
     }
 }
-// end::employee-list[]
 
-// tag::employee[]
-class Employee extends React.Component{
+class ItemsList extends React.Component {
     render() {
+        const listId = this.props.list.id;
         return (
-            <tr>
-                <td>{this.props.employee.firstName}</td>
-                <td>{this.props.employee.lastName}</td>
-                <td>{this.props.employee.description}</td>
-            </tr>
+            <li>
+                <p>
+                    <a href={'/react/itemsList?id=' + listId} className="btn btn-default btn-lg">{this.props.list.name}</a>&nbsp;
+                    <a href={'/react/itemsList/edit?id=' + listId} className="btn btn-warning btn-xs">Edit</a>&nbsp;
+                    <a href={'/react/itemsList/delete?id=' + listId} className="btn btn-danger btn-xs"
+                       onClick="return confirm('Are you sure you want to delete this list?')">Delete</a>
+                </p>
+            </li>
         )
     }
 }
-// end::employee[]
 
-// tag::render[]
 ReactDOM.render(
-    <App />,
+    <ShoppingList/>,
     document.getElementById('react')
 );
-// end::render[]
