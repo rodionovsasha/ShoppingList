@@ -3,11 +3,16 @@
 const React = require('react');
 const ReactDOM = require('react-dom');
 const client = require('./client');
+import {Router, Route, Link, Redirect, browserHistory, IndexRoute} from 'react-router';
 
 class ShoppingList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {lists: []};
+        this.openList = this.openList.bind(this);
+        this.editList = this.editList.bind(this);
+        this.deleteList = this.deleteList.bind(this);
+
+        this.state = {lists: [], list: {}};
     }
 
     componentDidMount() {
@@ -16,9 +21,28 @@ class ShoppingList extends React.Component {
         });
     }
 
+    openList(list) {
+        client({method: 'GET', path: '/v1/api/itemsList/' + list.id}).done(response => {
+            this.setState({list: response.entity});
+        });
+        console.log('openList ' + list.id);
+    }
+
+    editList(list) {
+        console.log('editList ');
+    }
+
+    deleteList(list) {
+        console.log('deleteList ');
+    }
+
     render() {
         return (
-            <ItemsLists lists={this.state.lists}/>
+            <ItemsLists lists={this.state.lists}
+                        list={this.state.list}
+                        openList={this.openList}
+                        editList={this.editList}
+                        deleteList={this.deleteList}/>
         )
     }
 }
@@ -26,7 +50,11 @@ class ShoppingList extends React.Component {
 class ItemsLists extends React.Component {
     render() {
         const lists = this.props.lists.map(list =>
-            <ItemsList key={list.id} list={list}/>
+            <ItemsList key={list.id}
+                       list={list}
+                       openList={this.props.openList}
+                       editList={this.props.editList}
+                       deleteList={this.props.deleteList}/>
         );
         return (
             <div className="col-md-6 col-md-offset-3">
@@ -43,16 +71,47 @@ class ItemsLists extends React.Component {
 }
 
 class ItemsList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.openList = this.openList.bind(this);
+        this.editList = this.editList.bind(this);
+        this.deleteList = this.deleteList.bind(this);
+    }
+
+    openList() {
+        this.props.openList(this.props.list);
+    }
+
+    editList() {
+        this.props.editList(this.props.list);
+    }
+
+    deleteList() {
+        this.props.deleteList(this.props.list);
+    }
+
     render() {
-        const listId = this.props.list.id;
         return (
             <li>
                 <p>
-                    <a href={'/react/itemsList?id=' + listId} className="btn btn-default btn-lg">{this.props.list.name}</a>&nbsp;
-                    <a href={'/react/itemsList/edit?id=' + listId} className="btn btn-warning btn-xs">Edit</a>&nbsp;
-                    <a href={'/react/itemsList/delete?id=' + listId} className="btn btn-danger btn-xs">Delete</a>
+                    {/*<Link to="/react/itemsList" className="btn btn-default btn-lg">{this.props.list.name}</Link>&nbsp;*/}
+                    <a href="#" onClick={this.openList} className="btn btn-default btn-lg">{this.props.list.name}</a>&nbsp;
+                    <a href="#" onClick={this.editList} className="btn btn-warning btn-xs">Edit</a>&nbsp;
+                    <a href="#" onClick={this.deleteList} className="btn btn-danger btn-xs">Delete</a>
                 </p>
             </li>
+        )
+    }
+}
+
+class Items extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log('list ' + this.props.list);
+    }
+    render() {
+        return (
+            <h1>{this.props.list.name}</h1>
         )
     }
 }

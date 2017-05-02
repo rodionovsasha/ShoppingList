@@ -10,7 +10,6 @@ public class ValidationErrorDTO {
     private List<FieldErrorDTO> fieldErrors = new ArrayList<>();
 
     public void addFieldError(String field, String message) {
-        FieldErrorDTO error = new FieldErrorDTO(field, message);
-        fieldErrors.add(error);
+        fieldErrors.add(new FieldErrorDTO(field, message));
     }
 }
