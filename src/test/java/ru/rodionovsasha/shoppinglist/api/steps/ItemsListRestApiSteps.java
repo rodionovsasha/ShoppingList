@@ -3,6 +3,7 @@ package ru.rodionovsasha.shoppinglist.api.steps;
 import cucumber.api.java8.En;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONAssert;
 import org.skyscreamer.jsonassert.JSONCompareMode;
@@ -41,13 +42,23 @@ public class ItemsListRestApiSteps extends BaseApiCucumberTest implements En {
         Then("^Response should contain JSON array:$", (String expectedJsonString) -> {
             JSONArray jsonResponse = sharedContext.jsonArray;
             printColoredOutput("JSON response array: " + jsonResponse);
-            JSONAssert.assertEquals(new JSONArray(expectedJsonString), jsonResponse, JSONCompareMode.LENIENT);
+            try {
+                JSONAssert.assertEquals(new JSONArray(expectedJsonString), jsonResponse, JSONCompareMode.LENIENT);
+            } catch (JSONException e) {
+                log.error(e.getMessage());
+                throw new RuntimeException(e);
+            }
         });
 
         Then("^Response should contain JSON object:$", (String expectedJsonString) -> {
             JSONObject jsonResponse = sharedContext.jsonObject;
             printColoredOutput("JSON response object: " + jsonResponse);
-            JSONAssert.assertEquals(new JSONObject(expectedJsonString), jsonResponse, JSONCompareMode.LENIENT);
+            try {
+                JSONAssert.assertEquals(new JSONObject(expectedJsonString), jsonResponse, JSONCompareMode.LENIENT);
+            } catch (JSONException e) {
+                log.error(e.getMessage());
+                throw new RuntimeException(e);
+            }
         });
 
         Then("^Response code should be (\\d+)$", (Integer responseCode) -> assertEquals(responseCode, sharedContext.responseCode));
