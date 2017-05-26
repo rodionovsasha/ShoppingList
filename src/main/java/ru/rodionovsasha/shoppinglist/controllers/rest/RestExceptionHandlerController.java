@@ -25,10 +25,10 @@ public class RestExceptionHandlerController {
     private ValidationErrorDTO processFieldErrors(List<FieldError> fieldErrors) {
         ValidationErrorDTO validationErrorDTO = new ValidationErrorDTO();
         log.error("Validation errors:");
-        for (FieldError fieldError: fieldErrors) {
+        fieldErrors.forEach(fieldError -> {
             log.error("Field '" + fieldError.getField() + "': " + fieldError.getDefaultMessage());
             validationErrorDTO.addFieldError(fieldError.getField(), fieldError.getDefaultMessage());
-        }
+        });
         return validationErrorDTO;
     }
 }
