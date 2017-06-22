@@ -69,7 +69,7 @@
                             <goal>removeImage</goal>
                         </goals>
                         <configuration>
-                            <imageName>${artifactId}:latest</imageName>
+                            <imageName>${project.artifactId}:latest</imageName>
                             <skipDocker>${skipDocker}</skipDocker>
                         </configuration>
                     </execution>
@@ -85,7 +85,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <imageName>${artifactId}</imageName>
+                    <imageName>${project.artifactId}</imageName>
                     <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
                     <resources>
                         <resource>
