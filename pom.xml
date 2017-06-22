@@ -23,9 +23,12 @@
         <cucumber.version>1.2.5</cucumber.version>
         <swagger.version>2.6.1</swagger.version>
         <feign.version>8.18.0</feign.version>
+        <skipTests>false</skipTests>
+        <skipDocker>false</skipDocker>
     </properties>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -49,10 +52,53 @@
                         <configuration>
                             <buildNumber>${BUILD_NUMBER}</buildNumber>
                             <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory>
-                            <cucumberOutput>${project.build.directory}/</cucumberOutput>
+                            <cucumberOutput>${project.build.directory}/cucumber-json</cucumberOutput>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <id>clean-local</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>removeImage</goal>
+                        </goals>
+                        <configuration>
+                            <imageName>${artifactId}:latest</imageName>
+                            <skipDocker>${skipDocker}</skipDocker>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>build-docker-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <configuration>
+                            <skipDocker>${skipDocker}</skipDocker>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <imageName>${artifactId}</imageName>
+                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                    <imageTags>
+                        <imageTag>latest</imageTag>
+                    </imageTags>
+                    <skipDocker>${skipDocker}</skipDocker>
+                </configuration>
             </plugin>
         </plugins>
     </build>

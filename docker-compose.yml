@@ -1,0 +1,7 @@
+version: "2.0"
+
+services:
+  shoppingListApp:
+    image: shoppinglist:latest
+    ports:
+      - 8000:8000

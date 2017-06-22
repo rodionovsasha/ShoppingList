@@ -1,10 +1,18 @@
 # Shopping list spring-boot web application
 
-This is a simple project which is based on **spring-boot 1.5.3** and uses **H2** database, **JPA**, **Thymeleaf** template engine, **Bootstrap** and contains JUnit tests, BDD **Cucumber** tests (**Selenide** + **PhantomJs** driver).
+This is a simple project which is based on **spring-boot 1.5.3** and uses **H2** database, **JPA**, **Thymeleaf** template engine, **Bootstrap** and contains JUnit tests, BDD **Cucumber** tests (**Selenide** + **PhantomJs** driver) and **Docker**.
 
 #### Build the application
 <pre>
 mvn clean install
+</pre>
+##### Skip running tests
+<pre>
+mvn clean install -DskipTests
+</pre>
+##### Skip running docker
+<pre>
+mvn clean install -DskipDocker
 </pre>
 
 #### Run the application
@@ -21,6 +29,11 @@ Port is configurable in application.properties.
 
 This application uses H2 database and so should run locally.
 Remote database connections can also be configured in application.properties.
+
+#### Run the application with docker
+<pre>
+docker-compose up
+</pre>
 
 #### Rest JSON API v1 Documentation (with swagger)
 <pre>

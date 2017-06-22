@@ -8,7 +8,6 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +15,6 @@ import ru.rodionovsasha.shoppinglist.TestApplicationConfiguration;
 
 import static com.codeborne.selenide.WebDriverRunner.setWebDriver;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
-import static org.springframework.test.annotation.DirtiesContext.ClassMode.AFTER_CLASS;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printCucumberTestsResultLocation;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printTestsResultLocation;
 import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.buildWebDriver;
@@ -30,7 +28,7 @@ import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.closeWebD
 @CucumberOptions(
         features = {"src/test/resources/features/ui"},
         glue = {"ru.rodionovsasha.shoppinglist.ui.steps"},
-        plugin = {"pretty", "html:target/cucumber", "json:target/cucumber.json"},
+        plugin = {"pretty", "html:target/cucumber", "json:target/cucumber-json/cucumber.json"},
         strict = true,
         snippets = SnippetType.CAMELCASE,
         tags = {"~@ignore"})
