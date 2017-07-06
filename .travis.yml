@@ -13,3 +13,16 @@ notifications:
 branches:
   only:
   - master
+
+before_install:
+  - phantomjs --version
+  - wget http://apache-mirror.rbc.ru/pub/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+  - tar zxvf apache-maven-3.3.9-bin.tar.gz
+  - chmod +x apache-maven-3.3.9/bin/mvn
+  - export M2_HOME=$PWD/apache-maven-3.3.9
+  - export PATH=$PWD/apache-maven-3.3.9/bin:${PATH}
+  - hash -r
+
+cache:
+  directories:
+    - $HOME/.m2
