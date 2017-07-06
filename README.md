@@ -14,7 +14,7 @@ mvn clean install -DskipTests
 </pre>
 ##### Skip running docker
 <pre>
-mvn clean install -DskipDocker
+mvn clean install -DskipTests -DskipDocker
 </pre>
 
 #### Run the application
