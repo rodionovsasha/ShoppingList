@@ -1,21 +1,19 @@
 language: java
 
-install: mvn clean install -DskipDocker
-
 sudo: false
 
 jdk:
   - oraclejdk8
 
-notifications:
-    email: false
+install: true
+
+script: mvn clean install -DskipDocker
 
 branches:
   only:
   - master
 
 before_install:
-  - phantomjs --version
   - wget http://apache-mirror.rbc.ru/pub/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
   - tar zxvf apache-maven-3.3.9-bin.tar.gz
   - chmod +x apache-maven-3.3.9/bin/mvn
@@ -25,4 +23,7 @@ before_install:
 
 cache:
   directories:
-    - $HOME/.m2
+    - $HOME/.m2/repository
+
+notifications:
+  email: false
