@@ -1,5 +1,4 @@
 [![Build Status](https://travis-ci.org/rodionovsasha/ShoppingList.svg?branch=master)](https://travis-ci.org/rodionovsasha/ShoppingList)
-[![Coverage Status](https://coveralls.io/repos/github/rodionovsasha/ShoppingList/badge.svg?branch=master)](https://coveralls.io/github/rodionovsasha/ShoppingList?branch=master)
 
 # Shopping list spring-boot web application
 
