@@ -7,7 +7,7 @@ jdk:
 
 install: true
 
-script: mvn clean verify -DskipDocker
+script: mvn clean verify -DskipTests -DskipDocker
 
 branches:
   only:
