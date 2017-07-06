@@ -5,13 +5,9 @@ sudo: false
 jdk:
   - oraclejdk8
 
-before_install:
-  - phantomjs --version
-  - export DISPLAY=:99.0
-
 install: true
 
-script: mvn clean install -DskipDocker
+script: mvn clean install -DskipTests -DskipDocker
 
 branches:
   only:
