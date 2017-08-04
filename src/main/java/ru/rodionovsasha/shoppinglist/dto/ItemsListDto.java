@@ -13,6 +13,8 @@ import java.io.Serializable;
 
 @Getter @Setter
 public class ItemsListDto implements Serializable {
+    private static final long serialVersionUID = 1;
+
     private long id;
     @NotEmpty
     private String name;

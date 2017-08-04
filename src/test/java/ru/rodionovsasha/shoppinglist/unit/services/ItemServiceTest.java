@@ -95,5 +95,8 @@ public class ItemServiceTest {
         verify(itemRepository, times(1)).saveAndFlush(any(Item.class));
         verifyNoMoreInteractions(itemRepository);
         assertTrue(item.isBought());
+
+        itemService.toggleBoughtStatus(ITEM_ID);
+        assertFalse(item.isBought());
     }
 }

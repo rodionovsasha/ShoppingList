@@ -77,13 +77,15 @@ public class ItemController {
     }
 
     @GetMapping(ITEM_BASE_PATH + "/bought")
-    public String toggleItemBoughtStatus(@RequestParam(value = "id") final long id, @RequestParam(value = "listId") final long listId) {
+    public String toggleItemBoughtStatus(@RequestParam(value = "id") final long id,
+            @RequestParam(value = "listId") final long listId) {
         itemService.toggleBoughtStatus(id);
         return redirectToUrl(ITEMS_LIST_BASE_PATH + "?id=" + listId);
     }
 
     @GetMapping(ITEM_BASE_PATH + "/delete")
-    public String deleteItem(@RequestParam(value = "id") final long id, @RequestParam(value = "listId") final long listId) {
+    public String deleteItem(@RequestParam(value = "id") final long id,
+            @RequestParam(value = "listId") final long listId) {
         itemService.deleteItem(id);
         log.debug("Item with id = " + id + " has been removed");
         return redirectToUrl(ITEMS_LIST_BASE_PATH + "?id=" + listId);
