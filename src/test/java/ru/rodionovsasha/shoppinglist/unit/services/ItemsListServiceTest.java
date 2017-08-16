@@ -1,5 +1,6 @@
 package ru.rodionovsasha.shoppinglist.unit.services;
 
+import lombok.val;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -11,13 +12,13 @@ import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 import ru.rodionovsasha.shoppinglist.services.impl.ItemsListServiceImpl;
 
 import java.util.Collections;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
-import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.*;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.LIST_ID;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.LIST_NAME;
 
 public class ItemsListServiceTest {
     @Mock
@@ -47,7 +48,7 @@ public class ItemsListServiceTest {
     @Test
     public void shouldUpdateItemsListTest() throws Exception {
         when(itemsListRepository.findOne(LIST_ID)).thenReturn(itemsListDto.toItemsList());
-        ItemsList itemsList = itemsListService.getItemsListById(LIST_ID);
+        val itemsList = itemsListService.getItemsListById(LIST_ID);
         assertEquals(LIST_NAME, itemsList.getName());
         itemsListDto.setName("Updated name");
 
@@ -75,9 +76,9 @@ public class ItemsListServiceTest {
 
     @Test
     public void shouldFindAllListsTest() throws Exception {
-        List<ItemsList> itemsLists = Collections.singletonList(itemsList);
+        val itemsLists = Collections.singletonList(itemsList);
         when(itemsListRepository.findAll()).thenReturn(itemsLists);
-        List<ItemsList> result = itemsListRepository.findAll();
+        val result = itemsListRepository.findAll();
         verify(itemsListRepository, times(1)).findAll();
         verifyNoMoreInteractions(itemsListRepository);
         assertEquals(1, result.size());

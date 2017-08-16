@@ -1,5 +1,6 @@
 package ru.rodionovsasha.shoppinglist.unit.services;
 
+import lombok.val;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -57,7 +58,7 @@ public class ItemServiceTest {
     @Test
     public void shouldUpdateItemTest() throws Exception {
         when(itemRepository.findOne(ITEM_ID)).thenReturn(itemDto.toItem());
-        Item item = itemService.getItemById(ITEM_ID);
+        val item = itemService.getItemById(ITEM_ID);
         assertEquals(ITEM_NAME, item.getName());
         itemDto.setName("Updated name");
 
@@ -86,7 +87,7 @@ public class ItemServiceTest {
     @Test
     public void shouldToggleBoughtStatusTest() throws Exception {
         when(itemRepository.findOne(ITEM_ID)).thenReturn(itemDto.toItem());
-        Item item = itemService.getItemById(ITEM_ID);
+        val item = itemService.getItemById(ITEM_ID);
         assertFalse(item.isBought());
 
         itemService.toggleBoughtStatus(ITEM_ID);

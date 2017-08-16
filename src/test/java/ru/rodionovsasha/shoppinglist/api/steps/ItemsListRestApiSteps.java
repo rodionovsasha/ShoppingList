@@ -2,6 +2,7 @@ package ru.rodionovsasha.shoppinglist.api.steps;
 
 import cucumber.api.java8.En;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,7 +52,7 @@ public class ItemsListRestApiSteps extends BaseApiCucumberTest implements En {
         });
 
         Then("^Response should contain JSON object:$", (String expectedJsonString) -> {
-            JSONObject jsonResponse = sharedContext.jsonObject;
+            val jsonResponse = sharedContext.jsonObject;
             printColoredOutput("JSON response object: " + jsonResponse);
             try {
                 JSONAssert.assertEquals(new JSONObject(expectedJsonString), jsonResponse, JSONCompareMode.LENIENT);
