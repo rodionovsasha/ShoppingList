@@ -4,6 +4,7 @@ package ru.rodionovsasha.shoppinglist;
  * Copyright (©) 2016. Rodionov Alexander
  */
 
+import lombok.val;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +44,7 @@ public class TestApplicationConfiguration {
     }
 
     public static InternalResourceViewResolver getViewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        val viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/WEB-INF/templates/");
         viewResolver.setSuffix(".html");
         return viewResolver;

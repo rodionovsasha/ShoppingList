@@ -1,6 +1,7 @@
 package ru.rodionovsasha.shoppinglist.api.utils;
 
 import lombok.SneakyThrows;
+import lombok.val;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -43,9 +44,8 @@ public class HttpClientRequestUtils {
 
     @SneakyThrows
     public JSONObject executePost(String url, String json) {
-        HttpPost httpPost = new HttpPost(apiTestUrl + url);
-        StringEntity entity;
-        entity = new StringEntity(json);
+        val httpPost = new HttpPost(apiTestUrl + url);
+        val entity = new StringEntity(json);
         httpPost.setHeader(ACCEPT, APPLICATION_JSON_VALUE);
         httpPost.setHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE);
         httpPost.setEntity(entity);
@@ -56,9 +56,8 @@ public class HttpClientRequestUtils {
 
     @SneakyThrows
     public JSONObject executePut(String url, String json) {
-        HttpPut httpPut = new HttpPut(apiTestUrl + url);
-        StringEntity entity;
-        entity = new StringEntity(json);
+        val httpPut = new HttpPut(apiTestUrl + url);
+        val entity = new StringEntity(json);
         httpPut.setHeader(ACCEPT, APPLICATION_JSON_VALUE);
         httpPut.setHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE);
         httpPut.setEntity(entity);

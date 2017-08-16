@@ -1,5 +1,6 @@
 package ru.rodionovsasha.shoppinglist.unit.controllers.rest;
 
+import lombok.val;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -45,7 +46,7 @@ public class ItemRestControllerTest {
                 .setControllerAdvice(new RestExceptionHandlerController())
                 .build();
         Mockito.reset(itemService);
-        ItemsList itemsList = new ItemsList();
+        val itemsList = new ItemsList();
         itemsList.setId(LIST_ID);
         item = new Item();
         item.setId(ITEM_ID);

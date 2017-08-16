@@ -1,6 +1,7 @@
 package ru.rodionovsasha.shoppinglist.ui.utils;
 
 import com.codeborne.selenide.Configuration;
+import lombok.val;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
@@ -43,7 +44,7 @@ public class WebDriverProvider {
     }
 
     private static DesiredCapabilities getCapabilities() {
-        DesiredCapabilities capabilities = new DesiredCapabilities();
+        val capabilities = new DesiredCapabilities();
         capabilities.setCapability("takesScreenshot", true);
         if (OPERATING_SYSTEM.contains("win")) {
             capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, PHANTOM_JS_WIN_PATH);

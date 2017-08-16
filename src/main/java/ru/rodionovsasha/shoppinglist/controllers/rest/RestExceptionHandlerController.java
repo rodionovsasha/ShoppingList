@@ -1,6 +1,7 @@
 package ru.rodionovsasha.shoppinglist.controllers.rest;
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,7 +24,7 @@ public class RestExceptionHandlerController {
     }
 
     private ValidationErrorDTO processFieldErrors(List<FieldError> fieldErrors) {
-        ValidationErrorDTO validationErrorDTO = new ValidationErrorDTO();
+        val validationErrorDTO = new ValidationErrorDTO();
         log.error("Validation errors:");
         fieldErrors.forEach(fieldError -> {
             log.error("Field '" + fieldError.getField() + "': " + fieldError.getDefaultMessage());
