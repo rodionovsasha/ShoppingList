@@ -1,6 +1,7 @@
 package ru.rodionovsasha.shoppinglist.controllers;
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.rodionovsasha.shoppinglist.dto.ItemDto;
-import ru.rodionovsasha.shoppinglist.entities.Item;
 import ru.rodionovsasha.shoppinglist.services.ItemService;
 
 import javax.validation.Valid;
@@ -57,7 +57,7 @@ public class ItemController {
 
     @GetMapping(ITEM_BASE_PATH + "/edit")
     public String showEditItemForm(@RequestParam(value = "id") final long id, ModelMap modelMap) {
-        Item item = itemService.getItemById(id);
+        val item = itemService.getItemById(id);
         modelMap.addAttribute("itemDto", item);
         modelMap.addAttribute("listId", item.getItemsList().getId());
         return "editItem";

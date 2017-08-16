@@ -1,5 +1,6 @@
 package ru.rodionovsasha.shoppinglist.services.impl;
 
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,7 +28,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public void addItem(ItemDto itemDto) {
-        Item item = itemDto.toItem();
+        val item = itemDto.toItem();
         item.setItemsList(itemsListRepository.findOne(itemDto.getListId()));
         itemRepository.saveAndFlush(item);
     }
@@ -35,7 +36,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public void updateItem(ItemDto itemDto) {
-        Item item = itemRepository.findOne(itemDto.getId());
+        val item = itemRepository.findOne(itemDto.getId());
         itemDto.toItem(item);
         itemRepository.saveAndFlush(item);
     }
@@ -55,7 +56,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public void toggleBoughtStatus(long itemId) {
-        Item item = itemRepository.findOne(itemId);
+        val item = itemRepository.findOne(itemId);
         item.setBought(!item.isBought());
         itemRepository.saveAndFlush(item);
     }
