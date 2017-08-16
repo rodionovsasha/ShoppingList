@@ -1,5 +1,6 @@
 package ru.rodionovsasha.shoppinglist.api.utils;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
@@ -7,7 +8,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,58 +31,42 @@ public class HttpClientRequestUtils {
     @Autowired
     private HttpClientProvider httpClientProvider;
 
+    @SneakyThrows
     public JSONObject readJsonObjectFromUrl(String url) {
         printColoredOutput("Read JSON object from url: " + apiTestUrl + url);
-        try {
-            return new JSONObject(executeGet( apiTestUrl + url));
-        } catch (JSONException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
+        return new JSONObject(executeGet( apiTestUrl + url));
     }
 
+    @SneakyThrows
     public JSONArray readJsonArrayFromUrl(String url) {
         printColoredOutput("Read JSON array from url: " + apiTestUrl + url);
-        try {
-            return new JSONArray(executeGet(apiTestUrl + url));
-        } catch (JSONException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
+        return new JSONArray(executeGet(apiTestUrl + url));
     }
 
+    @SneakyThrows
     public JSONObject executePost(String url, String json) {
         HttpPost httpPost = new HttpPost(apiTestUrl + url);
         StringEntity entity;
-        try {
-            entity = new StringEntity(json);
-            httpPost.setHeader(ACCEPT, APPLICATION_JSON_VALUE);
-            httpPost.setHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE);
-            httpPost.setEntity(entity);
+        entity = new StringEntity(json);
+        httpPost.setHeader(ACCEPT, APPLICATION_JSON_VALUE);
+        httpPost.setHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE);
+        httpPost.setEntity(entity);
 
-            printColoredOutput("Post json to url: " + apiTestUrl + url);
-            return new JSONObject(httpClientProvider.executeRequest(httpPost));
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
+        printColoredOutput("Post json to url: " + apiTestUrl + url);
+        return new JSONObject(httpClientProvider.executeRequest(httpPost));
     }
 
+    @SneakyThrows
     public JSONObject executePut(String url, String json) {
         HttpPut httpPut = new HttpPut(apiTestUrl + url);
         StringEntity entity;
-        try {
-            entity = new StringEntity(json);
-            httpPut.setHeader(ACCEPT, APPLICATION_JSON_VALUE);
-            httpPut.setHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE);
-            httpPut.setEntity(entity);
+        entity = new StringEntity(json);
+        httpPut.setHeader(ACCEPT, APPLICATION_JSON_VALUE);
+        httpPut.setHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE);
+        httpPut.setEntity(entity);
 
-            printColoredOutput("Put json to url: " + apiTestUrl + url);
-            return new JSONObject(httpClientProvider.executeRequest(httpPut));
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
+        printColoredOutput("Put json to url: " + apiTestUrl + url);
+        return new JSONObject(httpClientProvider.executeRequest(httpPut));
     }
 
     public Integer executeDelete(String url) {

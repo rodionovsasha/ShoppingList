@@ -1,5 +1,6 @@
 package ru.rodionovsasha.shoppinglist.api.utils;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
@@ -39,29 +40,25 @@ public class HttpClientProvider {
                 .build();
     }
 
+    @SneakyThrows
     String executeRequest(HttpUriRequest request) {
         CloseableHttpResponse response = null;
         try {
             response = executeHttpRequest(request);
             sharedContext.responseCode = response.getStatusLine().getStatusCode();
             return EntityUtils.toString(response.getEntity());
-        } catch (Exception e) {
-            log.error("Cannot execute HttpRequest: " + e.getMessage());
-            throw new RuntimeException(e);
         } finally {
             log.debug("Closing http client...");
             HttpClientUtils.closeQuietly(response);
         }
     }
 
+    @SneakyThrows
     Integer executeRequestAndGetStatusCode(HttpUriRequest request) {
         CloseableHttpResponse response = null;
         try {
             response = executeHttpRequest(request);
             return response.getStatusLine().getStatusCode();
-        } catch (Exception e) {
-            log.error("Cannot execute HttpRequest: " + e.getMessage());
-            throw new RuntimeException(e);
         } finally {
             log.debug("Closing http client...");
             HttpClientUtils.closeQuietly(response);
