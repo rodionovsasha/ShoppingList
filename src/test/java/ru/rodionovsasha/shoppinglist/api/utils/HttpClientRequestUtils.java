@@ -1,7 +1,6 @@
 package ru.rodionovsasha.shoppinglist.api.utils;
 
 import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -23,7 +22,6 @@ import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printCo
  */
 
 @Component
-@Slf4j
 public class HttpClientRequestUtils {
     @Value("${api.test.url}")
     private String apiTestUrl;
