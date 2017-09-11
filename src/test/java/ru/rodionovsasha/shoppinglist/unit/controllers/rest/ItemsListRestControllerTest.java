@@ -12,7 +12,7 @@ import ru.rodionovsasha.shoppinglist.dto.ItemsListDto;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -24,9 +24,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static ru.rodionovsasha.shoppinglist.Application.API_BASE_URL;
-import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.*;
-import static ru.rodionovsasha.shoppinglist.unit.TestUtils.asJsonString;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.LIST_ID;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.LIST_NAME;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
+import static ru.rodionovsasha.shoppinglist.unit.TestUtils.asJsonString;
 
 /*
  * Copyright (©) 2017. Rodionov Alexander
@@ -51,8 +52,7 @@ public class ItemsListRestControllerTest {
         itemsList = new ItemsList();
         itemsList.setId(LIST_ID);
         itemsList.setName(LIST_NAME);
-        itemsLists = new ArrayList<>();
-        itemsLists.add(itemsList);
+        itemsLists = Collections.singletonList(itemsList);
     }
 
     @Test
