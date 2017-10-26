@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.6.RELEASE</version>
+        <version>1.5.8.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -23,9 +23,11 @@
         <cucumber.version>1.2.5</cucumber.version>
         <swagger.version>2.7.0</swagger.version>
         <feign.version>8.18.0</feign.version>
+        <maven-cucumber-reporting.version>3.11.0</maven-cucumber-reporting.version>
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
-        <findbugs-maven-plugin.version>3.0.4</findbugs-maven-plugin.version>
+        <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
         <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
+        <docker-maven-plugin.version>1.0.0</docker-maven-plugin.version>
         <skipTests>false</skipTests>
         <skipDocker>false</skipDocker>
     </properties>
@@ -44,7 +46,7 @@
             <plugin>
                 <groupId>net.masterthought</groupId>
                 <artifactId>maven-cucumber-reporting</artifactId>
-                <version>3.8.0</version>
+                <version>${maven-cucumber-reporting.version}</version>
                 <executions>
                     <execution>
                         <id>Publish pretty cucumber reports</id>
@@ -63,7 +65,7 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>1.0.0</version>
+                <version>${docker-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>clean-local</id>
@@ -259,7 +261,7 @@
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
-            <version>4.4.3</version>
+            <version>4.6</version>
             <scope>test</scope>
         </dependency>
         <!-- PhantomJs Driver -->
@@ -272,7 +274,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.16</version>
+            <version>1.16.18</version>
         </dependency>
         <!-- Swagger -->
         <dependency>
@@ -290,7 +292,7 @@
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>
-            <version>1.5.15</version>
+            <version>1.5.16</version>
         </dependency>
         <!-- Feign client -->
         <dependency>

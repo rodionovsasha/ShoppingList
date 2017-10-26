@@ -2,11 +2,15 @@
 
 # Shopping list spring-boot web application
 
-This is a simple project which is based on **spring-boot 1.5.6** and uses **H2** database, **JPA**, **Thymeleaf** template engine, **Bootstrap** and contains JUnit tests, BDD **Cucumber** tests (**Selenide** + **PhantomJs** driver) and **Docker**.
+This is a simple project which is based on **spring-boot 1.5.8** and uses **H2** database, **JPA**, **Thymeleaf** template engine, **Bootstrap** and contains JUnit tests, BDD **Cucumber** tests (**Selenide** + **PhantomJs** driver) and **Docker**.
 
 #### Build the application
 <pre>
 mvn clean install
+</pre>
+or using wrapper
+<pre>
+./mvnw clean install
 </pre>
 ##### Skip running tests
 <pre>

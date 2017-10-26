@@ -6,7 +6,7 @@ jdk: oraclejdk8
 
 install: true
 
-script: mvn clean install -DskipTests -DskipDocker
+script: mvn clean install -DskipDocker
 
 branches:
   only: master
