@@ -8,6 +8,7 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
@@ -49,6 +50,7 @@ public class WebDriverProvider {
         if (OPERATING_SYSTEM.contains("win")) {
             capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, PHANTOM_JS_WIN_PATH);
         } else {
+            new File(PHANTOM_JS_PATH).setExecutable(true);
             capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, PHANTOM_JS_PATH);
         }
         capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_CLI_ARGS, getCliArgs());
