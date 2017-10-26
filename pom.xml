@@ -23,7 +23,7 @@
         <cucumber.version>1.2.5</cucumber.version>
         <swagger.version>2.7.0</swagger.version>
         <feign.version>8.18.0</feign.version>
-        <maven-cucumber-reporting.version>3.11.0</maven-cucumber-reporting.version>
+        <maven-cucumber-reporting.version>3.10.0</maven-cucumber-reporting.version>
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
         <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
         <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
