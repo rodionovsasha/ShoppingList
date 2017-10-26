@@ -1,11 +1,19 @@
 <html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>Error page</title>
+    <title>Unexpected error</title>
 </head>
 <body>
 <div layout:fragment="content">
-    <h1>There was an unexpected error</h1>
-    <a th:href="@{/}">Go to main page</a>
+    <h1>Unexpected error</h1>
+
+    <div id="created" th:text="${#dates.format(timestamp)}"></div>
+    <div>
+        There was an unexpected error (type=<span th:text="${error}">Bad</span>, status=<span th:text="${status}">500</span>).
+    </div>
+    <div th:text="${message}"></div>
+    <div>
+        Please contact the administrator with the above information. <a th:href="@{/}">Go to main page</a>
+    </div>
 </div>
 </body>
 </html>
