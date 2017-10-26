@@ -12,9 +12,6 @@ import ru.rodionovsasha.shoppinglist.dto.ItemsListDto;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -32,7 +29,6 @@ public class ItemsListControllerTest {
     private ItemsListService itemsListService;
     @Mock
     private ItemsList itemsList;
-    private List<ItemsList> itemsLists;
 
     private MockMvc mockMvc;
 
@@ -44,19 +40,6 @@ public class ItemsListControllerTest {
                 .build();
         Mockito.reset(itemsListService);
         Mockito.reset(itemsList);
-        itemsLists = new ArrayList<>();
-        itemsLists.add(itemsList);
-    }
-
-    @Test
-    public void shouldGetAllListsTest() throws Exception {
-        when(itemsListService.findAllLists()).thenReturn(itemsLists);
-        mockMvc.perform(get("/"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("index"))
-                .andExpect(model().attribute("itemsLists", itemsLists));
-        verify(itemsListService, times(1)).findAllLists();
-        verifyNoMoreInteractions(itemsListService);
     }
 
     @Test

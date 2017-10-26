@@ -12,10 +12,12 @@ import javax.persistence.*;
  */
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Item {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private long id;
     private String name;
     private String comment;

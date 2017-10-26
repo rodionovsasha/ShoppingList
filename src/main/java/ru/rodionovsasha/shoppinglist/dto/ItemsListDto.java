@@ -11,7 +11,8 @@ import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 
 import java.io.Serializable;
 
-@Getter @Setter
+@Getter
+@Setter
 public class ItemsListDto implements Serializable {
     private static final long serialVersionUID = 1;
 

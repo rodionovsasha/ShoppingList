@@ -1,7 +1,7 @@
 package ru.rodionovsasha.shoppinglist.services.impl;
 
+import lombok.AllArgsConstructor;
 import lombok.val;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rodionovsasha.shoppinglist.dto.ItemDto;
@@ -14,19 +14,14 @@ import ru.rodionovsasha.shoppinglist.services.ItemService;
  * Copyright (©) 2016. Rodionov Alexander
  */
 
+@AllArgsConstructor
 @Service
+@Transactional
 public class ItemServiceImpl implements ItemService {
     private final ItemRepository itemRepository;
     private final ItemsListRepository itemsListRepository;
 
-    @Autowired
-    public ItemServiceImpl(ItemRepository itemRepository, ItemsListRepository itemsListRepository) {
-        this.itemRepository = itemRepository;
-        this.itemsListRepository = itemsListRepository;
-    }
-
     @Override
-    @Transactional
     public void addItem(ItemDto itemDto) {
         val item = itemDto.toItem();
         item.setItemsList(itemsListRepository.findOne(itemDto.getListId()));
@@ -34,7 +29,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    @Transactional
     public void updateItem(ItemDto itemDto) {
         val item = itemRepository.findOne(itemDto.getId());
         itemDto.toItem(item);
@@ -42,7 +36,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    @Transactional
     public void deleteItem(long id) {
         itemRepository.delete(id);
     }
@@ -54,7 +47,6 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    @Transactional
     public void toggleBoughtStatus(long itemId) {
         val item = itemRepository.findOne(itemId);
         item.setBought(!item.isBought());
