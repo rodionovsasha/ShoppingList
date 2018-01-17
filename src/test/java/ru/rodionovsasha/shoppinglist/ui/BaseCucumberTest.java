@@ -34,7 +34,7 @@ import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.closeWebD
         tags = {"~@ignore"})
 @ContextConfiguration(classes = TestApplicationConfiguration.class)
 @SpringBootTest(webEnvironment= DEFINED_PORT)
-@TestPropertySource(locations = "classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.yml")
 @Transactional
 @ComponentScan("ru.rodionovsasha.shoppinglist.ui.steps")
 public class BaseCucumberTest {

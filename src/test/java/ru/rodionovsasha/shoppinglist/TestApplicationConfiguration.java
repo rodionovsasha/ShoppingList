@@ -23,7 +23,7 @@ import java.util.Collections;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-@TestPropertySource(locations = "classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.yml")
 public class TestApplicationConfiguration {
     public static final String LIST_NAME = "Shopping list name";
     public static final String ITEM_NAME = "Item1";

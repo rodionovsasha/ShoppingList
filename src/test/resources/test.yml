@@ -1,0 +1,7 @@
+api.test.url: http://localhost:${server.port}
+
+management:
+  port: 8001
+
+server:
+  port: 8001

@@ -29,7 +29,7 @@ import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printTe
         tags = {"~@ignore"})
 @ContextConfiguration(classes = TestApplicationConfiguration.class)
 @SpringBootTest(webEnvironment= DEFINED_PORT)
-@TestPropertySource(locations = "classpath:test.properties")
+@TestPropertySource(locations = "classpath:test.yml")
 @ComponentScan("ru.rodionovsasha.shoppinglist.api.steps")
 public class BaseApiCucumberTest {
     @AfterClass
