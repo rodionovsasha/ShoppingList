@@ -1,11 +1,11 @@
-<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <title th:text="${itemsList.name}"></title>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="list-group">
-        <h1 th:inline="text" class="list-group-item active">[[${itemsList.name}]]<span class="badge" th:text="${#lists.size(itemsList.items)}"></span></h1>
+        <h1 class="list-group-item active">[[${itemsList.name}]]<span class="badge" th:text="${#lists.size(itemsList.items)}"></span></h1>
         <div class="list-group-item" th:each="item : ${itemsList.items}" th:classappend="${item.bought} ? 'list-group-item-success'">
             <div class="row">
                 <div class="col-md-7">

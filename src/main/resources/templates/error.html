@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <title>Unexpected error</title>
 </head>
@@ -8,7 +8,7 @@
 
     <div id="created" th:text="${#dates.format(timestamp)}"></div>
     <div>
-        There was an unexpected error (type=<span th:text="${error}">Bad</span>, status=<span th:text="${status}">500</span>).
+        There was an unexpected error (type=<span th:text="${error}">Bad request</span>, status=<span th:text="${status}">400</span>).
     </div>
     <div th:text="${message}"></div>
     <div>

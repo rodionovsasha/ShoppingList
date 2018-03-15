@@ -31,7 +31,7 @@ public class ItemController {
     private ItemService itemService;
 
     @GetMapping
-    public String getItem(@RequestParam(value = "id") long id, ModelMap modelMap) {
+    public String getItem(@RequestParam("id") long id, ModelMap modelMap) {
         modelMap.addAttribute("item", itemService.getItemById(id));
         return "item";
     }
@@ -54,7 +54,7 @@ public class ItemController {
     }
 
     @GetMapping("/edit")
-    public String showEditItemForm(@RequestParam(value = "id") long id, ModelMap modelMap) {
+    public String showEditItemForm(@RequestParam("id") long id, ModelMap modelMap) {
         val item = itemService.getItemById(id);
         modelMap.addAttribute("itemDto", item);
         modelMap.addAttribute("listId", item.getItemsList().getId());
@@ -75,15 +75,13 @@ public class ItemController {
     }
 
     @GetMapping("/bought")
-    public String toggleItemBoughtStatus(@RequestParam(value = "id") long id,
-                                         @RequestParam(value = "listId") long listId) {
+    public String toggleItemBoughtStatus(@RequestParam("id") long id, @RequestParam("listId") long listId) {
         itemService.toggleBoughtStatus(id);
         return redirectToUrl(ITEMS_LIST_BASE_PATH + "?id=" + listId);
     }
 
     @GetMapping("/delete")
-    public String deleteItem(@RequestParam(value = "id") long id,
-                             @RequestParam(value = "listId") long listId) {
+    public String deleteItem(@RequestParam("id") long id, @RequestParam("listId") long listId) {
         itemService.deleteItem(id);
         log.debug("Item with id = " + id + " has been removed");
         return redirectToUrl(ITEMS_LIST_BASE_PATH + "?id=" + listId);

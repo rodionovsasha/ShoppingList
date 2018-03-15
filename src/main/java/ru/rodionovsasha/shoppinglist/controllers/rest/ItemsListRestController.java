@@ -11,7 +11,6 @@ import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
 import javax.validation.Valid;
-import java.util.List;
 
 import static ru.rodionovsasha.shoppinglist.Application.API_BASE_URL;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
@@ -29,12 +28,12 @@ public class ItemsListRestController {
 
     @ApiOperation("Get all lists")
     @GetMapping
-    public List<ItemsList> getAllLists() {
+    public Iterable<ItemsList> getAllLists() {
         return itemsListService.findAllLists();
     }
 
     @ApiOperation("Get list")
-    @GetMapping(value = ITEMS_LIST_BASE_PATH + "/{id}")
+    @GetMapping(ITEMS_LIST_BASE_PATH + "/{id}")
     public ItemsList getItemsList(@PathVariable final long id) {
         return itemsListService.getItemsListById(id);
     }

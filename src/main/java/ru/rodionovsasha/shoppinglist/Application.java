@@ -4,7 +4,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.thymeleaf.extras.conditionalcomments.dialect.ConditionalCommentsDialect;
 import ru.rodionovsasha.shoppinglist.dto.ItemDto;
 import ru.rodionovsasha.shoppinglist.dto.ItemsListDto;
 import ru.rodionovsasha.shoppinglist.services.ItemService;
@@ -43,11 +42,6 @@ public class Application {
             asList("Meat 2kg", "Item2")
                     .forEach(name -> itemService.addItem(new ItemDto(3, name)));
         };
-    }
-
-    @Bean
-    public ConditionalCommentsDialect conditionalCommentDialect() {
-        return new ConditionalCommentsDialect();
     }
 
     @Bean

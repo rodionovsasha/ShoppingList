@@ -107,7 +107,7 @@ public class ItemsListRestControllerTest {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.fieldErrors", hasSize(1)))
                 .andExpect(jsonPath("$.fieldErrors.[0].field", is("name")))
-                .andExpect(jsonPath("$.fieldErrors.[0].message", is("may not be empty")));
+                .andExpect(jsonPath("$.fieldErrors.[0].message", is("must not be empty")));
         verify(itemsListService, never()).addItemsList(any(ItemsListDto.class));
         verifyNoMoreInteractions(itemsListService);
     }
@@ -152,7 +152,7 @@ public class ItemsListRestControllerTest {
                 .andExpect(jsonPath("$.*", hasSize(1)))
                 .andExpect(jsonPath("$.fieldErrors", hasSize(1)))
                 .andExpect(jsonPath("$.fieldErrors.[0].field", is("name")))
-                .andExpect(jsonPath("$.fieldErrors.[0].message", is("may not be empty")));
+                .andExpect(jsonPath("$.fieldErrors.[0].message", is("must not be empty")));
         verify(itemsListService, never()).updateItemsList(any(ItemsListDto.class));
         verifyNoMoreInteractions(itemsListService);
     }

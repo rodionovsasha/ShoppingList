@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.rodionovsasha.shoppinglist.dto.ItemDto;
 import ru.rodionovsasha.shoppinglist.entities.Item;
+import ru.rodionovsasha.shoppinglist.exceptions.NotFoundException;
 import ru.rodionovsasha.shoppinglist.repositories.ItemRepository;
 import ru.rodionovsasha.shoppinglist.repositories.ItemsListRepository;
 import ru.rodionovsasha.shoppinglist.services.ItemService;
@@ -24,32 +25,37 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void addItem(ItemDto itemDto) {
         val item = itemDto.toItem();
-        item.setItemsList(itemsListRepository.findOne(itemDto.getListId()));
-        itemRepository.saveAndFlush(item);
+        item.setItemsList(itemsListRepository
+                .findById(itemDto.getListId())
+                .orElseThrow(() -> NotFoundException.forId(itemDto.getListId()))
+        );
+        itemRepository.save(item);
     }
 
     @Override
     public void updateItem(ItemDto itemDto) {
-        val item = itemRepository.findOne(itemDto.getId());
+        val item = itemRepository
+                .findById(itemDto.getId())
+                .orElseThrow(() -> NotFoundException.forId(itemDto.getId()));
         itemDto.toItem(item);
-        itemRepository.saveAndFlush(item);
+        itemRepository.save(item);
     }
 
     @Override
     public void deleteItem(long id) {
-        itemRepository.delete(id);
+        itemRepository.deleteById(id);
     }
 
     @Override
     @Transactional(readOnly = true)
     public Item getItemById(long itemId) {
-        return itemRepository.findOne(itemId);
+        return itemRepository.findById(itemId).orElseThrow(() -> NotFoundException.forId(itemId));
     }
 
     @Override
     public void toggleBoughtStatus(long itemId) {
-        val item = itemRepository.findOne(itemId);
+        val item = itemRepository.findById(itemId).orElseThrow(() -> NotFoundException.forId(itemId));
         item.setBought(!item.isBought());
-        itemRepository.saveAndFlush(item);
+        itemRepository.save(item);
     }
 }

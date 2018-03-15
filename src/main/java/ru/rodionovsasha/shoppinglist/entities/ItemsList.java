@@ -14,12 +14,10 @@ import java.util.List;
  */
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class ItemsList {
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
 

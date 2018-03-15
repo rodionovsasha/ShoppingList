@@ -1,6 +1,6 @@
 package ru.rodionovsasha.shoppinglist.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.rodionovsasha.shoppinglist.entities.Item;
 
@@ -9,5 +9,5 @@ import ru.rodionovsasha.shoppinglist.entities.Item;
  */
 
 @Repository
-public interface ItemRepository extends JpaRepository<Item, Long> {
+public interface ItemRepository extends CrudRepository<Item, Long> {
 }

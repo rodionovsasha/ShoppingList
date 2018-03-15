@@ -1,11 +1,11 @@
-<html xmlns:th="http://www.thymeleaf.org" layout:decorator="layout" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <title th:text="${item.name}"></title>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="list-group">
-        <h1 th:text="${item.name}" class="list-group-item active"></h1>
+        <h1 th:text="${item?.name}" class="list-group-item active"></h1>
         <div class="list-group-item">
             <div class="row">
                 <div class="col-md-7">

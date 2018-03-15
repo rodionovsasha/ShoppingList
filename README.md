@@ -2,7 +2,7 @@
 
 # Shopping list spring-boot web application
 
-This is a simple project which is based on **spring-boot 1.5.8** and uses **H2** database, **JPA**, **Thymeleaf** template engine, **Bootstrap** and contains JUnit tests, BDD **Cucumber** tests (**Selenide** + **PhantomJs** driver) and **Docker**.
+This is a simple project which is based on **spring-boot 2.0.0.RELEASE** and uses **H2** database, **JPA**, **Thymeleaf** template engine, **Bootstrap** and contains JUnit tests, BDD **Cucumber** tests (**Selenide** + **PhantomJs** driver) and **Docker**.
 
 #### Build the application
 <pre>
@@ -45,11 +45,6 @@ docker-compose up
 <pre>
 http://localhost:8000/v1/api
 http://localhost:8000/swagger-ui.html
-</pre>
-
-#### Rest JSON API v2 (automatic API based on spring-boot-starter-data-rest)
-<pre>
-http://localhost:8000/v2/api
 </pre>
 
 #### Cucumber pretty test results location

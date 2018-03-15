@@ -24,7 +24,7 @@ Feature: One list page
     Then I should see header with text=Add new shopping list
     When I try to add new list with name=
     Then I should see header with text=Add new shopping list
-    And I should see error message=may not be empty
+    And I should see error message=must not be empty
 
   Scenario: I should update list
     When I open page with url: /
@@ -39,7 +39,7 @@ Feature: One list page
     Then I should see header with text=Edit Edited name
     When I try to update list with new name=
     Then I should see header with text=Edit
-    And I should see error message=may not be empty
+    And I should see error message=must not be empty
 
   Scenario: I should delete list
     When I open page with url: /

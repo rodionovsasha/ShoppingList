@@ -1,14 +1,12 @@
 server:
- port: ${port:8000}
+  port: ${port:8000}
 
 management:
-  context-path: /admin
-  port: ${port:9000}
+  servlet:
+    context-path: /admin
+    port: ${port:9000}
 
 spring:
-  data:
-    rest:
-      base-path: /v2/api
   output:
     ansi:
       enabled: ALWAYS

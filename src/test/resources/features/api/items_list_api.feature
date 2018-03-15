@@ -34,7 +34,7 @@ Feature: Items list API
     Then Response code should be 400
     And Response should contain JSON object:
     """
-    {"fieldErrors":[{"field":"name","message":"may not be empty"}]}
+    {"fieldErrors":[{"field":"name","message":"must not be empty"}]}
     """
 
   Scenario: I should update list
@@ -60,7 +60,7 @@ Feature: Items list API
     And Response code should be 400
     And Response should contain JSON object:
     """
-    {"fieldErrors":[{"field":"name","message":"may not be empty"}]}
+    {"fieldErrors":[{"field":"name","message":"must not be empty"}]}
     """
 
   Scenario: I should delete list
