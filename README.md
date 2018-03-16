@@ -46,8 +46,3 @@ docker-compose up
 http://localhost:8000/v1/api
 http://localhost:8000/swagger-ui.html
 </pre>
-
-#### Cucumber pretty test results location
-<pre>
-ShoppingList/target/cucumber-reports/cucumber-html-reports/overview-features.html
-</pre>
