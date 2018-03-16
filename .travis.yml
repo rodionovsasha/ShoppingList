@@ -6,7 +6,7 @@ sudo: false
 
 install: true
 
-script: mvn clean install -DskipDocker
+script: mvn clean install -DskipDocker -Dwdm.chromeDriverVersion=2.36
 
 branches:
   only: master
