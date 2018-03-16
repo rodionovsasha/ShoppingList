@@ -12,7 +12,6 @@ import org.springframework.test.context.TestPropertySource;
 import ru.rodionovsasha.shoppinglist.TestApplicationConfiguration;
 
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.DEFINED_PORT;
-import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printCucumberTestsResultLocation;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printTestsResultLocation;
 
 /*
@@ -34,7 +33,6 @@ import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printTe
 public class BaseApiCucumberTest {
     @AfterClass
     public static void tearDown() {
-        printCucumberTestsResultLocation();
         printTestsResultLocation("target/cucumber-api");
     }
 }

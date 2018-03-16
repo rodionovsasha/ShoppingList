@@ -25,7 +25,7 @@
         <feign.version>8.18.0</feign.version>
         <lombok.version>1.16.20</lombok.version>
         <selenide.version>4.10.01</selenide.version>
-        <phantomjsdriver.version>1.4.4</phantomjsdriver.version>
+        <webdrivermanager.version>2.1.0</webdrivermanager.version>
         <jacoco-maven-plugin.version>0.8.0</jacoco-maven-plugin.version>
         <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
@@ -239,11 +239,10 @@
             <version>${selenide.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- PhantomJs Driver -->
         <dependency>
-            <groupId>com.codeborne</groupId>
-            <artifactId>phantomjsdriver</artifactId>
-            <version>${phantomjsdriver.version}</version>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>${webdrivermanager.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
