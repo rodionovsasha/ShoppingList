@@ -2,13 +2,7 @@ language: java
 
 jdk: oraclejdk8
 
-sudo: required
-dist: trusty
-addons:
-  chrome: stable
-before_install:
-  - # start web application and listen on `localhost`
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=8001 http://localhost &
+sudo: false
 
 install: true
 
