@@ -2,7 +2,7 @@
 
 # Shopping list spring-boot web application
 
-This is a simple project which is based on **spring-boot 2.0.0.RELEASE** and uses **H2** database, **JPA**, **Thymeleaf** template engine, **Bootstrap** and contains JUnit tests, BDD **Cucumber** tests (**Selenide** + **PhantomJs** driver) and **Docker**.
+This is a simple project which is based on **spring-boot 2.0.0.RELEASE** and uses **H2** database, **JPA**, **Thymeleaf** template engine, **Bootstrap** and contains JUnit tests, BDD **Cucumber** tests (**Selenide** + **Chrome** headless web driver) and **Docker**.
 
 #### Build the application
 <pre>
