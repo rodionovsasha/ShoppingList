@@ -26,7 +26,6 @@
         <lombok.version>1.16.20</lombok.version>
         <selenide.version>4.10.01</selenide.version>
         <phantomjsdriver.version>1.4.4</phantomjsdriver.version>
-        <maven-cucumber-reporting.version>3.15.0</maven-cucumber-reporting.version>
         <jacoco-maven-plugin.version>0.8.0</jacoco-maven-plugin.version>
         <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
@@ -44,25 +43,6 @@
                     <executable>true</executable>
                     <addResources>true</addResources>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>net.masterthought</groupId>
-                <artifactId>maven-cucumber-reporting</artifactId>
-                <version>${maven-cucumber-reporting.version}</version>
-                <executions>
-                    <execution>
-                        <id>Publish pretty cucumber reports</id>
-                        <phase>post-integration-test</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                        <configuration>
-                            <buildNumber>${BUILD_NUMBER}</buildNumber>
-                            <outputDirectory>${project.build.directory}/cucumber-reports</outputDirectory>
-                            <cucumberOutput>${project.build.directory}/cucumber-json</cucumberOutput>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
             <plugin>
                 <groupId>com.spotify</groupId>
