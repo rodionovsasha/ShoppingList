@@ -1,12 +1,10 @@
 /.idea/
+/.mvn/
 /cache/
 /*.iml
 target/
-/node_modules/
-/node/
 
 # Package Files
 *.jar
 build/
 *.log*
-src/main/resources/static/built/
