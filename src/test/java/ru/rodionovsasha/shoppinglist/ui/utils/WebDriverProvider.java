@@ -42,7 +42,7 @@ public class WebDriverProvider {
 
     private static ChromeOptions getChromeOptions() {
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless", "window-size=1280,1024", "--no-sandbox");
+        chromeOptions.addArguments("--headless", "window-size=1280,1024");
         return chromeOptions;
     }
 }
