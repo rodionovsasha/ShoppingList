@@ -30,7 +30,7 @@
         <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
         <docker-maven-plugin.version>1.0.0</docker-maven-plugin.version>
-        <skipDocker>false</skipDocker>
+        <skipDocker>true</skipDocker>
     </properties>
 
     <build>

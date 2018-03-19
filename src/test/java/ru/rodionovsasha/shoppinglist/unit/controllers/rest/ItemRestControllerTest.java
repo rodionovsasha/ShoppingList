@@ -28,7 +28,7 @@ import static ru.rodionovsasha.shoppinglist.unit.TestUtils.asJsonString;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemController.ITEM_BASE_PATH;
 
 /*
- * Copyright (©) 2017. Rodionov Alexander
+ * Copyright (©) 2017. Rodionov Aleksandr
  */
 
 public class ItemRestControllerTest {

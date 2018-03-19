@@ -1,7 +1,7 @@
 package ru.rodionovsasha.shoppinglist.context;
 
 /*
- * Copyright (©) 2017. Rodionov Alexander
+ * Copyright (©) 2017. Rodionov Aleksandr
  */
 
 @interface CucumberSharedContext {

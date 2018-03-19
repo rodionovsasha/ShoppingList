@@ -11,7 +11,7 @@ import ru.rodionovsasha.shoppinglist.repositories.ItemsListRepository;
 import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2016. Rodionov Aleksandr
  */
 
 @AllArgsConstructor

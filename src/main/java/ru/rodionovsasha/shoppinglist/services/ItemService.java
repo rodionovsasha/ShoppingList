@@ -4,7 +4,7 @@ import ru.rodionovsasha.shoppinglist.dto.ItemDto;
 import ru.rodionovsasha.shoppinglist.entities.Item;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2016. Rodionov Aleksandr
  */
 
 public interface ItemService {

@@ -1,7 +1,7 @@
 package ru.rodionovsasha.shoppinglist.dto;
 
 /*
- * Copyright (©) 2017. Rodionov Alexander
+ * Copyright (©) 2017. Rodionov Aleksandr
  */
 
 import lombok.Getter;

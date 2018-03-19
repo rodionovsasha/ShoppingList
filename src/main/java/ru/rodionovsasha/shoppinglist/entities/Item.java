@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2016. Rodionov Aleksandr
  */
 
 @Entity

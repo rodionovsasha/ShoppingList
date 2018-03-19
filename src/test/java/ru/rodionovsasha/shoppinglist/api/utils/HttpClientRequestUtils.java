@@ -19,7 +19,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printColoredOutput;
 
 /*
- * Copyright (©) 2017. Rodionov Alexander
+ * Copyright (©) 2017. Rodionov Aleksandr
  */
 
 @Component

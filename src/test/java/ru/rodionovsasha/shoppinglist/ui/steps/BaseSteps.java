@@ -16,7 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static ru.rodionovsasha.shoppinglist.ui.utils.TestUtils.getTitle;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2016. Rodionov Aleksandr
  */
 
 @Slf4j

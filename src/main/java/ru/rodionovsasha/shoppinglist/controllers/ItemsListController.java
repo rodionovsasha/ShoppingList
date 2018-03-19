@@ -17,7 +17,7 @@ import javax.validation.Valid;
 import static ru.rodionovsasha.shoppinglist.Utils.redirectToUrl;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2016. Rodionov Aleksandr
  */
 
 @Slf4j

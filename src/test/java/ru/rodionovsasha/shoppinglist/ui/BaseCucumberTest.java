@@ -20,7 +20,7 @@ import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.buildWebD
 import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.closeWebDriver;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2016. Rodionov Aleksandr
  */
 
 @RunWith(Cucumber.class)

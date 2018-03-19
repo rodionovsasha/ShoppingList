@@ -7,7 +7,7 @@ import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printCo
 import static ru.rodionovsasha.shoppinglist.ui.utils.WebDriverProvider.webDriver;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2016. Rodionov Aleksandr
  */
 
 @Slf4j

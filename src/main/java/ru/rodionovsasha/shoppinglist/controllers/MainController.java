@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ru.rodionovsasha.shoppinglist.services.ItemsListService;
 
 /*
- * Copyright (©) 2017. Rodionov Alexander
+ * Copyright (©) 2017. Rodionov Aleksandr
  */
 
 @Slf4j

@@ -15,7 +15,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printTestsResultLocation;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2016. Rodionov Aleksandr
  */
 
 @RunWith(Cucumber.class)

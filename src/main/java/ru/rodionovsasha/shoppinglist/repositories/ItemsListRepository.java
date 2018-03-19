@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2016. Rodionov Aleksandr
  */
 
 @Repository

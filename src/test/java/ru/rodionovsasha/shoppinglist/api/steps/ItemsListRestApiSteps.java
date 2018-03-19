@@ -17,7 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printColoredOutput;
 
 /*
- * Copyright (©) 2017. Rodionov Alexander
+ * Copyright (©) 2017. Rodionov Aleksandr
  */
 
 @Slf4j

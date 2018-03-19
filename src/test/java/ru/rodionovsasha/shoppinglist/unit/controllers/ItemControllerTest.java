@@ -23,7 +23,7 @@ import static ru.rodionovsasha.shoppinglist.controllers.ItemController.ITEM_BASE
 import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2016. Rodionov Aleksandr
  */
 
 public class ItemControllerTest {

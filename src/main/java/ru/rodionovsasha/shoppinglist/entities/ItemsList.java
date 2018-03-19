@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2016. Rodionov Aleksandr
  */
 
 @Entity

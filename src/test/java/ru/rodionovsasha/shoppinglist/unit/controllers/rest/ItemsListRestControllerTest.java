@@ -30,7 +30,7 @@ import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEM
 import static ru.rodionovsasha.shoppinglist.unit.TestUtils.asJsonString;
 
 /*
- * Copyright (©) 2017. Rodionov Alexander
+ * Copyright (©) 2017. Rodionov Aleksandr
  */
 
 public class ItemsListRestControllerTest {

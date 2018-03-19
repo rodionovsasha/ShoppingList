@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.printColoredOutput;
 
 /*
- * Copyright (©) 2016. Rodionov Alexander
+ * Copyright (©) 2016. Rodionov Aleksandr
  */
 
 public class WebDriverProvider {

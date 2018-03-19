@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.rodionovsasha.shoppinglist.dto.ItemDto;
 
 /*
- * Copyright (©) 2017. Rodionov Alexander
+ * Copyright (©) 2017. Rodionov Aleksandr
  */
 
 @Component
