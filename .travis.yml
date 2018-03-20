@@ -4,8 +4,6 @@ os:
   - linux
   - osx
 
-jdk: oraclejdk8
-
 sudo: required
 dist: trusty
 addons:
