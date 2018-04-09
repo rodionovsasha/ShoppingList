@@ -30,6 +30,7 @@
         <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
         <docker-maven-plugin.version>1.0.0</docker-maven-plugin.version>
+        <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
         <skipDocker>true</skipDocker>
     </properties>
 
@@ -170,6 +171,14 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>${coveralls-maven-plugin.version}</version>
+                <configuration>
+                    <repoToken>QOT2aG9nqkWkX9KL3SP1skNRlUBFKspoy</repoToken>
+                </configuration>
             </plugin>
         </plugins>
     </build>
