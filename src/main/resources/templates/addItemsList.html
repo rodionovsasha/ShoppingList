@@ -1,10 +1,10 @@
 <html xmlns:th="http://www.thymeleaf.org" layout:decorate="~{layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <title>Add new shopping list</title>
+    <title>Add a new shopping list</title>
 </head>
 <body>
 <div layout:fragment="content">
-    <h1>Add new shopping list</h1>
+    <h1>Add a new shopping list</h1>
 
     <form th:object="${itemsListDto}" th:action="@{/itemsList/add}" method="post" class="form-horizontal">
         <div class="form-group">
@@ -16,15 +16,15 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-1 col-sm-10">
-                <input type="submit" value="Add list" class="btn btn-default"/>
+                <input type="submit" value="Add list" class="btn btn-outline-secondary"/>
             </div>
         </div>
     </form>
 
     <ul class="list-inline">
-        <li>
-            <a th:href="@{/}" class="btn btn-info btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="All lists">
-                <span class="glyphicon glyphicon-th-list"></span>
+        <li class="list-inline-item">
+            <a th:href="@{/}" class="btn btn-info btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="All lists">
+                <span class="oi oi-list"></span>
             </a>
         </li>
     </ul>

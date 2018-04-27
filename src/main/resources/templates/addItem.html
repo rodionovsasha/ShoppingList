@@ -22,19 +22,19 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="hidden" name="listId" th:field="*{listId}"/>
-                <input type="submit" value="Add item" class="btn btn-default"/>
+                <input type="submit" value="Add item" class="btn btn-outline-secondary"/>
             </div>
         </div>
     </form>
     <ul class="list-inline">
-        <li>
-            <a th:href="@{/itemsList(id=${itemDto.listId})}" class="btn btn-info btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="Back to the list">
-                <span class="glyphicon glyphicon-arrow-left"></span>
+        <li class="list-inline-item">
+            <a th:href="@{/itemsList(id=${itemDto.listId})}" class="btn btn-info btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="Back to the list">
+                <span class="oi oi-arrow-thick-left"></span>
             </a>
         </li>
-        <li>
-            <a th:href="@{/}" class="btn btn-info btn-xs" role="button" data-toggle="tooltip" data-placement="bottom" title="All lists">
-                <span class="glyphicon glyphicon-th-list"></span>
+        <li class="list-inline-item">
+            <a th:href="@{/}" class="btn btn-info btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="All lists">
+                <span class="oi oi-list"></span>
             </a>
         </li>
     </ul>
