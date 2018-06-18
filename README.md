@@ -37,6 +37,8 @@ Port is configurable in application.properties.
 This application uses H2 database and so should run locally.
 Remote database connections can also be configured in application.properties.
 
+A live deployment is available on Heroku: https://shopping-list-spring-boot.herokuapp.com/
+
 #### Run the application with docker
 <pre>
 docker-compose up
