@@ -25,8 +25,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public void addItem(ItemDto itemDto) {
         val item = itemDto.toItem();
-        item.setItemsList(itemsListRepository
-                .findById(itemDto.getListId())
+        item.setItemsList(itemsListRepository.findById(itemDto.getListId())
                 .orElseThrow(() -> NotFoundException.forId(itemDto.getListId()))
         );
         itemRepository.save(item);
@@ -34,8 +33,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void updateItem(ItemDto itemDto) {
-        val item = itemRepository
-                .findById(itemDto.getId())
+        val item = itemRepository.findById(itemDto.getId())
                 .orElseThrow(() -> NotFoundException.forId(itemDto.getId()));
         itemDto.toItem(item);
         itemRepository.save(item);

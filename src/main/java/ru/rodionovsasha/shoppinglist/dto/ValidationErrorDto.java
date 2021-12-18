@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class ValidationErrorDTO {
-    private List<FieldErrorDTO> fieldErrors = new ArrayList<>();
+public class ValidationErrorDto {
+    private final List<FieldErrorDto> fieldErrors = new ArrayList<>();
 
     public void addFieldError(String field, String message) {
-        fieldErrors.add(new FieldErrorDTO(field, message));
+        fieldErrors.add(new FieldErrorDto(field, message));
     }
 }

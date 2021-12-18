@@ -1,7 +1,7 @@
 package ru.rodionovsasha.shoppinglist.unit.controllers;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
@@ -13,12 +13,25 @@ import ru.rodionovsasha.shoppinglist.entities.Item;
 import ru.rodionovsasha.shoppinglist.entities.ItemsList;
 import ru.rodionovsasha.shoppinglist.services.ItemService;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.ITEM_ID;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.ITEM_ID_PARAM;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.ITEM_NAME;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.LIST_ID;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.LIST_ID_PARAM;
+import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.getViewResolver;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemController.ITEM_BASE_PATH;
 import static ru.rodionovsasha.shoppinglist.controllers.ItemsListController.ITEMS_LIST_BASE_PATH;
 
@@ -36,8 +49,8 @@ public class ItemControllerTest {
 
     private MockMvc mockMvc;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(new ItemController(itemService))
                 .setViewResolvers(getViewResolver())

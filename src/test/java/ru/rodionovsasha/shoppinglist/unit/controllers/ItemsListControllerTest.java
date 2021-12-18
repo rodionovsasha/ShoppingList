@@ -1,7 +1,8 @@
 package ru.rodionovsasha.shoppinglist.unit.controllers;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.http.MediaType;
@@ -32,8 +33,8 @@ public class ItemsListControllerTest {
 
     private MockMvc mockMvc;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(new ItemsListController(itemsListService))
                 .setViewResolvers(getViewResolver())
