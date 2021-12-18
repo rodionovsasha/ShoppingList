@@ -49,12 +49,4 @@ public class TestApplicationConfiguration {
         viewResolver.setSuffix(".html");
         return viewResolver;
     }
-
-    public static void printColoredOutput(String message) {
-        System.out.println("\033[35m" + message + "\033[0m");
-    }
-
-    public static void printTestsResultLocation(String path) {
-        printColoredOutput("Tests result location: " + new File(path).getAbsolutePath() + "/index.html");
-    }
 }

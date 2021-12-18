@@ -3,7 +3,7 @@
 
 # Shopping list spring-boot web application
 
-This is a simple project which is based on **spring-boot 2.0.0.RELEASE** and uses **H2** database, **JPA**, **Thymeleaf** template engine, **Bootstrap** and contains JUnit tests, BDD **Cucumber** tests (**Selenide** + **Chrome** headless web driver) and **Docker**.
+This is a simple project which is based on **spring-boot 2.6.1** and uses **H2** database, **JPA**, **Thymeleaf** template engine, **Bootstrap** and contains JUnit tests and **Docker**.
 A live deployment is available on Heroku: https://shopping-list-spring-boot.herokuapp.com/
 
 #### Build the application
@@ -41,10 +41,4 @@ Remote database connections can also be configured in application.properties.
 #### Run the application with docker
 <pre>
 docker-compose up
-</pre>
-
-#### Rest JSON API v1 Documentation (with swagger)
-<pre>
-http://localhost:8000/v1/api
-http://localhost:8000/swagger-ui.html
 </pre>

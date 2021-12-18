@@ -1,8 +1,9 @@
 package ru.rodionovsasha.shoppinglist.unit.services;
 
 import lombok.val;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import ru.rodionovsasha.shoppinglist.dto.ItemsListDto;
@@ -14,10 +15,11 @@ import ru.rodionovsasha.shoppinglist.services.impl.ItemsListServiceImpl;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Optional;
 
 import static java.util.Optional.ofNullable;
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.LIST_ID;
@@ -26,12 +28,12 @@ import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.LIST_NA
 public class ItemsListServiceTest {
     @Mock
     private ItemsListRepository itemsListRepository;
-    private ItemsList itemsList = new ItemsList();
+    private final ItemsList itemsList = new ItemsList();
     private ItemsListDto itemsListDto;
     private ItemsListService itemsListService;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         initMocks(this);
         itemsListDto = new ItemsListDto(LIST_NAME);
         itemsListDto.setId(LIST_ID);
@@ -63,13 +65,9 @@ public class ItemsListServiceTest {
         assertEquals("Updated name", itemsList.getName());
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void shouldUpdateItemsListWhenNotFoundTest() {
-        val itemsList = itemsListService.getItemsListById(LIST_ID);
-        assertEquals(LIST_NAME, itemsList.getName());
-        itemsListDto.setName("Updated name");
-
-        itemsListService.updateItemsList(itemsListDto);
+        assertThrows(NotFoundException.class, () -> itemsListService.getItemsListById(LIST_ID));
     }
 
     @Test
@@ -81,15 +79,15 @@ public class ItemsListServiceTest {
 
     @Test
     public void shouldGetItemsListByIdTest() {
-        when(itemsListRepository.findById(LIST_ID)).thenReturn(ofNullable(itemsList));
+        when(itemsListRepository.findById(LIST_ID)).thenReturn(Optional.of(itemsList));
         itemsListService.getItemsListById(LIST_ID);
         verify(itemsListRepository, times(1)).findById(LIST_ID);
         verifyNoMoreInteractions(itemsListRepository);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void shouldNotGetItemsListByIdWhenNotFoundTest() {
-        itemsListService.getItemsListById(LIST_ID);
+        assertThrows(NotFoundException.class, () -> itemsListService.getItemsListById(LIST_ID));
     }
 
     @Test

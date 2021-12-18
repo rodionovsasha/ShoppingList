@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-class FieldErrorDTO {
+class FieldErrorDto {
     private String field;
     private String message;
 }

@@ -1,8 +1,9 @@
 package ru.rodionovsasha.shoppinglist.unit.services;
 
 import lombok.val;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import ru.rodionovsasha.shoppinglist.dto.ItemDto;
@@ -15,11 +16,15 @@ import ru.rodionovsasha.shoppinglist.services.ItemService;
 import ru.rodionovsasha.shoppinglist.services.impl.ItemServiceImpl;
 
 import static java.util.Optional.ofNullable;
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static ru.rodionovsasha.shoppinglist.TestApplicationConfiguration.*;
 
@@ -33,8 +38,8 @@ public class ItemServiceTest {
     private ItemDto itemDto;
     private ItemService itemService;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         initMocks(this);
         itemDto = new ItemDto();
         itemDto.setId(ITEM_ID);
@@ -58,9 +63,9 @@ public class ItemServiceTest {
         verifyNoMoreInteractions(itemsListRepository);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void shouldNotAddItemWhenListNotExistTest() {
-        itemService.addItem(itemDto);
+        assertThrows(NotFoundException.class, () -> itemService.addItem(itemDto));
     }
 
     @Test
@@ -93,9 +98,9 @@ public class ItemServiceTest {
         verifyNoMoreInteractions(itemRepository);
     }
 
-    @Test(expected = NotFoundException.class)
+    @Test
     public void shouldNotGetItemByIdWhenNotFoundTest() {
-        itemService.getItemById(ITEM_ID);
+        assertThrows(NotFoundException.class, () -> itemService.getItemById(ITEM_ID));
     }
 
     @Test
