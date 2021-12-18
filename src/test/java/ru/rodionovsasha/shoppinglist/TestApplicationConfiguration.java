@@ -44,7 +44,7 @@ public class TestApplicationConfiguration {
     }
 
     public static InternalResourceViewResolver getViewResolver() {
-        val viewResolver = new InternalResourceViewResolver();
+        var viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix("/WEB-INF/templates/");
         viewResolver.setSuffix(".html");
         return viewResolver;

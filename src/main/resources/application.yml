@@ -11,12 +11,6 @@ spring:
     ansi:
       enabled: ALWAYS
 
-springfox:
-  documentation:
-    swagger:
-      v2:
-        path: /api-docs
-
 logging:
   file: shoppingList.log
   level:

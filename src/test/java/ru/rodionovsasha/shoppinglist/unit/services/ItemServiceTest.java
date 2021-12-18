@@ -71,7 +71,7 @@ public class ItemServiceTest {
     @Test
     public void shouldUpdateItemTest() {
         when(itemRepository.findById(ITEM_ID)).thenReturn(ofNullable(itemDto.toItem()));
-        val item = itemService.getItemById(ITEM_ID);
+        var item = itemService.getItemById(ITEM_ID);
         assertEquals(ITEM_NAME, item.getName());
         itemDto.setName("Updated name");
 
@@ -106,7 +106,7 @@ public class ItemServiceTest {
     @Test
     public void shouldToggleBoughtStatusTest() {
         when(itemRepository.findById(ITEM_ID)).thenReturn(ofNullable(itemDto.toItem()));
-        val item = itemService.getItemById(ITEM_ID);
+        var item = itemService.getItemById(ITEM_ID);
         assertFalse(item.isBought());
 
         itemService.toggleBoughtStatus(ITEM_ID);

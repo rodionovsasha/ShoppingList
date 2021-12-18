@@ -24,7 +24,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void addItem(ItemDto itemDto) {
-        val item = itemDto.toItem();
+        var item = itemDto.toItem();
         item.setItemsList(itemsListRepository.findById(itemDto.getListId())
                 .orElseThrow(() -> NotFoundException.forId(itemDto.getListId()))
         );
@@ -33,7 +33,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void updateItem(ItemDto itemDto) {
-        val item = itemRepository.findById(itemDto.getId())
+        var item = itemRepository.findById(itemDto.getId())
                 .orElseThrow(() -> NotFoundException.forId(itemDto.getId()));
         itemDto.toItem(item);
         itemRepository.save(item);
@@ -52,7 +52,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void toggleBoughtStatus(long itemId) {
-        val item = itemRepository.findById(itemId).orElseThrow(() -> NotFoundException.forId(itemId));
+        var item = itemRepository.findById(itemId).orElseThrow(() -> NotFoundException.forId(itemId));
         item.setBought(!item.isBought());
         itemRepository.save(item);
     }

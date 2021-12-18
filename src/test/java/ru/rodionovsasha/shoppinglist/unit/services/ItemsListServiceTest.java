@@ -53,7 +53,7 @@ public class ItemsListServiceTest {
     @Test
     public void shouldUpdateItemsListTest() {
         when(itemsListRepository.findById(LIST_ID)).thenReturn(ofNullable(itemsListDto.toItemsList()));
-        val itemsList = itemsListService.getItemsListById(LIST_ID);
+        var itemsList = itemsListService.getItemsListById(LIST_ID);
         assertEquals(LIST_NAME, itemsList.getName());
         itemsListDto.setName("Updated name");
 
@@ -92,9 +92,9 @@ public class ItemsListServiceTest {
 
     @Test
     public void shouldFindAllListsTest() {
-        val itemsLists = Collections.singletonList(itemsList);
+        var itemsLists = Collections.singletonList(itemsList);
         when(itemsListRepository.findAll()).thenReturn(itemsLists);
-        val result = itemsListRepository.findAll();
+        var result = itemsListRepository.findAll();
         verify(itemsListRepository, times(1)).findAll();
         verifyNoMoreInteractions(itemsListRepository);
         assertEquals(1, ((Collection<ItemsList>) result).size());

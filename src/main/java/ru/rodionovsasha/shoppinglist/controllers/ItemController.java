@@ -55,7 +55,7 @@ public class ItemController {
 
     @GetMapping("/edit")
     public String showEditItemForm(@RequestParam("id") long id, ModelMap modelMap) {
-        val item = itemService.getItemById(id);
+        var item = itemService.getItemById(id);
         modelMap.addAttribute("itemDto", item);
         modelMap.addAttribute("listId", item.getItemsList().getId());
         return "editItem";
