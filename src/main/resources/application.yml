@@ -2,9 +2,11 @@ server:
   port: ${port:8000}
 
 management:
-  servlet:
-    context-path: /admin
-    port: ${port:9000}
+  server:
+    port: ${management.port:9000}
+  endpoints:
+    web:
+      base-path: /admin
 
 spring:
   output:
@@ -12,16 +14,10 @@ spring:
       enabled: ALWAYS
 
 logging:
-  file: shoppingList.log
+  file:
+    name: shoppingList.log
   level:
     org:
       hibernate: ERROR
       springframework:
         web: DEBUG
-
-#Production DB properties:
-#spring.datasource.url=jdbc:h2:tcp://localhost/~/shoppingListDb
-#spring.datasource.username=sa
-#spring.datasource.password=
-#spring.datasource.driver-class-name=org.h2.Driver
-#spring.datasource.name=shoppingListDb

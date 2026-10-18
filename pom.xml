@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.rodionovsasha</groupId>
+    <groupId>io.github.rodionovsasha</groupId>
     <artifactId>shoppinglist</artifactId>
-    <version>1.0</version>
+    <version>2.0</version>
     <packaging>jar</packaging>
 
     <name>Shopping List</name>
@@ -13,18 +13,18 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.1</version>
+        <version>4.1.1</version>
         <relativePath/>
     </parent>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>13</java.version>
-        <selenide.version>6.1.1</selenide.version>
-        <webdrivermanager.version>5.0.3</webdrivermanager.version>
-        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
-        <docker-maven-plugin.version>1.2.0</docker-maven-plugin.version>
+        <java.version>25</java.version>
+        <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
+        <jib-maven-plugin.version>3.5.2</jib-maven-plugin.version>
         <coveralls-maven-plugin.version>4.3.0</coveralls-maven-plugin.version>
+        <bootstrap.version>5.3.8</bootstrap.version>
+        <bootstrap-icons.version>1.13.2</bootstrap-icons.version>
         <skipDocker>true</skipDocker>
     </properties>
 
@@ -32,54 +32,37 @@
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <executable>true</executable>
-                    <addResources>true</addResources>
+                    <argLine>@{argLine} -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar</argLine>
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>com.spotify</groupId>
-                <artifactId>docker-maven-plugin</artifactId>
-                <version>${docker-maven-plugin.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${jib-maven-plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>clean-local</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>removeImage</goal>
-                        </goals>
-                        <configuration>
-                            <imageName>${project.artifactId}:latest</imageName>
-                            <skipDocker>${skipDocker}</skipDocker>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>build-docker-image</id>
+                        <id>build-local-image</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>build</goal>
+                            <goal>dockerBuild</goal>
                         </goals>
-                        <configuration>
-                            <skipDocker>${skipDocker}</skipDocker>
-                        </configuration>
                     </execution>
                 </executions>
                 <configuration>
-                    <imageName>${project.artifactId}</imageName>
-                    <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
-                    <imageTags>
-                        <imageTag>latest</imageTag>
-                    </imageTags>
-                    <skipDocker>${skipDocker}</skipDocker>
+                    <skip>${skipDocker}</skip>
+                    <from>
+                        <image>eclipse-temurin:25-jre</image>
+                    </from>
+                    <to>
+                        <image>${project.artifactId}:latest</image>
+                    </to>
                 </configuration>
             </plugin>
             <plugin>
@@ -103,8 +86,8 @@
                 </executions>
                 <configuration>
                     <excludes>
-                        <exclude>ru/rodionovsasha/shoppinglist/Application.class</exclude>
-                        <exclude>ru/rodionovsasha/shoppinglist/entities/**</exclude>
+                        <exclude>io/github/rodionovsasha/shoppinglist/Application.class</exclude>
+                        <exclude>io/github/rodionovsasha/shoppinglist/entities/**</exclude>
                     </excludes>
                     <rules>
                         <rule implementation="org.jacoco.maven.RuleConfiguration">
@@ -143,6 +126,16 @@
             <artifactId>thymeleaf-layout-dialect</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${bootstrap.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>bootstrap-icons</artifactId>
+            <version>${bootstrap-icons.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
@@ -170,4 +163,25 @@
             <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>jdk-23-plus</id>
+            <activation>
+                <jdk>[23,)</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <!-- JDK 23+ requires annotation processing to be enabled explicitly. -->
+                            <proc>full</proc>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

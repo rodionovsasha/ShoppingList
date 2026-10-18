@@ -39,23 +39,23 @@
     </div>
     <ul class="list-inline">
         <li class="list-inline-item">
-            <a th:href="@{/itemsList(id=${item.itemsList.id})}" class="btn btn-info btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="Back to the list">
-                <span class="oi oi-arrow-thick-left"></span>
+            <a th:href="@{/itemsList(id=${item.itemsList.id})}" class="btn btn-info btn-sm" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Back to the list">
+                <i class="bi bi-arrow-left"></i>
             </a>
         </li>
         <li class="list-inline-item">
-            <a th:href="@{/}" class="btn btn-info btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="All lists">
-                <span class="oi oi-list"></span>
+            <a th:href="@{/}" class="btn btn-info btn-sm" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="All lists">
+                <i class="bi bi-list-ul"></i>
             </a>
         </li>
         <li class="list-inline-item">
-            <a th:href="@{/item/edit(id=${item.id})}" class="btn btn-warning btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="Edit item">
-                <span class="oi oi-pencil"></span>
+            <a th:href="@{/item/edit(id=${item.id})}" class="btn btn-warning btn-sm" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit item">
+                <i class="bi bi-pencil"></i>
             </a>
         </li>
         <li class="list-inline-item">
-            <a th:href="@{/item/delete(id=${item.id}, listId=${item.itemsList.id})}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="Delete item">
-                <span class="oi oi-x"></span>
+            <a th:href="@{/item/delete(id=${item.id}, listId=${item.itemsList.id})}" onclick="return confirm('Are you sure you want to delete this item?')" class="btn btn-danger btn-sm" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete item">
+                <i class="bi bi-x-lg"></i>
             </a>
         </li>
     </ul>

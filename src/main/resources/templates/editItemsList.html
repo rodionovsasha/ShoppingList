@@ -7,14 +7,14 @@
     <h1 th:text="'Edit ' + ${itemsListDto.name}"></h1>
 
     <form th:object="${itemsListDto}" th:action="@{/itemsList/edit}" method="post" class="form-horizontal">
-        <div class="form-group">
+        <div class="mb-3">
             <label th:for="name" class="col-sm-1 control-label">Name:</label>
             <div class="col-sm-6">
                 <input type="text" th:field="*{name}" class="form-control"/>
                 <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></small>
             </div>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
             <div class="col-sm-offset-1 col-sm-10">
                 <input type="hidden" name="id" th:field="*{id}"/>
                 <input type="submit" value="Save list" class="btn btn-outline-secondary"/>
@@ -24,8 +24,8 @@
 
     <ul class="list-inline">
         <li class="list-inline-item">
-            <a th:href="@{/}" class="btn btn-info btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="All lists">
-                <span class="oi oi-list"></span>
+            <a th:href="@{/}" class="btn btn-info btn-sm" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="All lists">
+                <i class="bi bi-list-ul"></i>
             </a>
         </li>
     </ul>

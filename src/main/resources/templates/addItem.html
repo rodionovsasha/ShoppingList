@@ -6,20 +6,20 @@
 <div layout:fragment="content">
     <h1>Add a new item</h1>
     <form th:object="${itemDto}" th:action="@{/item/add}" method="post" class="form-horizontal">
-        <div class="form-group">
+        <div class="mb-3">
             <label th:for="name" class="col-sm-2 control-label">Name:</label>
             <div class="col-sm-6">
                 <input type="text" th:field="*{name}" class="form-control"/>
                 <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></small>
             </div>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
             <label th:for="comment" class="col-sm-2 control-label">Comment:</label>
             <div class="col-sm-6">
                 <textarea th:field="*{comment}" rows="3" class="form-control"></textarea>
             </div>
         </div>
-        <div class="form-group">
+        <div class="mb-3">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="hidden" name="listId" th:field="*{listId}"/>
                 <input type="submit" value="Add item" class="btn btn-outline-secondary"/>
@@ -28,13 +28,13 @@
     </form>
     <ul class="list-inline">
         <li class="list-inline-item">
-            <a th:href="@{/itemsList(id=${itemDto.listId})}" class="btn btn-info btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="Back to the list">
-                <span class="oi oi-arrow-thick-left"></span>
+            <a th:href="@{/itemsList(id=${itemDto.listId})}" class="btn btn-info btn-sm" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Back to the list">
+                <i class="bi bi-arrow-left"></i>
             </a>
         </li>
         <li class="list-inline-item">
-            <a th:href="@{/}" class="btn btn-info btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="All lists">
-                <span class="oi oi-list"></span>
+            <a th:href="@{/}" class="btn btn-info btn-sm" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="All lists">
+                <i class="bi bi-list-ul"></i>
             </a>
         </li>
     </ul>

@@ -5,7 +5,7 @@
 <body>
 <div layout:fragment="content">
     <div class="list-group">
-        <h1 class="list-group-item list-group-item-info">[[${itemsList.name}]] <span class="badge badge-light" th:text="${#lists.size(itemsList.items)}"></span></h1>
+        <h1 class="list-group-item list-group-item-info">[[${itemsList.name}]] <span class="badge text-bg-light" th:text="${#lists.size(itemsList.items)}"></span></h1>
         <div class="list-group-item" th:each="item : ${itemsList.items}" th:classappend="${item.bought} ? 'list-group-item-success'">
             <div class="row">
                 <div class="col-md-7">
@@ -13,10 +13,10 @@
                     <small class="clearfix" th:if="${item.comment}" th:text="${item.comment}"></small>
                 </div>
                 <div class="col-md-5">
-                    <ul class="list-inline text-right">
-                        <li class="list-inline-item"><a th:href="@{/item/bought(id=${item.id}, listId=${item.itemsList.id})}" class="badge badge-success" role="button" th:text="${item.bought} ? 'Take out' : 'Bought'">Bought</a></li>
-                        <li class="list-inline-item"><a th:href="@{/item/edit(id=${item.id})}" class="badge badge-warning" role="button">Edit</a></li>
-                        <li class="list-inline-item"><a th:href="@{/item/delete(id=${item.id}, listId=${item.itemsList.id})}" class="badge badge-danger" role="button" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a></li>
+                    <ul class="list-inline text-end">
+                        <li class="list-inline-item"><a th:href="@{/item/bought(id=${item.id}, listId=${item.itemsList.id})}" class="badge text-bg-success" role="button" th:text="${item.bought} ? 'Take out' : 'Bought'">Bought</a></li>
+                        <li class="list-inline-item"><a th:href="@{/item/edit(id=${item.id})}" class="badge text-bg-warning" role="button">Edit</a></li>
+                        <li class="list-inline-item"><a th:href="@{/item/delete(id=${item.id}, listId=${item.itemsList.id})}" class="badge text-bg-danger" role="button" onclick="return confirm('Are you sure you want to delete this item?')">Delete</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,23 +24,23 @@
     </div>
     <ul class="list-inline">
         <li class="list-inline-item">
-            <a th:href="@{/item/add(listId=${itemsList.id})}" class="btn btn-success btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="Add new item">
-                <span class="oi oi-plus"></span>
+            <a th:href="@{/item/add(listId=${itemsList.id})}" class="btn btn-success btn-sm" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Add new item">
+                <i class="bi bi-plus-lg"></i>
             </a>
         </li>
         <li class="list-inline-item">
-            <a th:href="@{/itemsList/edit(id=${itemsList.id})}" class="btn btn-warning btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="Edit list">
-                <span class="oi oi-pencil"></span>
+            <a th:href="@{/itemsList/edit(id=${itemsList.id})}" class="btn btn-warning btn-sm" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit list">
+                <i class="bi bi-pencil"></i>
             </a>
         </li>
         <li class="list-inline-item">
-            <a th:href="@{/itemsList/delete(id=${itemsList.id})}" onclick="return confirm('Are you sure you want to delete this list?')" class="btn btn-danger btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="Delete list">
-                <span class="oi oi-x"></span>
+            <a th:href="@{/itemsList/delete(id=${itemsList.id})}" onclick="return confirm('Are you sure you want to delete this list?')" class="btn btn-danger btn-sm" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete list">
+                <i class="bi bi-x-lg"></i>
             </a>
         </li>
         <li class="list-inline-item">
-            <a th:href="@{/}" class="btn btn-info btn-sm" role="button" data-toggle="tooltip" data-placement="bottom" title="All lists">
-                <span class="oi oi-list"></span>
+            <a th:href="@{/}" class="btn btn-info btn-sm" role="button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="All lists">
+                <i class="bi bi-list-ul"></i>
             </a>
         </li>
     </ul>
