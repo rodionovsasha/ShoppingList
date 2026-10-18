@@ -34,8 +34,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <argLine>@{argLine} -javaagent:${settings.localRepository}/org/mockito/mockito-core/${mockito.version}/mockito-core-${mockito.version}.jar</argLine>
+                    <failIfNoTests>true</failIfNoTests>
                 </configuration>
             </plugin>
             <plugin>
@@ -88,15 +89,21 @@
                     <excludes>
                         <exclude>io/github/rodionovsasha/shoppinglist/Application.class</exclude>
                         <exclude>io/github/rodionovsasha/shoppinglist/entities/**</exclude>
+                        <exclude>io/github/rodionovsasha/shoppinglist/dto/**</exclude>
                     </excludes>
                     <rules>
-                        <rule implementation="org.jacoco.maven.RuleConfiguration">
-                            <element>BUNDLE</element>
+                        <rule>
+                            <element>CLASS</element>
                             <limits>
-                                <limit implementation="org.jacoco.report.check.Limit">
-                                    <counter>INSTRUCTION</counter>
+                                <limit>
+                                    <counter>LINE</counter>
                                     <value>COVEREDRATIO</value>
-                                    <minimum>0.80</minimum>
+                                    <minimum>1.0</minimum>
+                                </limit>
+                                <limit>
+                                    <counter>BRANCH</counter>
+                                    <value>COVEREDRATIO</value>
+                                    <minimum>1.0</minimum>
                                 </limit>
                             </limits>
                         </rule>

@@ -63,8 +63,10 @@ class ItemsListServiceTest {
     }
 
     @Test
-    public void shouldUpdateItemsListWhenNotFoundTest() {
-        assertThrows(NotFoundException.class, () -> itemsListService.getItemsListById(LIST_ID));
+    public void shouldNotUpdateItemsListWhenNotFoundTest() {
+        assertThrows(NotFoundException.class, () -> itemsListService.updateItemsList(itemsListDto));
+        verify(itemsListRepository).findById(LIST_ID);
+        verifyNoMoreInteractions(itemsListRepository);
     }
 
     @Test
@@ -91,7 +93,7 @@ class ItemsListServiceTest {
     public void shouldFindAllListsTest() {
         var itemsLists = Collections.singletonList(itemsList);
         when(itemsListRepository.findAll()).thenReturn(itemsLists);
-        var result = itemsListRepository.findAll();
+        var result = itemsListService.findAllLists();
         verify(itemsListRepository, times(1)).findAll();
         verifyNoMoreInteractions(itemsListRepository);
         assertEquals(1, ((Collection<ItemsList>) result).size());

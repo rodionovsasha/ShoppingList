@@ -99,6 +99,13 @@ class ItemServiceTest {
     }
 
     @Test
+    public void shouldNotUpdateItemWhenNotFoundTest() {
+        assertThrows(NotFoundException.class, () -> itemService.updateItem(itemDto));
+        verify(itemRepository).findById(ITEM_ID);
+        verifyNoMoreInteractions(itemRepository);
+    }
+
+    @Test
     public void shouldToggleBoughtStatusTest() {
         when(itemRepository.findById(ITEM_ID)).thenReturn(ofNullable(itemDto.toItem()));
         var item = itemService.getItemById(ITEM_ID);
@@ -113,5 +120,12 @@ class ItemServiceTest {
 
         itemService.toggleBoughtStatus(ITEM_ID);
         assertFalse(item.isBought());
+    }
+
+    @Test
+    public void shouldNotToggleBoughtStatusWhenItemNotFoundTest() {
+        assertThrows(NotFoundException.class, () -> itemService.toggleBoughtStatus(ITEM_ID));
+        verify(itemRepository).findById(ITEM_ID);
+        verifyNoMoreInteractions(itemRepository);
     }
 }
